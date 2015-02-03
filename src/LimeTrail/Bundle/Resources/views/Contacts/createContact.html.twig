@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+
+
+{% block pageheadscripts %}
+<script>
+$(function() {
+  $("select#ctlJob").change(function(){
+    $.getJSON("/select.php",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+      for (var i = 0; i < j.length; i++) {
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+      }
+      $("select#ctlPerson").html(options);
+    });
+  });
+
+  $.post( "ajax/test.html", function( data ) {
+    $( "select#contacts" ).html( data );
+  });
+});
+</script>
+{% endblock %}
+
+{% block content -%}
+    <h1>ProjectType creation</h1>
+
+    <form action="{{ path('projecttype_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Create</button>
+        </p>
+    </form>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('projecttype') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,249 @@
+{% extends '::base.html.twig' %}
+
+
+
+{% use 'LimeTrailBundle::datagrid.html.twig' with head_bottom as grid_head_bottom %}
+
+{% block head_style %}
+    {{ parent() }}
+    {{ block('stylesheets') }}
+    {% stylesheets
+       '@LimeTrailJqueryBundle/Resources/public/css/spectrum.css'
+       filter='cssrewrite'
+    %}
+   <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+{% endblock head_style %}
+
+{% block head_bottom %}
+{{ parent() }}
+{{ block('grid_head_bottom') }}
+
+  {% javascripts
+      '@LimeTrailJqueryBundle/Resources/public/js/spectrum.js'
+   %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+<script>
+  $(function() {
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+});
+
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li, #press" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+
+
+$( "#dialog" ).dialog({
+      autoOpen: false,
+      width: function(){
+        var width = $(this.bDiv).find('div:first>id.thrace-datagrid-project_info:first'),
+            shrinktofit = $('#thrace-datagrid-project_info').jqGrid('getGridParam', 'shrinkToFit');
+        $('#thrace-datagrid-project_dates').jqGrid('setGridWidth',width,shrinktofit);
+      },
+      modal: true,
+      closeOnEscape: true,
+      buttons: [
+        {
+          text: "Done",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+});
+$('td.jqgrow').click(function(e) {
+    e.preventDefault();
+    $( "#dialog" ).dialog('open');
+});
+});
+function openGrid (rowId) {
+  $("#thrace-datagrid-project_info").jqGrid('setSelection',rowId,true);
+  $("#dialog").dialog('open');
+}
+
+$.extend($.fn.fmatter , {
+  dependentGridLink : function(cellvalue, options, rowdata)
+  {
+    var s = '<a href="javascript:void(0);" onclick="openGrid('+
+            cellvalue+
+            ');">'+
+            '<span class="ui-icon ui-icon-newwin" style="float: left; margin-right: .3em;"/>'+
+            'Projects</a>';
+    return s;
+  }
+});
+
+jQuery.extend(jQuery.jgrid.edit, {
+  recreateForm: true,
+});
+/*jQuery.extend(jQuery.jgrid.defaults, {
+  ajaxSelectOptions: {
+    type: "POST",
+    dataType: 'html',
+    data: {
+      companyId: function() {
+        var row_id, cellValue;
+        var $storegrid = $("#{{ 'thrace-datagrid-' ~ identifier }}"),
+        row_id = $storegrid.jqGrid('getGridParam','selrow'),
+        cellValue = $storegrid.jqGrid('getCell', row_id, 'Company');
+        return cellValue == false ? '' : cellValue;
+      }
+    }
+    success: function ( data ) {
+        var elem = $( "#tr_address>td.DataTD>select" );
+        elem.empty();
+        $( data ).appendTo( elem );
+      }
+  }
+});*/
+
+$.ajaxSetup({
+  beforeSend: function(jqXHR, settings){
+    settings.url = settings.url.replace(/(\?\w+=)/gi,'');
+  }
+});
+
+$( document ).tooltip( {
+  position: {
+    my: "right bottom-5",
+    at: "left top",
+    collision: "flipfit"
+  }
+});
+
+  var grid = $("#{{ 'thrace-datagrid-' ~ identifier }}");
+  var EditGridRow = grid.jqGrid.editGridRow;
+
+  $.jgrid.extend ({editGridRow : function (rowid, p) {
+    $.extend(p, {
+      beforeShowForm : function (formid) {
+
+        if (rowid != "new"){
+
+          $( "#tr_City" ).remove();
+
+          var chartColor = $( "#tr_chartColor" );
+
+          $( "#tr_address>td.DataTD>select" )
+            .attr('name','address');
+
+          $.ajax({
+            url: "{{ path('limetrail_company_offices') }}",
+            type: "POST",
+            dataType: "html",
+            data: {
+              companyId: function () {
+                var $storegrid = $("#{{ 'thrace-datagrid-' ~ identifier }}"),
+                row_id = $storegrid.jqGrid('getGridParam','selrow'),
+                cellValue = $storegrid.jqGrid('getCell', row_id, 'Company');
+                return cellValue == false ? '' : cellValue;
+              }
+            },
+            success: function ( data ) {
+              var elem = $( "#tr_address>td.DataTD>select" );
+              elem.empty();
+              $( data ).appendTo( elem );
+            }
+          });
+
+          $( "#Company" ).autocomplete({
+            source: function( request, response ) {
+              $.ajax({
+                url: "{{ path('limetrail_company') }}",
+                type: "POST",
+                dataType: "json",
+                data: {
+                  startsWith: request.term
+                },
+                success: function ( data ) {
+                  response( $.map(data.data,
+                    function( item ) {
+                      return {
+                        label: item.label,
+                        value: item.label
+                      }
+                    }
+                  ));
+                }
+              });
+            },
+            minLength: 2,
+            open: function () {
+              $( this ).removeClass("ui-corner-all").addClass( "ui-corner-top" );
+              $(this).autocomplete('widget').zIndex(1000);
+            },
+            close: function () {
+              $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+              $(this).autocomplete('widget').zIndex(0);
+            },
+            select: function ( event , ui ) {
+              selector( ui.item.value );
+            }
+          });
+
+        } else {
+
+
+
+        }
+      }
+
+    });
+    EditGridRow.call (this, rowid, p);
+  }
+
+});
+function selector ( itemId ) {
+    $.ajax({
+      url: "{{ path('limetrail_company_offices') }}",
+      type: "POST",
+      dataType: "html",
+      data: {
+        companyId: itemId
+      },
+      success: function ( data ) {
+        var elem = $( "#tr_address>td.DataTD>select" );
+        elem.empty();
+        $( data ).appendTo( elem );
+      }
+    });
+  }
+
+function colorElem (value, options) {
+  var elem = document.createElement("input");
+  elem.type = "color";
+  elem.value = value;
+  return elem;
+}
+
+function colorValue (elem, oper, value) {
+  if (oper === 'get') {
+    return $(elem).val();
+  } else if (oper === 'set') {
+    $('input', elem).val(value);
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+  <a class="btn btn-primary" href="{{ path('trail_contact_new') }}">
+    Create a new entry
+  </a>
+<div class="col-sm-12">{{ thrace_datagrid(identifier) }}</div>
+   {{ block('sidebar') }}
+{% endblock %}

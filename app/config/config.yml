@@ -1,0 +1,286 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: two_factor.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    templating: { engines: ['twig'] }
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: [10.0.0.0/8]
+    session:         ~
+    fragments:       ~
+    session:
+      cookie_httponly: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# mopa bootstrap Configuration
+mopa_bootstrap:
+    form: ~  # Adds twig form theme  support
+    menu: ~  # enables twig helpers for menu
+    initializr:
+        meta:
+            title:        "RHA Intranet"
+            description:  "Web site for project management"
+            keywords:     "RHA,Project Management"
+            author_name:  "Raymond Harris Associates"
+            author_url:   "/"
+            nofollow:     true
+            noindex:      false
+        dns_prefetch:
+            - '//ajax.googleapis.com'
+        #google:
+        #    wt: 'xxx'
+        #    analytics: 'UA-xxxxxxx-xx'
+        #diagnostic_mode: true
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    filters:
+        cssrewrite: ~
+        less:
+            node: %node_path%
+            node_paths: [/usr/local/lib/node_modules, /usr/local/bin]
+            apply_to: "\.less$"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+        default_connection:   default
+        connections:
+            default:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                unix_socket: %database_socket%
+                dbname:   %database_name%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                # if using pdo_sqlite as your database driver, add the path in parameters.yml
+                # e.g. database_path: %kernel.root_dir%/data/data.db3
+                # path:     %database_path%
+            limetrail:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                unix_socket: %database_socket%
+                dbname:   %database_name2%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+            demo:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                unix_socket: %database_socket%
+                dbname:   %database_name4%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+            rha_management:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                unix_socket: %database_socket%
+                dbname:   %database_name3%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+       # auto_mapping: true
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection:       default
+                mappings:
+                  ApplicationSonataUserBundle: ~
+                  SonataUserBundle: ~
+                  FOSUserBundle: ~
+                dql:
+                    string_functions:
+                        IF: Data\GridBundle\Doctrine\ORM\IfElse
+            limetrail:
+                connection:       limetrail
+                mappings:
+                    LimeTrailBundle: ~
+                    # LimeTrailSecurityBundle: ~
+                dql:
+                    string_functions:
+                        IF: Data\GridBundle\Doctrine\ORM\IfElse
+                        GROUP_CONCAT: Data\GridBundle\Doctrine\ORM\GroupConcat
+                        CONCAT_WS: Data\GridBundle\Doctrine\ORM\ConcatWs
+            demo:
+                connection:       demo
+                mappings:
+                  ApplicationGlobalBundle: ~
+                dql:
+                    string_functions:
+                        IF: Data\GridBundle\Doctrine\ORM\IfElse
+            rha:
+                connection:       rha_management
+                mappings:
+                  RhaProjectManagementBundle: ~
+                dql:
+                    string_functions:
+                        IF: Data\GridBundle\Doctrine\ORM\IfElse
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool:     { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Application\Sonata\UserBundle\Entity\User
+    group:
+       group_class: Application\Sonata\UserBundle\Entity\Group
+    profile:
+       form:
+         type: fos_user_profile
+         name: fos_user_profile_form
+         validation_groups: [Authentication]
+    service:
+       mailer: fos_user.mailer.twig_swift
+    resetting:
+       email:
+         template: ApplicationSonataUserBundle:Email:resetting.email.html.twig
+    from_email:
+       address: noreply@rhaaia.com
+       sender_name: RHA Web
+    registration:
+       confirmation:
+          enabled: true
+          template: ApplicationSonataUserBundle:Email:registration.email.html.twig
+          from_email:
+             address: noreply@rhaaia.com
+             sender_name: RHA Web Registration
+
+thrace_data_grid:
+    translation_domain: ThraceDataGridBundle
+
+sonata_cache:
+    caches:
+        esi:
+            token: 
+            servers: 
+                - varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"
+
+        ssi:
+            token:
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+       sonata.admin.block.admin_list:
+           contexts: [admin]
+       sonata.admin.block.search_result:
+           contexts: [admin]
+       #sonata.admin_doctrine_orm.block_audit:
+       #   contexts: [admin]
+       sonata.block.service.text:
+       sonata.block.service.res:
+       sonata.block.service.action:
+       sonata.user.block.menu:
+       sonata.user.block.account:
+
+sonata_admin:
+    title: Admin Panel
+    templates:
+        layout: SonataAdminBundle::standard_layout.html.twig
+        ajax: SonataAdminBundle:ajax_layout:html.twig
+        list: SonataAdminBundle:CRUD:list.html.twig
+        show: SonataAdminBundle:CRUD:show.html.twig
+        edit: SonataAdminBundle:CRUD:edit.html.twig
+        search: SonataAdminBundle:Core:search.html.twig
+        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
+    dashboard:
+       block:
+           - { position: left, type: sonata.admin.block.admin_list }
+
+knp_menu:
+    twig:
+       template: knp_menu.html.twig
+    templating: false
+    default_renderer: twig
+
+sonata_user:
+    security_acl: true
+    manager_type: orm
+    class:
+       user: Application\Sonata\UserBundle\Entity\User
+       group: Application\Sonata\UserBundle\Entity\Group
+    profile:
+       register:
+         confirm:
+           redirect: 
+              route: 'limetrail_home'
+              route_parameters: ~
+          
+       dashboard:
+          blocks:
+            - { position: left, type: sonata.block.service.text, settings: { content: " " } }
+       form:
+          type: sonata_user_profile
+          handler: sonata.user.profile.form.handler.default
+          name: sonata_user_profile_form
+          validation_groups: [Profile]
+
+knp_markdown:
+    parser:
+        service:              markdown.parser.sundown
+    sundown:
+        extensions:
+            fenced_code_blocks:   true
+            no_intra_emphasis:    true
+            tables:               true
+            autolink:             true
+            strikethrough:        true
+            lax_html_blocks:      false
+            space_after_headers:  false
+            superscript:          true
+        render_flags:
+            filter_html:          false
+            no_images:            false
+            no_links:             false
+            no_styles:            false
+            safe_links_only:      false
+            with_toc_data:        true
+            hard_wrap:            false
+            xhtml:                false
+
+services:
+    kernel.listener.datagridlistener:
+        class: LimeTrail\Bundle\Event\DataGridListener
+        arguments: [ "@request_stack" ]
+        tags:
+            - { name: kernel.event_listener, event: thrace_datagrid.onQueryBuilderReady, method: onQueryBuilderReady }
+
+    application.twig.csrf_twig_extension:
+        class: Application\GlobalBundle\Twig\CsrfTwigExtension
+        arguments: ["@form.csrf_provider", "@session"]
+        tags:
+          - { name: twig.extension }

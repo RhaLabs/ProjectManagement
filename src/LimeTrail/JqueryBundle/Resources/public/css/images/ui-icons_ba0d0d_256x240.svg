@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="256" height="240"
+>
+  <style type="text/css">
+  <![CDATA[
+    .ui-icon{
+      stroke-width:1.5;
+      stroke:#ba0d0d;
+      stroke-linecap:none;
+    }
+    .fill{
+      fill:#ba0d0d;
+    }
+    .nofill{
+      fill:none;
+    }
+    .stroke1{
+      stroke-width:1;
+    }
+  ]]>
+  </style>
+  <defs>
+    <marker id="Triangle"
+      viewBox="0 0 6 6"
+      refX="2"
+      refY="2.6666"
+      markerUnits="strokeWidth"
+      markerWidth="4"
+      markerHeight="4"
+      orient="auto"
+      class="fill"
+    >
+      <path d="M 0,0 L 0,4 4,4 z" transform="rotate(225 1.3333 2.6666)"/>
+    </marker>
+    <path id="C" d="M 0,0 L 0,4 4,4"/>
+    <path id="Arrow" d="M 0,5 L 5,0" marker-end="url(#Triangle)"/>
+    <path id="Line" d="M 0,0 L 4,0"/>
+  </defs>
+  <g class="nofill">
+    <g id="carat-open">
+      <g class="ui-icon" id="ui-icon-1-n" transform="translate(7.5,8)">
+        <use xlink:href="#C" transform="rotate(135 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-ne" transform="translate(23.5,8)">
+        <use xlink:href="#C" transform="rotate(180 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-e" transform="translate(39.5,8)">
+        <use xlink:href="#C" transform="rotate(225 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-se" transform="translate(55.5,8)">
+        <use xlink:href="#C" transform="rotate(270 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-s" transform="translate(71.5,8)">
+        <use xlink:href="#C" transform="rotate(315 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-sw" transform="translate(87.5,8)">
+        <use xlink:href="#C" transform="rotate(0 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-w" transform="translate(103.5,8)">
+        <use xlink:href="#C" transform="rotate(45 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-1-nw" transform="translate(119.5,8)">
+        <use xlink:href="#C" transform="rotate(90 1.3333 2.6666)"/>
+      </g>
+      <g class="ui-icon" id="ui-icon-2-n-s" transform="translate(135.5,8)">
+        <g transform="translate(0,-3)">
+        <use xlink:href="#C" transform="rotate(135 1.3333 2.6666)"/>
+        </g>
+        <g transform="translate(0,3)">
+        <use xlink:href="#C" transform="rotate(315 1.3333 2.6666)"/>
+        </g>
+      </g>
+      <g class="ui-icon" id="ui-icon-2-e-w" transform="translate(151.5,8)">
+        <g transform="translate(3,0)">
+        <use xlink:href="#C" transform="rotate(225 1.3333 2.6666)"/>
+        </g>
+        <g transform="translate(-3,0)">
+        <use xlink:href="#C" transform="rotate(45 1.3333 2.6666)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="ui-icon-triangle" class="fill" transform="translate(0, 16)">
+    <use xlink:href="#carat-open"/>
+  </g>
+  <g class="nofill ui-icon stroke1">
+    <g id="arrows">
+      <g id="ui-icon-arrow-1-n" transform="translate(6,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(315 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-ne" transform="translate(22,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(0 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-e" transform="translate(38,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(45 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-se" transform="translate(54,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(90 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-s" transform="translate(70,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(135 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-sw" transform="translate(86,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(180 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-w" transform="translate(102,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(225 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-1-nw" transform="translate(118,38.5)">
+        <use xlink:href="#Arrow" transform="rotate(270 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-2-n-s" transform="translate(134,38.5)">
+        <use xlink:href="#Arrow" transform="translate(0,-1),rotate(315 2.5 2.5)"/>
+        <use xlink:href="#Arrow" transform="translate(0,1),rotate(135 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-2-ne-sw" transform="translate(150,38.5)">
+        <use xlink:href="#Arrow" transform="translate(1,-1),rotate(0 2.5 2.5)"/>
+        <use xlink:href="#Arrow" transform="translate(-1,1),rotate(180 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-2-e-w" transform="translate(166,38.5)">
+        <use xlink:href="#Arrow" transform="translate(1,0),rotate(45 2.5 2.5)"/>
+        <use xlink:href="#Arrow" transform="translate(-1,0),rotate(225 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrow-2-se-nw" transform="translate(182,38.5)">
+        <use xlink:href="#Arrow" transform="translate(1,1),rotate(90 2.5 2.5)"/>
+        <use xlink:href="#Arrow" transform="translate(-1,-1),rotate(270 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrowstop-1-n" transform="translate(198,38.5)">
+        <use xlink:href="#Line" transform="translate(.5,-2)"/>
+        <use xlink:href="#Arrow" transform="translate(0,1),rotate(315 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrowstop-1-e" transform="translate(214,38.5)">
+        <use xlink:href="#Line" transform="translate(6,3.5),rotate(90 2 0)"/>
+        <use xlink:href="#Arrow" transform="translate(0,1),rotate(45 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrowstop-1-s" transform="translate(230,38.5)">
+        <use xlink:href="#Line" transform="translate(.5,7)"/>
+        <use xlink:href="#Arrow" transform="translate(0,-1),rotate(135 2.5 2.5)"/>
+      </g>
+      <g id="ui-icon-arrowstop-1-w" transform="translate(246,38.5)">
+        <use xlink:href="#Line" transform="translate(-5,3.5),rotate(90 2 0)"/>
+        <use xlink:href="#Arrow" transform="translate(0,1),rotate(225 2.5 2.5)"/>
+      </g>
+    </g>
+  </g>
+  <g id="ui-icon-arrowthick" class="ui-icon nofill" transform="translate(0, 16)">
+    <use xlink:href="#arrows"/>
+  </g>
+  <g class="nofill ui-icon stroke1">
+    <g id="returnarrows">
+    
+    </g>
+  </g>
+
+  <g class="nofill ui-icon stroke1">
+    <g id="refresharrows">
+    
+    </g>
+  </g>
+
+  <g class="nofill ui-icon stroke1">
+    <g id="arrow4" transform="translate(2,0)">
+      <use xlink:href="#ui-icon-arrow-1-n" transform="translate(0, 96)" stroke-width=".5"/>
+      <use xlink:href="#ui-icon-arrow-1-s" transform="translate(-64, 96)" stroke-width=".5"/>
+      <use xlink:href="#ui-icon-arrow-1-e" transform="translate(-32, 96)" stroke-width=".5"/>
+      <use xlink:href="#ui-icon-arrow-1-w" transform="translate(-96, 96)" stroke-width=".5"/>
+    </g>
+  </g>
+  <g class="nofill ui-icon stroke1">
+    <g id="arrow4-r" transform="translate(22,74),rotate(45 96 96)">
+      <use xlink:href="#ui-icon-arrow-1-n" transform="translate(0, 96)" stroke-width=".5"/>
+      <use xlink:href="#ui-icon-arrow-1-s" transform="translate(-64, 96)" stroke-width=".5"/>
+      <use xlink:href="#ui-icon-arrow-1-e" transform="translate(-32, 96)" stroke-width=".5"/>
+      <use xlink:href="#ui-icon-arrow-1-w" transform="translate(-96, 96)" stroke-width=".5"/>
+    </g>
+  </g>
+  <g class="nofill ui-icon stroke1">
+    <g id="circle-icons" transform="translate(22,74)">
+      <path 
+        d="
+        M 100, 100
+        m -75, 0
+        a 75,75 0 1,0 150,0
+        a 75,75 0 1,0 -150,0
+        "
+      />
+    </g>
+  </g>
+</svg>
+

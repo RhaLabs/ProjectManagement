@@ -1,0 +1,10 @@
+{% extends '::mobile.html.twig' %}
+
+ {% block content %}
+    <div id="clear">
+     <ul><a href="{{ path('limetrail_contacts') }}">Contacts Info</a></ul>
+     <ul><a href="{{ path('limetrail_projectinformation') }}">Project Info</a></ul>
+     <ul><a href="{{ path('limetrail_storeinformation') }}">Store Info</a></ul>
+     <ul><a href="{{ path('limetrail_projectdates') }}">Project Dates</a></ul>
+    </div>
+ {% endblock %}

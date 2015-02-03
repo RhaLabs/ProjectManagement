@@ -1,0 +1,141 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+  $(function() {
+
+    $( "#accordion" ).accordion({
+      heightStyle: "content",
+      collapsible: true,
+      icons: { header: "ui-icon-triangle-1-e", activeHeader: "ui-icon-triangle-1-s"}
+      });
+
+      $( "#menu" ).menu();
+
+
+
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#autocomplete" ).autocomplete({
+      source: availableTags
+    });
+
+
+
+    //$( "#button" ).button();
+    $("#button").button({
+      icons: { primary: "ui-icon-triangle-1-e"}
+    });
+    $( "#radioset" ).buttonset();
+
+
+
+    $( "#tabs" ).tabs();
+
+
+
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      width: 400,
+      buttons: [
+        {
+          text: "Ok",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        {
+          text: "Cancel",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+
+
+    $( "#datepicker" ).datepicker({
+      inline: true
+    });
+
+
+
+    $( "#slider" ).slider({
+      range: true,
+      values: [ 17, 67 ]
+    });
+
+
+
+    $( "#progressbar" ).progressbar({
+      value: 20
+    });
+
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+  });
+{% endblock %}
+{% block title %}RHA Revit Guide{% endblock %}
+{% block heading %}Revit Demo Plan Guide{% endblock %}
+{% block body -%}
+   <div id="article" class="ui-widget ui-helper-clearfix" >
+      <div class="header clear-fix">
+        <div class="center">
+          <img class="border" src="{{ asset('bundles/rharevit/images/RHA_logo_build.png') }}" width="30%" align="middle"/><h1>Easy Demo and Phasing Plans</h1>
+        </div>
+      </div>
+      <p class="border">
+        Use Revit.  Demolish elements.  Print!  Info coming soon!
+      </p>
+   </div>
+      {% endblock %}
+
+{% block sidebar -%}
+   <div id="sidebar" class="ui-widget ui-helper-clearfix ui-corner-all" >
+        <ul id="menu">
+          <li><a href="{{ path('rha_revit_default_index') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
+          <li><a href="{{ path('rha_revit_keynoting') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Key Noting</a></li>
+          <li><a href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="{{ path('rha_revit_revisesheets') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revised Sheets</a></li>
+          <li><a href="{{ path('rha_revit_revitui') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revit UI</a></li>
+          <li><a href="{{ path('rha_revit_shellplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Shell Plan</a></li>
+         </ul>
+   </div>
+
+{% endblock %}

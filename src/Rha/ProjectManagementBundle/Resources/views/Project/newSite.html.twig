@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% use 'RhaProjectManagementBundle:Project:script.html.twig' %}
+
+{% block body -%}
+  <h1>Create New Project</h1>
+      <div id="clear" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
+      </div>
+{% endblock %}

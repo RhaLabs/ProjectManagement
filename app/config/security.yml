@@ -1,0 +1,84 @@
+security:
+    acl:
+       connection: default
+
+    encoders:
+        default:
+            algorithm: bcrypt
+            cost: 13
+        legacy:
+            id: legacy_encoder
+
+    role_hierarchy:
+        ROLE_FORCEPASSWORDCHANGE:
+        ROLE_USER:
+        ROLE_POWER_USER: [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_POWER_USER]
+        ROLE_SONATA_ADMIN: [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_SONATA_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        SONATA:
+
+    providers:
+         fos_userbundle:
+             id: fos_user.user_provider.username_email
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        admin:
+             pattern: /admin(.*)
+             context: user
+             form_login:
+                 provider: fos_userbundle
+                 login_path: /admin/login
+                 use_forward: false
+                 check_path: /admin/login_check
+                 failure_path: null
+             logout:
+                 path: /admin/logout
+             anonymous: true
+ 
+        main:
+             remember_me:
+               key: "%secret%"
+               lifetime: 31536000
+               path: /
+               domain: ~
+             pattern: .*
+             context: user
+             form_login:
+                 provider: fos_userbundle
+                 csrf_provider: form.csrf_provider
+                 always_use_default_target_path: false
+                 default_target_path: /
+                 target_path_parameter: _target_path
+                 use_referer: false
+                 use_forward: false
+             logout: 
+                 path: fos_user_security_logout
+             anonymous: true
+
+
+
+    access_control:
+        # FOS anonymous paths
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/js, role: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/css, role: IS_AUTHENTICATED_ANONYMOUSLY } 
+
+        # admin pages
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$,  role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # secured area
+        - { path: ^/admin, roles: [ROLE_SONATA_ADMIN] }
+        - { path: ^/trail, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/trail/admin, roles: ROLE_ADMIN }
+        - { path: ^/rha, roles: ROLE_POWER_USER }
+        - { path: ^/rha/financial, roles: ROLE_ADMIN }
+

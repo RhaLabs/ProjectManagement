@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block content_content -%}
+    <section class="well">
+        <h1>City url</h1>
+        <div>
+          {% if url != "todo" %}
+          <a href=" {{ url }} ">{{ url }}</a>
+          {% else %}
+          <p>No url link is available at this time</p>
+          {% endif %}
+        </div>
+    </section>
+{% endblock content_content %}

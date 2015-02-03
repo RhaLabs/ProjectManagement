@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="16" height="16"
+>
+  <?xml-stylesheet type="text/css" href="svg.css" ?>
+  <defs>
+    <path id="C" d="M 1,6 L 5,2 9,6"/>
+  </defs>
+  <g id="carat"
+    fill="none"
+    stroke-width="2"
+    stroke="red"
+    stroke-linecap="round"
+    transform="translate(1,2)"
+  >
+    <use xlink:href="#C" transform="rotate(135 5 4.666)"/>
+  </g>
+</svg>
+

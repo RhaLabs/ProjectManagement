@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+
+
+ {% block content_content %}
+    <section class="well">
+    {% autoescape false %}
+        {{ markdown }}
+    {% endautoescape %}
+    </section>
+ {% endblock %}

@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block form_row %}
+  <div>
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+  </div>
+{% endblock form_row %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+    <ul style="display:inline-block">
+        {%- for error in errors -%}
+            <li>{{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif %}
+{%- endblock form_errors %}
+
+{% use 'LimeTrailBundle:Company:script.html.twig' %}
+
+
+{% block content_content %}
+    <h1>Add New Company</h1>
+      <div id="clear" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.offices.0.mainPhone) }}
+        {{ form_row(form.offices.0.fax) }}
+        {{ form_row(form.offices.0.address) }}
+        {{ form_row(form.offices.0.state) }}
+        {# form_row(form.offices.0.city) #}
+        {{ form_row(form.offices.0.zip) }}
+        {# form_row(form.submit) #}
+        {# form_row(form._token) #}
+        {{ form_end(form) }}
+      </div>
+
+<script>
+  var $state = $('#{{ form.offices.0.vars.id ~ "_state" }}');
+  var $crsf = $('#{{ form.vars.name ~ "__token" }}');
+
+  $state.change(function() {
+    var $form = $(this).closest('form');
+
+    var data = {};
+    data[$state.attr('name')] = $('option:selected', $state).val();
+    data[$crsf.attr('name')] = $crsf.val();
+
+    $.ajax({
+      url: $form.attr('action'),
+      type: $form.attr('method'),
+      data: data,
+      success: function (html) {
+        $('#{{ form.offices.0.vars.id ~ "_city" }}').replaceWith(
+          $(html).find('#{{ form.offices.0.vars.id ~ "_city" }}')
+        );
+      }
+    });
+  });
+</script>
+{% endblock %}

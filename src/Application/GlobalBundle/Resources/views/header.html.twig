@@ -1,0 +1,24 @@
+
+{# <div id="container">
+    <header> #}
+        {% block body_container_header %}
+            {% block header_flashmessage %}
+            <div class="row">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+              <div class="col-xs-12 col-sm-6 col-lg-4">
+                  <div class="alert alert-danger" role="alert"">
+                      <p>
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Notice:</span>
+                          <em>Notice:</em> {{ flashMessage|trans|raw|nl2br }}
+                      </p>
+                   </div>
+              </div><!-- /.col-xs-12.col-sm-6.col-lg-4 -->
+            {% endfor %}
+            </div><!-- /.row -->
+            {% endblock %}
+            {% block header_content %}
+            {% endblock %}
+        {% endblock %}
+{#      </header>
+</div> #}

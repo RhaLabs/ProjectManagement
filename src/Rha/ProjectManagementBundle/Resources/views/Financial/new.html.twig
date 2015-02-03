@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% use 'RhaProjectManagementBundle:Financial:script.html.twig' %}
+
+{% block body -%}
+    <h1>Add New Project Criteria</h1>
+      <div id="clear" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+          <div id="project_criteria" style="display:none">
+            <p>Some hidden text</p>
+          </div>
+          <div class="ui-widget ui-widget-content ui-corner-all border">
+            <h3>Aor Contact</h3>
+            <p>{{ form_row(form.ArchitectOfRecord, {
+              'attr': {'class':'ui-widget ui-widget-content ui-corner-all border'} ,
+              'label_attr': {'style': 'display:none'}
+              }) }}
+            </p>
+          </div>
+          <div class="ui-widget ui-widget-content ui-corner-all border">
+            <h3>Project Information</h3>
+            <p>{{ form_row(form.project, {
+              'label_attr': {'style': 'display:none'}
+              }) }}
+            </p>
+          </div>
+        {{ form_end(form) }}
+      </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% spaceless %}
+<select>
+{% for city in data %}
+  <option value= {{ city.id }}>{{ city.city }}</option>
+{% endfor %}
+</select>
+{% endspaceless %}

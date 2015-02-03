@@ -1,0 +1,17 @@
+{% block menubar -%}
+
+   <div id="topNav"  >
+        <ul class="menubar">
+          <li><a href="{{ path('homepage') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
+
+          {% if is_granted("ROLE_SUPER_ADMIN") %}
+          <li><a href="{{ path('limetrail_contacts') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Contacts Info</a></li>
+          {% endif %}
+
+          <li><a href="{{ path('limetrail_storeinformation_customgrid') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>My Projects</a></li>
+          <li><a href="{{ path('limetrail_storeinformation') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>All Stores List</a></li>
+          <li><a href="{{ path('limetrail_projectdates_aggregated') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Current Projects (Trident)</a></li>
+        </ul>
+   </div>
+
+{% endblock %}

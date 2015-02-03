@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Revit Modeling and Drawing Standards{% endblock title %}      
+
+{% block content_content %}
+      <p class="well">
+        The purpose and intent of this document is to provide guidance for unifying modeling and drawing with the Revit platform.
+        The intent is not to regulate or enforce <em>process or procedure</em> but rather to demonstrate what the end result should be.
+        Throughout the document you will come across advice on best practices.  The advice given is based on the current state of Revit and experience with the
+        current state of prototypical models.  With that in mind, what may be a best practice today may not be in a week or month.
+        Your help in keeping advice and suggestions up to date is encouraged and appreciated.
+      </p>
+      <div id="border" class="row">
+        <div class="col-sm-12 col-md-2">
+          <button class="btn btn-primary" href="{{ path('rha_revit_keynoting') }}">Key Noting</button>
+        </div>
+        <div class="col-sm-12 col-md-2">
+          <button class="btn btn-primary" href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777">Paint Area Calc</button>
+        </div>
+        <div class="col-sm-12 col-md-2">
+          <button class="btn btn-primary" href="{{ path('rha_revit_shellplan') }}">Shell Plan</button>
+       </div>
+       <div class="col-sm-12 col-md-2">
+          <button class="btn btn-primary" href="{{ path('rha_revit_revisesheets') }}">Revised Sheets</button>
+        </div>
+       <div class="col-sm-12 col-md-2">
+           <button class="btn btn-primary" href="{{ path('rha_revit_revitui') }}">Revit UI Overview</button>
+       </div>
+       <div class="col-sm-12 col-md-2">
+           <button class="btn btn-primary" href="{{ path('rha_revit_demoplan') }}">Demo/Phasing Plans</button>
+       </div>
+      </div>
+{% endblock content_content %}
+{% block content_sidebar %}
+  <div id="wrapper" style="width:700px">
+   <div id="sidebar"  >
+        <ul id="menu">
+          <li><a href="{{ path('rha_revit_keynoting') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Key Noting</a></li>
+          <li><a href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="{{ path('rha_revit_shellplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Shell Plan</a></li>
+          <li><a href="{{ path('rha_revit_revisesheets') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revised Sheets</a></li>
+          <li><a href="{{ path('rha_revit_revitui') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revit UI</a></li>
+          <li><a href="{{ path('rha_revit_demoplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Demo/Phasing Plans</a></li>
+        </ul>
+   </div>
+  </div>
+{% endblock content_sidebar %}

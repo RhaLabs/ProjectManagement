@@ -1,0 +1,44 @@
+<!--<link rel="stylesheet" href="./Docs/revitui/tabs.css" />-->
+<div>
+ <div class="ui-widget-content inline">
+  <div class="inline">
+    <div class="inline"><span class="revit-icon-medium revit-icon-link-revit inline" title="Links a Revit model"/><p class="stacked">Link<br>Revit</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-link-cad inline" title="Links an AutoCad file"/><p class="stacked">Link<br>CAD</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-link-dwf inline" title="Link the markups from a DWF file"/><p class="stacked">DWF<br>Markup</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-link-decal inline" title="Places images as decals"/><p class="stacked">Decal</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-link-pointcloud inline" title="Links a point cloud"/><p class="stacked">Point<br>Cloud</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-link-manage inline" title="Manages links"/><p class="stacked">Manage<br>Links</p></div>
+  </div>
+  <p class="center" style="border-top-color: #bababa; border-top-width: 1px; border-top-style: solid;">
+    <strong >Link</strong>
+  </p>
+ </div>
+ <div class="ui-widget-content inline">
+  <div class="inline" >
+    <div class="inline"><span class="revit-icon-medium revit-icon-import-cad inline" title="Loads a CAD file into your Revit model. Don't do this unless you are aware of the consquences"/><p class="stacked">Import<br>CAD</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-import-xml inline" title="Loads a Green Building XML file"/><p class="stacked">Import<br>gbXML</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-import-file inline" title="Loads another Revit file into your model"/><p class="stacked">Insert<br>from File</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-import-image inline" title="Loads images"/><p class="stacked">Image</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-manage-image inline" title="Manages images"/><p class="stacked">Manage<br>Images</p></div>
+  </div>
+  <p class="center" style="border-top-color: #bababa; border-top-width: 1px; border-top-style: solid;">
+    <strong >Import</strong>
+  </p>
+ </div>
+ <div class="ui-widget-content inline">
+  <div class="inline" >
+    <div class="inline"><span class="revit-icon-medium revit-icon-load-family inline" title="Loads a Revit family into your model"/><p class="stacked">Load<br>Family</p></div>
+    <div class="inline"><span class="revit-icon-medium revit-icon-load-group inline" title="Loads another Revit model as a group into your model"/><p class="stacked">Load as<br>Group</p></div>
+  </div>
+  <p class="center" style="border-top-color: #bababa; border-top-width: 1px; border-top-style: solid;">
+    <strong >Load from Library</strong>
+  </p>
+ </div>
+</div>
+<script>
+$(document).ready(function(){
+  $("p.inline").css({
+    "cursor":"pointer"
+  });
+ });
+</script>

@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block content_content %}
+    <section class="well">
+        <h1 class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="margin:0">State url</h1>
+        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+          {% if url != "todo" %}
+          <p>The link below is to an external resource, please click responsibly.</p>
+          <a href=" {{ url }} ">{{ url }}</a>
+          {% else %}
+          <p><br/>No url link is available at this time</p>
+          {% endif %}
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{# src/Application/Sonata/UserBundle/Resources/views/Email/default.email.txt.twig #}
+
+{% block body_text %}
+{% autoescape false %}
+Hello {{ user.username }},
+
+    {% block body_message %}
+    {% endblock %}
+
+RHA Web
+{% endautoescape %}
+{% endblock %}

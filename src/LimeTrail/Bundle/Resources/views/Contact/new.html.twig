@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle:Contact:script.html.twig' %}
+
+{% block content_content -%}
+    <h1>Add New Contact</h1>
+      <div id="clear" class="well ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+          {{ form_row(form.companyName, {'attr': {'title': 'Please enter at least the first two letters of the company name', 'required': 'required'} }) }}
+          {{ form_row(form.officeAddress, {'attr': {'title': 'Please select a company to load addresses', 'required': 'required'} }) }}
+          {{ form_row(form.firstName) }}
+          {{ form_row(form.middleName) }}
+          {{ form_row(form.lastName) }}
+          {{ form_row(form.jobTitle) }}
+          {{ form_row(form.directPhone, {'attr': {'title': 'Phone number should be formatted (123) 123-1234'} }) }}
+          {{ form_row(form.mobilePhone, {'attr': {'title': 'Phone number should be formatted (123) 123-1234'} }) }}
+          {{ form_row(form.email) }}
+          <div id="contact" style="display:none">
+            <p>Some hidden text</p>
+          </div>
+        {{ form_end(form) }}
+      </div>
+
+{% endblock content_content %}
+
+{% block foot_script %}
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            // Change JQueryUI plugin names to fix name collision with Bootstrap:
+            $.widget.bridge('uitooltip', $.ui.tooltip);
+            $.widget.bridge('uibutton', $.ui.button);
+        </script>
+    {{ parent() }}
+    {{ block('scripts') }}
+{% endblock foot_script %}

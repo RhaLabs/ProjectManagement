@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle::datagrid.html.twig' with head_bottom as grid_head_bottom %}
+
+{% block head_style %}
+    {{ parent() }}
+    {{ block('stylesheets') }}
+{% endblock head_style %}
+
+{% block content %}
+   <div class="col-sm-12">{{ thrace_datagrid(identifier) }}</div>
+   {{ block('sidebar') }}
+{% endblock %}
+{% block head_bottom %}
+{{ parent() }}
+{{ block('grid_head_bottom') }}
+<script>
+/*$("#thrace-datagrid-store_info").jqGrid('ajaxSelectOptions',function(rowid,col,cellcontent,e){
+  //this.editRow()
+});*/
+jQuery.extend(jQuery.jgrid.edit, {
+  recreateForm: true,
+});
+
+jQuery.extend(jQuery.jgrid.defaults, {
+  ajaxSelectOptions: {
+    type: "GET",
+    dataType: 'html',
+    data: {
+      myid: function() {
+        var row_id, cellValue;
+        var $storegrid = $("#{{ 'thrace-datagrid-' ~ identifier }}"),
+        row_id = $storegrid.jqGrid('getGridParam','selrow'),
+        cellValue = $storegrid.jqGrid('getCell', row_id, 'State');
+        return cellValue;
+      }
+    }
+  },
+  beforeProcessing: function (data, status, xhr) {
+    while (rowsToColor.length > 0) {
+      rowsToColor.pop();
+    }
+  }
+});
+
+var rowsToColor = [];
+
+jQuery.extend(jQuery.fn.fmatter, {
+  rowColorFormatter: function(cellValue, options, rowObject) {
+    switch (cellValue) {
+      case "New":
+        rowsToColor[rowsToColor.length] = {
+          'id': options.rowId,
+          'color': options.colModel.formatoptions.new,
+          'cell': [0,2,3,4]
+        };
+
+        break;
+      case "Changed":
+        jQuery.ajax({
+          async: false,
+          data: {
+            'store_id': options.rowId,
+            'cell_color': options.colModel.formatoptions.changed
+          },
+          dataType: 'json',
+          url: '{{ path('limetrail_datagrid_cell_change') }}',
+          type: 'POST',
+          success: function (data) {
+            rowsToColor[rowsToColor.length] = {
+              'id': data.store_id,
+              'color': data.cell_color,
+              'cell': data.cell
+            };
+          }
+        });
+
+
+
+
+        break;
+      default:
+        break;
+    }
+
+    return cellValue;
+  }
+});
+
+$.ajaxSetup({
+  beforeSend: function(jqXHR, settings){
+    settings.url = settings.url.replace(/(\?\w+=)/gi,'');
+  }
+});
+</script>
+{% endblock %}

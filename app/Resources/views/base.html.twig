@@ -1,0 +1,201 @@
+{% extends 'ApplicationGlobalBundle::skeleton.html.twig' %}
+{% spaceless %}{#
+<!doctype html>
+<html lang="us">
+<head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
+        <meta name="viewport" content=" minimum-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no">
+        <meta name="robots" content="noindex,nofollow" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}?v=2" />
+	<link rel='stylesheet' href='//fonts.googleapis.com/css?family=Inder|Exo' type='text/css'>
+   {% stylesheets
+         'bundles/applicationglobal/css/style.css'
+         'bundles/applicationglobal/bootstrap/css/bootstrap.css'
+         'bundles/applicationglobal/bootstrap/css/bootstrap-theme.css'
+         'bundles/applicationglobal/css/offcanvas.css'
+       filter='cssrewrite'
+    %}
+   <link rel="stylesheet" href="{{ asset_url }}" media="screen" />
+   {% endstylesheets %}
+        
+   {% block stylesheets %}{% endblock %}
+   {% block head %}{% endblock %}
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script>window.jQuery 
+  {% javascripts
+      '@ApplicationGlobalBundle/Resources/public/js/jquery-1.11.1.js'
+   %}
+      || document.write (decodeURIComponent('%3Cscript src="{{ asset_url }}"%3E%3C/script%3E'))
+  {% endjavascripts %}
+  </script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+   {% block gridscripts %}{% endblock %}
+   {% block pageheadscripts %}{% endblock %}
+   <script>
+      {% block javascripts %}{% endblock %}
+   </script>
+  
+</head>
+<body>
+      <div class="navbar-wrapper">
+          <div class="container">
+              <nav class="navbar navbar-fixed-top navbar-inverse">
+                  <div class="container">
+                      <div class="navbar-header">
+                          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+                      </div>
+                      <div id="navbar" class="collapse navbar-collapse">
+                          <ul class="nav navbar-nav">
+                              <li><a href="{{ path('homepage') }}">Home</a></li>
+                              <li><a href="#about">About</a></li>
+                              <li><a href="#contact">Contact</a></li>
+                              
+                              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                              <li class="dropdown pull-right">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                      Hello, <strong>{{ app.user.username }}</strong>
+                                      <span class="caret"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu"> 
+                                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                                    <li><a href="{{ path('sonata_user_profile_show') }}">My Profile</a></li>
+                                  </ul>
+          
+                              {% else %}
+                              <li><a href="{{ path('fos_user_security_login') }}">Click here to log in</a></li>
+                              <li><a href="{{ path('fos_user_registration_register') }}">or Register here</a></li>
+                              {% endif %}
+                          </ul>
+                      </div><!-- /.nav-collapse -->
+                  </div><!-- /.container -->
+              </nav><!-- /.navbar -->
+          </div>
+      </div><!-- /.navbar-wrapper -->
+     
+       <div class="container">
+        <div class="row">
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+          <div class="col-xs-12 col-sm-6 col-lg-4">
+              <div class="alert alert-danger" role="alert"">
+                  <p>
+                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                      <span class="sr-only">Notice:</span>
+                      <em>Notice:</em> {{ flashMessage|trans|raw|nl2br }}
+                  </p>
+               </div>
+          </div><!-- /.col-xs-12.col-sm-6.col-lg-4 -->
+        {% endfor %}
+        </div><!-- /.row -->
+    
+    
+        <div class="row row-offcanvas row-offcanvas-right">
+            
+            <div class="col-xs-12 col-sm-10">
+              <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+              </p>
+              <div>
+      {% block content %}{% endblock %}
+    </div>
+              {% block jumbotron %}
+              {% endblock %}
+            </div><!--/.col-xs-12.col-sm-9-->
+            
+            <aside id="sidebar" class="col-xs-6 col-sm-2 sidebar-offcanvas">
+                <div class="list-group">
+                     {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <a href="{{ path('sonata_admin_dashboard') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Admin Dashboard</a>
+                        <a href="/xcache/cacher/index.php" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Xcache</a>
+                        <a href="/phpmyadmin/index.php" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>PHPMyadmin</a>
+                    {% endif %}
+                    
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if is_granted("ROLE_POWER_USER") %}
+                        <a href="{{ path('limetrail_storeinformation_customgrid') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>My Projects</a>
+                        <a href="{{ path('rha_pm_load') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>PM Load</a>
+                        <a href="{{ path('rha_project_forecast') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Project Schedules</a>
+                        <a href="{{ path('limetrail_storeinformation_walmart_sort', {'name': 'walmart'}) }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Projects by Walmart Client</a>
+                        {% else %}
+                        <a href="{{ path('limetrail_storeinformation_customgrid') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>My Projects</a>
+                        {% endif %}
+                      
+                        {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path('rha_financial_home') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Contracts Home</a>
+                        {% endif %}
+                      
+                        <a href="{{ path('limetrail_storeinformation') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>All Stores List</a>
+                        <a href="{{ path('limetrail_projectdates_aggregated') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Current Projects (Trident)</a>
+                        <a href="{{ path('trail_contact') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Search Contacts</a>
+                      
+                        {% if is_granted("ROLE_POWER_USER") %}
+                        <a href="{{ path('rha_project_assignments') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Projects By PM</a>
+                        <a href="{{ path('limetrail_projectschedule') }}" class="list-group-item"><span class="glyphicon glyphicon glyphicon-circle-arrow-right"></span>Shells Due Dates</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </aside>
+            
+        </div><!-- /.row.row-offcanvas.row-offcanvas-right -->
+    </div><!-- /.container -->
+    
+    {% block container %}
+    {% endblock %}
+
+    {% block content_header %}{% endblock %}
+    {% block content_header_more %}{% endblock %}
+
+    
+  
+    <div class="container">
+      {% block body %}{% endblock %}
+    </div>
+        
+  <footer>
+    <div class="footer">
+      <p>&copy; RHA logo
+      {% block footer_content %}{% endblock %}
+      </p>
+    </div>
+  </footer>
+  
+  
+  {% block sidebar %}{% endblock %}
+  
+  
+  
+  
+
+        
+   {% javascripts
+      '@ApplicationGlobalBundle/Resources/public/bootstrap/js/bootstrap.js'
+      '@ApplicationGlobalBundle/Resources/public/js/offcanvas.js'
+   %}
+      <script src="{{ asset_url }}"></script>
+   {% endjavascripts %}
+   
+
+   <script>
+     {% block pagebodyscripts %}{% endblock %}
+   </script>
+      
+
+   
+</body>
+</html>#}
+{% endspaceless %}
+

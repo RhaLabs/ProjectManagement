@@ -1,0 +1,115 @@
+application_global:
+    resource: "@ApplicationGlobalBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+rha_project_management:
+    resource: "@RhaProjectManagementBundle/Controller/"
+    type:     annotation
+    prefix:   /rha
+
+rha_revit:
+    resource: "@RhaRevitBundle/Controller/"
+    type:     annotation
+    prefix:   /revit
+
+lime_trail_jquery:
+    resource: "@LimeTrailJqueryBundle/Resources/config/routing.yml"
+    prefix:   /
+
+application_sonata_admin:
+    resource: "@ApplicationSonataAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+homepage:
+    pattern: /
+    defaults: { _controller: LimeTrailIndexBundle:Default:index }
+    
+mobilehome:
+    pattern: /m
+    defaults: { _controller: LimeTrailIndexBundle:Default:m }
+
+limepolicy:
+    pattern: /policy/{policy}
+    defaults: { _controller: LimeTrailIndexBundle:Default:policy }
+
+lime_trail_index:
+    resource: "@LimeTrailIndexBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+data_slick_grid:
+    resource: "@DataGridBundle/Resources/config/routing.yml"
+    prefix:   /data
+
+limetrail_security:
+    resource: "@LimeTrailSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+limetrail:
+    resource: "@LimeTrailBundle/Controller/"
+    type: annotation
+    prefix:   /trail
+
+thrace_data_grid:
+    resource: "@ThraceDataGridBundle/Resources/config/routing.xml"
+    prefix: /trail
+
+fos_user_profile_show:
+    pattern: /profile
+    defaults: { _controller: SonataUserBundle:Profile:show }
+    requirements:
+      _method: GET
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+sonata_page_cache:
+    resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
+    prefix: /
+
+sonata_user:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /admin
+    
+sonata_user_profile_edit:
+    path: /profile/edit
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: fos_user_profile_edit
+
+sonata_user_profile_edit_authentication:
+    path: /profile/edit-authentication
+    defaults:
+        _controller: SonataUserBundle:ProfileFOSUser1:editAuthentication
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+sonata_user_impersonating:
+    pattern: /
+    defaults: { _controller: SonataPageBundle:Page:catchAll }
+
+

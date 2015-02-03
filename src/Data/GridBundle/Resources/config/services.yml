@@ -1,0 +1,7 @@
+parameters:
+#    data_grid.example.class: Data\GridBundle\Example
+
+services:
+#    data_slick_grid.example:
+#        class: %data_grid.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

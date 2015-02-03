@@ -1,0 +1,99 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle::datagrid.html.twig' with head_bottom as grid_head_bottom %}
+
+{% block head_style %}
+    {{ parent() }}
+    {{ block('stylesheets') }}
+{% endblock head_style %}
+
+{% block head_bottom %}
+{{ parent() }}
+{{ block('grid_head_bottom') }}
+<script>
+  $(function() {
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li, #press" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+
+
+$( "#dialog" ).dialog({
+      autoOpen: false,
+      width: function(){
+        var width = $(this.bDiv).find('div:first>id.thrace-datagrid-project_info:first'),
+            shrinktofit = $('#thrace-datagrid-project_info').jqGrid('getGridParam', 'shrinkToFit');
+        $('#thrace-datagrid-project_dates').jqGrid('setGridWidth',width,shrinktofit);
+      },
+      modal: true,
+      closeOnEscape: true,
+      buttons: [
+        {
+          text: "Done",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+});
+$('td.jqgrow').click(function(e) {
+    e.preventDefault();
+    $( "#dialog" ).dialog('open');
+});
+});
+function openGrid (rowId) {
+  $("#thrace-datagrid-project_info").jqGrid('setSelection',rowId,true);
+  $("#dialog").dialog('open');
+}
+/*$("#mysearch").jqGrid(
+  'filterGrid',
+  '#thrace-datagrid-project_dates',
+  {
+  gridModel: false,
+  filterModel: [
+    {
+      label: 'first rundate',
+      name: 'rundate',
+      stype: 'text',
+      sopt: { dataInit: function (element) {$(element).datepicker({
+                              dateFormat: "mm/dd/yy" })} }
+    }
+  ],
+  }
+);*/
+$.extend($.fn.fmatter , {
+  dependentGridLink : function(cellvalue, options, rowdata)
+  {
+    var s = '<a href="javascript:void(0);" onclick="openGrid('+
+            cellvalue+
+            ');">'+
+            '<span class="ui-icon ui-icon-newwin" style="float: left; margin-right: .3em;"/>'+
+            'Projects</a>';
+    return s;
+  }
+});
+</script>
+{% endblock %}
+
+{% block content %}
+   <div class="col-sm-12">{{ thrace_datagrid('contacts') }}</div>
+    <div></div>
+   <div id="dialog" title="All Assigned Projects">
+     <a href="#" style="display:none;"></a>
+     <div id="mysearch"></div>
+     <div class="col-sm-12">{{ thrace_datagrid(identifier) }}</div>
+   </div>
+   {{ block('sidebar') }}
+{% endblock %}

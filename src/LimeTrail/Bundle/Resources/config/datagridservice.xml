@@ -1,0 +1,202 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+        <parameters>
+            <parameter key="lime_trail.grid_model.provider.class">LimeTrail\Bundle\Provider\GridModelProvider</parameter>
+        </parameters>
+
+    <services>
+
+      <service id="lime_trail_grid_model.provider" class="%lime_trail.grid_model.provider.class%">
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+      </service>
+
+      <service id="lime_trail.project_information" class="LimeTrail\Bundle\Builders\ProjectinformationBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.project_information.datagrid" class="Thrace\DataGridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.project_information"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="project_info" />
+      </service>
+
+      <service id="lime_trail.store_information" class="LimeTrail\Bundle\Builders\StoreInformationBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.store_information.datagrid" class="Thrace\DataGridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.store_information"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="store_info" />
+      </service>
+
+      <service id="lime_trail.customstore_information" class="LimeTrail\Bundle\Builders\CustomStoreInformationBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.customstore_information.datagrid" class="Thrace\DataGridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.customstore_information"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="mystore_info" />
+      </service>
+
+      <service id="lime_trail.project_dates" class="LimeTrail\Bundle\Builders\ProjectDatesBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.project_dates.datagrid" class="Thrace\DataGridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.project_dates"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="project_dates" />
+      </service>
+
+      <service id="lime_trail.event.store_information_row" class="LimeTrail\Bundle\Event\StoreInformationRowListener">
+         <call method="setContainer">
+              <argument type="service" id="service_container" />
+         </call>
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowEdit" method="onRowEdit" />
+      </service>
+
+      <service id="lime_trail.event.project_contact_row" class="LimeTrail\Bundle\Event\ProjectsContactRowListener">
+         <call method="setContainer">
+              <argument type="service" id="service_container" />
+         </call>
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowAdd" method="onRowAdd" />
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowEdit" method="onRowEdit" />
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowDel" method="onRowDelete" />
+      </service>
+
+      <service id="lime_trail.event.contact_row" class="LimeTrail\Bundle\Event\ContactRowListener">
+         <call method="setContainer">
+              <argument type="service" id="service_container" />
+         </call>
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowEdit" method="onRowEdit" />
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowDel" method="onRowDelete" />
+      </service>
+
+      <service id="lime_trail.event.dates_row" class="LimeTrail\Bundle\Event\DatesRowListener">
+         <call method="setContainer">
+              <argument type="service" id="service_container" />
+         </call>
+         <tag name="kernel.event_listener" event="thrace_datagrid.onRowEdit" method="onRowEdit" />
+      </service>
+
+      <service id="lime_trail.event.dates_data" class="LimeTrail\Bundle\Event\DatesDataListener">
+         <call method="setContainer">
+              <argument type="service" id="service_container" />
+         </call>
+         <tag name="kernel.event_listener" event="thrace_datagrid.onDataReady" method="onDataReady" />
+      </service>
+
+      <service id="lime_trail.event.data" class="LimeTrail\Bundle\Event\DataGridListener">
+        <argument type="service" id="request_stack" />
+        <tag name="kernel.event_listener" event="thrace_datagrid.onDataReady" method="onDataReady" />
+      </service>
+
+      <service id="lime_trail.contacts.builder" class="LimeTrail\Bundle\Builders\ContactsBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.contacts" class="Thrace\DataGridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.contacts.builder"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="contacts" />
+      </service>
+
+      <service id="lime_trail.projects_contact" class="LimeTrail\Bundle\Builders\ProjectsContactBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.projects_contact.datagrid" class="Data\GridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.projects_contact"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="projects_contact" />
+      </service>
+
+      <service id="lime_trail.dates" class="LimeTrail\Bundle\Builders\DatesBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.dates.datagrid" class="Data\GridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.dates"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="dates" />
+      </service>
+
+      <service id="lime_trail.stores_by_client" class="LimeTrail\Bundle\Builders\StoresByClientBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.stores_by_client.datagrid" class="Data\GridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.stores_by_client"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="stores_by_client" />
+      </service>
+
+      <service id="lime_trail.schedule" class="LimeTrail\Bundle\Builders\ProjectScheduleBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.schedule.datagrid" class="Data\GridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.schedule"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="schedule" />
+      </service>
+
+      <service id="lime_trail.project_change" class="LimeTrail\Bundle\Builders\ProjectChangeBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="lime_trail.project_change.datagrid" class="Data\GridBundle\DataGrid\DataGrid"
+        factory-service="lime_trail.project_change"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="project_change" />
+      </service>
+
+    </services>
+</container>

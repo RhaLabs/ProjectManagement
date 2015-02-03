@@ -1,0 +1,4 @@
+users:
+    resource: "LimeTrailBundle:CityRest"
+    type:     rest
+    name_prefix: api_

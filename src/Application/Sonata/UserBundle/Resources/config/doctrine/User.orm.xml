@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Application\Sonata\UserBundle\Entity\User" table="fos_user_user">
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+    
+        <field name="encoderName" type="string" length="25">
+            <options>
+                <option name="default">legacy</option>
+            </options>
+        </field>
+        
+        <field name="emailAuthEnabled" type="boolean" nullable="true">
+            <options>
+                <option name="default">1</option>
+            </options>
+        </field>
+        
+        <field name="emailAuthCode" type="string" length="10" nullable="true">
+        </field>
+        
+        <field name="trustedComputer" type="json_array" nullable="true">
+        </field>
+
+    </entity>
+
+</doctrine-mapping>

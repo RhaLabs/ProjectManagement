@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block title 'RHA Management Suite' %}
+
+{% block content %}
+    <div style="clear: both"></div>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">Application Links:
+        {% elseif is_granted('ROLE_USER') %}
+        <ul><a href="{{ path('limetrail_home') }}">Project Management Tools</a>
+        {% elseif is_granted('ROLE_ADMIN') %}
+
+        {% elseif is_granted('ROLE_SUPERADMIN') %}
+
+    {% else %}
+
+    {% endif %}
+
+{% endblock %}

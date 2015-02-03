@@ -1,0 +1,143 @@
+{% extends '::base.html.twig' %}
+
+
+{% block foot_script %}
+{{ parent() }}
+
+{% javascripts
+      'bundles/datagrid/js/JqGrid/js/ViewCommon.js'
+   %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/highcharts-more.js"></script>
+<script src="//code.highcharts.com/modules/exporting.js"></script>
+<script src="//code.highcharts.com/modules/drilldown.js"></script>
+
+<script>window.Highcharts || document.write (unescape('
+  {% javascripts
+      '@DataGridBundle/Resources/public/js/js/highcharts.js'
+      '@DataGridBundle/Resources/public/js/js/highcharts-more.js'
+      '@DataGridBundle/Resources/public/js/js/modules/exporting.js'
+   %}
+      %3Cscript src="{{ asset_url }}"%3E%3C/script%3E
+  {% endjavascripts %}
+  '))
+</script>
+
+<script>
+$(function () {
+    Highcharts.setOptions({
+    chart: {
+        style: {
+            fontFamily: '"Inder", Helvetica, Tahoma, Arial, sans-serif',
+            fontSize: '1.25em'
+        }
+    },
+    lang: {
+      loading: 'Loading data ...'
+    }
+});
+
+    $('#container').highcharts({
+        chart: {
+            type: 'column',
+            events: {
+              drilldown: function (e) {
+                var chart = this;
+
+                chart.showLoading();
+
+                //ajax the data here
+                $.post(
+                  "{{ path('rha_pm_loadprojects') }}",
+                  { 'manager': e.point.name },
+                  function( data ) {
+                    chart.hideLoading();
+
+                    chart.addSeriesAsDrilldown(e.point, data);
+                  }
+                );
+              }
+            }
+        },
+        xAxis: {
+          title: {
+            text: 'Project Managers'
+          },
+          type: 'category'
+        },
+        yAxis: {
+          title: {
+            text: 'Number of Projects'
+          }
+        },
+        credits: {
+          text: 'Copyright RHA powered by Highcharts JS',
+          href: "{{ path('homepage') }}"
+        },
+        title: {
+          text: 'Work Load'
+        },
+        plotOptions: {
+          series: {
+            borderWidth: 0,
+            shadow: true,
+            dataLabels: {
+              enabled: true,
+            }
+          }
+        },
+        legend: {
+          enabled: true
+        },
+        exporting: {
+          filename: 'Projects by Manager',
+          sourceWidth: 1545,
+          sourceHeight: 500,
+          buttons: {
+            contextButton: {
+              menuItems: null,
+              onclick: function () {
+                this.exportChart();
+              }
+            }
+          },
+          type: 'application/pdf'
+        },
+        loading: {
+          style: {
+            backgroundColor: 'gray'
+          },
+          labelStyle: {
+            color: '#ba0d0d'
+          }
+        },
+        series: [{
+          name: 'Projects by Manager',
+          data: [
+          {% for data in result %}
+            {
+              name: '{{ data.user }}',
+              {% if data.chartColor is not empty %}
+                color: '{{ data.chartColor }}',
+              {% endif %}
+                drilldown: true,
+                y: {{ data.1 }}
+            },
+          {% endfor %}
+          ]
+        }],
+        drilldown: {
+          series: []
+        }
+    });
+});
+</script>
+{{ block('pageheadscripts') }}
+{% endblock %}
+
+{% block content %}
+   <div class="col-sm-12" id="container" style="width:100%; height:400px;"></div>
+{% endblock %}

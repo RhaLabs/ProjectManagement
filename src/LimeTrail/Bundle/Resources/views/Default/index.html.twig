@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+
+
+ {% block content %}
+    <div id="clear" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active"> {% if is_granted("ROLE_SUPER_ADMIN") %}
+     <ul><a href="{{ path('limetrail_contacts') }}">Contacts Info</a></ul> {% endif %}
+
+     <ul><a href="{{ path('limetrail_storeinformation_customgrid') }}">My Projects</a></ul>
+
+     <ul><a href="{{ path('limetrail_storeinformation') }}">All Stores List</a></ul>
+
+     <ul><a href="{{ path('limetrail_projectdates_aggregated') }}">Current Projects (Trident)</a></ul>
+
+    </div>
+ {% endblock %}

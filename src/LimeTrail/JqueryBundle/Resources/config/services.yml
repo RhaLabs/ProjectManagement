@@ -1,0 +1,7 @@
+parameters:
+#    lime_trail_jquery.example.class: LimeTrail\JqueryBundle\Example
+
+services:
+#    lime_trail_jquery.example:
+#        class: %lime_trail_jquery.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

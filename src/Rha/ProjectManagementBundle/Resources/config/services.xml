@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="rha_project_management.example.class">Rha\ProjectManagementBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="rha_project_management.example" class="%rha_project_management.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+
+    <services>
+      <service id="rha.projects" class="Rha\ProjectManagementBundle\Builders\ProjectBuilder" >
+        <argument type="service" id="thrace_data_grid.factory.datagrid" />
+        <argument type="service" id="translator" />
+        <argument type="service" id="router" />
+        <argument type="service" id="doctrine.orm.limetrail_entity_manager" />
+        <argument type="service" id="service_container" />
+      </service>
+
+      <service id="rha.projects.datagrid" class="Data\GridBundle\DataGrid\DataGrid"
+        factory-service="rha.projects"
+        factory-method="build">
+        <tag name="thrace_data_grid.datagrid" alias="rhaprojects" />
+      </service>
+
+      <service id="rha.type.projectinformationtype" class="Rha\ProjectManagementBundle\Form\Type\ProjectInformationType">
+        <argument type="service" id="doctrine.orm.entity_manager"/>
+        <tag name="form.type" alias="projectinformationtype"/>
+      </service>
+    </services>
+
+</container>

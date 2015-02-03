@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+
+
+{% block pageheadscripts %}
+<script>
+$(function() {
+  $("select#ctlJob").change(function(){
+    $.getJSON("/select.php",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+      for (var i = 0; i < j.length; i++) {
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+      }
+      $("select#ctlPerson").html(options);
+    });
+  });
+
+  $.post( "ajax/test.html", function( data ) {
+    $( "select#contacts" ).html( data );
+  });
+});
+</script>
+{% endblock %}
+
+{% block content -%}
+{{ form(form) }}
+{% endblock %}

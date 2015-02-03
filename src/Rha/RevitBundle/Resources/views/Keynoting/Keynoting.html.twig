@@ -1,0 +1,266 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+  {% stylesheets
+       'bundles/rharevit/css/reviticons.css'
+       filter='cssrewrite'
+  %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+  $(function() {
+
+    $( "#accordion" ).accordion({
+      heightStyle: "content",
+      collapsible: true,
+      icons: { header: "ui-icon-triangle-1-e", activeHeader: "ui-icon-triangle-1-s"}
+      });
+
+      $( "#menu" ).menu();
+
+
+
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#autocomplete" ).autocomplete({
+      source: availableTags
+    });
+
+
+
+    $( "#button" ).button();
+    $( "#radioset" ).buttonset();
+
+
+
+    $( "#tabs" ).tabs();
+
+
+
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      width: 400,
+      buttons: [
+        {
+          text: "Ok",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        {
+          text: "Cancel",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+
+
+    $( "#datepicker" ).datepicker({
+      inline: true
+    });
+
+
+
+    $( "#slider" ).slider({
+      range: true,
+      values: [ 17, 67 ]
+    });
+
+
+
+    $( "#progressbar" ).progressbar({
+      value: 20
+    });
+
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+  });
+{% endblock %}
+{% block title %}RHA Revit Guide{% endblock %}
+{% block heading %}Keynoting in Revit{% endblock %}
+{% block body -%}
+    <div class="border header clear-fix">
+
+                    <div id ="accordion">
+                      <h3>Key Notes and You</h3>
+                        <div>
+                          <p>Key noting with Revit is <strong><em>not the same thought process</em></strong> as with AutoCad.
+                          What this means is that instead of thinking about the <strong>text</strong> of the key note you need to think about the <strong>thing</strong> that the key note points at.
+                          There are three kinds of key notes in revit:
+                              <div class="center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/Keynote_element.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Element</figcaption>
+                                    </figure>
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/Keynote_material.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Material</figcaption>
+                                    </figure>
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/Keynote_user.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>User</figcaption>
+                                    </figure>
+                              </div>
+                          <div>
+                             <figure>
+                               <img src="{{ asset('bundles/rharevit/images/Keynote_element.png') }}" style="vertical-align:middle; float:left"/>
+                             </figure>
+                             This is the element key note icon. This will place a key note in a view which reads an element's <strong>Key Value</strong>.  This value is defined in the element's type.
+                             <br/>
+                             <figure>
+                               <img src="{{ asset('bundles/rharevit/images/Keynote_material.png') }}" style="vertical-align:middle; float:left; "/>
+                             </figure>
+                             This is the material key note icon.  This will place a key note in a view which reads a <em>material's</em> <strong>Key Value</strong>.  A material can be defined in an element type OR over-ridden as a paint to the element's instance.
+                             <div class="ui-widget">
+                                 <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                   <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                             It is important to note that a painted material has priority over any material inside an element type.
+                                 </div>
+                             </div>
+                             <figure>
+                               <img src="{{ asset('bundles/rharevit/images/Keynote_user.png') }}" style="vertical-align:middle; float:left; "/>
+                             </figure>
+                             This is the user key note icon.  This will place a key note in a view which is not dependent on the model.
+                             You can change its value to anything you want without affecting the model.
+                             These key notes are very useful for keying parts of linked Revit models and for demolition notes.  You shouldn't be using this key note in a general or regular manner;
+                             it should only be used when an element or material keynote won't work.
+
+                          </div>
+                          <div class="ui-widget">
+                                 <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                   <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                   <em>Notice</em>: <strong>Do not edit</strong> the key note value from the keynote properties.
+                                   If you change the value here it will change the value <strong>everywhere</strong>.  Only change key note values from the elements (things) they are pointing at.
+                                   Often the correct solution is to change the element type.  The only exception to this is for <strong><em>User</em></strong> Key Notes.</p>
+                                 </div>
+                          </div>
+                          <div class="center">
+                            <figure>
+                              <img src="{{ asset('bundles/rharevit/images/Keynote.png') }}" width="50%" class="border"/>
+                              <figcaption>A Selected Element Key Note</figcaption>
+                            </figure>
+                            <figure>
+                              <img src="{{ asset('bundles/rharevit/images/Keynote_properties.png') }}" width="75%" class="border"/>
+                             <figcaption>Key Note Properties.<br/>Note that the Value parameter can be changed.<figcaption>
+                            </figure>
+                          </div>
+                          <p>
+                            When you hide an element (Wall, bollard, door, etc.) any key notes which reference the element will also be hidden.  To get the key notes to show back up simply unhide the element.
+                            You can use Reveal Hidden <span class="revit-icon revit-icon-revealhidden-off" style="display:inline-block"></span> to show the hidden elements.
+                            Don't forget to click <span class="revit-icon revit-icon-revealhidden-on" style="display:inline-block"></span> to toggle off the reveal hidden mode when done.
+                            You can find the icon in the View Graphics Bar <img src="{{ asset('bundles/rharevit/images/view_graphics_bar.png') }}" style="display:inline"/> at the bottom of each view.
+                          </p>
+                          </p>
+
+                        <!--  <div class="center">
+                            <figure>
+                          <img src="Content/Stacked_Wall.png" width="125%" class="border"/>
+                            <figcaption>Stacked Wall in Elevation</figcaption>
+                          </figure>
+                          <figure>
+                          <img src="Content/Stacked_Wall_section.png" width="15%" class="border" style="margin-left: 20em;"/>
+                            <figcaption style="margin-left: 20em;">Stacked Wall in Section.<br/>Note the "stacking" of multiple Basic Walls.<br/>To change the keynotes you'll need to edit <em>each</em> of the Basic walls.<figcaption>
+                          </figure>
+                          </div>
+                          <p>
+                            The <span style="padding: .7em; align: middle;"><img src="Content/paint.png" style="vertical-align:middle;"/></span>paint tool applies a material to a surface.
+                          </p> -->
+                        </div>
+                      <h3>Key Note File Location</h3>
+                        <div>
+                          <ul>
+                           <p>Key notes are stored in a special text file.  To find out where Revit is loading this file look for it under<br/>
+                           <span><strong>Annotate <span class="ui-icon ui-icon-circle-arrow-e" style="display: inline-block;" ></span> Tag <span class="ui-icon ui-icon-circle-arrow-e" style="display: inline-block;" ></span> Keynote Settings</strong></p></span>
+                           <img src="{{ asset('bundles/rharevit/images/Annotate-bar.png') }}" width="80%" class="border"/><br/>
+                           <div id="giffer">
+                           <img src="{{ asset('bundles/rharevit/images/Keynote-pane.gif') }}" width="80%" class="border"/><br/><a id="refresh" href="#">Replay</a>
+                           </div>
+                           <img src="{{ asset('bundles/rharevit/images/Keynote_Settings.png') }}" width="40%" class="border"/>
+                              <div class="ui-widget">
+                                 <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                   <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                   <em>Notice</em>: Do not edit the default key note file  For Sam's the default file should be located: R:\04 New Sam's
+                                   and for Supercenters the file should be: R:\05 New Supercenters.<br/>
+                                   Make a copy of one of these files and put it in your Drawings folder.  Once you've done that change the "Full Path" to point at the new file.
+                                   </p>
+                                 </div>
+                              </div>
+                           </ul>
+                         </div>
+                        <h3>Editing The Key Note File</h3>
+                          <div>
+                            <p>The Key Note text file is a ordered and punctuated using a specific convention.  If you don't follow this convention then Revit won't be able to read your Key Note file.
+                            You can edit the file with any text processor - notepad, Word, Excel, Outlook, etc.  How ever you edit it the file must be saved as a plain text - a file having '.txt' on the end.
+                            </p>
+                              <div class="ui-widget">
+                                 <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                   <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                   <em>Notice</em>: Don't go editing this text file without fully understanding its structure.<br/>
+                                   Revit is expecting this file to be structured a certain way and to have specific kinds of punctuation.</p>
+                                 </div>
+                              </div>
+                          </div>
+                     </div>
+      </div>
+      {% endblock %}
+
+{% block sidebar -%}
+      <div id="sidebar" class="ui-widget ui-helper-clearfix ui-corner-all" >
+        <ul id="menu">
+          <li><a href="{{ path('rha_revit_default_index') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
+          <li><a href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="{{ path('rha_revit_revisesheets') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revised Sheets</a></li>
+          <li><a href="{{ path('rha_revit_shellplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Shell Plan</a></li>
+          <li><a href="{{ path('rha_revit_revitui') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revit UI</a></li>
+          <li><a href="{{ path('rha_revit_demoplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Demo/Phasing Plans</a></li>
+         </ul>
+       </div>
+   </div>
+
+{% endblock %}
+
+{% block pagebodyscripts -%}
+        $("#refresh").click(function() {
+          $("#giffer").find('img').attr("src", "{{ asset('bundles/rharevit/images/Keynote-pane.gif') }}");
+        });
+{% endblock %}

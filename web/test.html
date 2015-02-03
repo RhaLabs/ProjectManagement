@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <tr>
+      <th>Store Number</th>
+      <th>Name</th>
+      <th>PWO Date</th>
+      <th>Store Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for store in result %}
+    <tr>
+      <td>{{ store.number }}</td>
+      <td>{{ store.canonicalName }}</td>
+      <td>{{ store.pwoPrj|date }}</td>
+      <td>{{ store.type }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+

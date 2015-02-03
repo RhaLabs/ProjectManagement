@@ -1,0 +1,292 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+  {% stylesheets
+       'bundles/rharevit/css/reviticons.css'
+       filter='cssrewrite'
+  %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+  $(function() {
+
+    $( "#accordion" ).accordion({
+      heightStyle: "content",
+      collapsible: true,
+      icons: { header: "ui-icon-triangle-1-e", activeHeader: "ui-icon-triangle-1-s"}
+      });
+
+
+
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#autocomplete" ).autocomplete({
+      source: availableTags
+    });
+
+
+
+    //$( "#button" ).button();
+    $(".button").button({
+      icons: { primary: "ui-icon-triangle-1-e"}
+    });
+    $( "#radioset" ).buttonset();
+
+
+
+    $( "#tabs" ).tabs();
+
+
+
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      width: 400,
+      buttons: [
+        {
+          text: "Ok",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        {
+          text: "Cancel",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+
+
+    $( "#datepicker" ).datepicker({
+      inline: true
+    });
+
+
+
+    $( "#slider" ).slider({
+      range: true,
+      values: [ 17, 67 ]
+    });
+
+
+
+    $( "#progressbar" ).progressbar({
+      value: 20
+    });
+
+    $( ".menu" ).menu();
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+  });
+{% endblock %}
+{% block title %}RHA Revit Guide{% endblock %}
+{% block heading %}Shell Plan Guide From Revit{% endblock %}
+{% block body -%}
+      <div id="accordion">
+        <h3 id="Get_Started">Get Current Export Settings</h3>
+         <div>
+            <p class="border">
+            The protos have been making regular updates to the shell plan export settings.  In general if you use the latest shell plan export settings it will greatly simplify
+            the work needed to get a plan that you can then submit.  In your Dropbox you will find a folder <img src="{{ asset('bundles/rharevit/images/revit_folder.png') }}" class="inline"/>.  Browse
+            to this folder from Revit and open the file "Shell Export Settings.rvt"
+            </p>
+          <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/shellplan_export_open.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+          </div>
+          <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                  <em>Notice</em>: This file has been created from the <em>Sam's Club Proto</em>.  If you are working from the Supercenter make a new file then continue below.
+                  </p>
+                </div>
+          </div>
+          <p class="border">
+            Open up the proto Revit model from which to want to copy settings then toggle back to the Shell Export Setting file.  All you need to do now is transfer project standards.
+            We're only interested in two categories.  DWG Export settings and View Templates.
+          </p>
+          <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/transferprojectstandards_button.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+          </div>
+          <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/transferprojectstandards_copy.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+          </div>
+          <p class="border">
+          Now click <img src="{{ asset('bundles/rharevit/images/ok_button.png') }}" class="inline"/> and once Revit finishes copying the information over to your file go to Manage <span class="ui-icon ui-icon-circle-arrow-e" style="display: inline-block;" ></span> View Templates.
+          You'll want to delete all of the templates except the shell plan ones.  This way you cn import only the View Template you ned without over writing any work you've already done
+          in your View Templates.
+          </p>
+          <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/view_templates_manage_button.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+          </div>
+          <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/view_templates_manage_dialog.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+          </div>
+          <p>
+            Use the delete <span class="revit-icon revit-icon-delete" style="display:inline-block"></span> to remove all templates except the ones called "shell".  Now you're
+            finally ready to transfer the settings to your project.  Open your project if you don't have it open already.  Once it has opened go to Manage
+            <span class="ui-icon ui-icon-circle-arrow-e" style="display: inline-block;" ></span> Transfer Project Standards and transfer the DWG Export settings and View Templates
+            from your <em>Shell Export file</em>.  You want to let Revit over write any settings.  Once finished you can close hidden views <span class="revit-icon revit-icon-closehidden" style="display: inline-block;" ></span>
+            if you maximize the current view.  This will close the other projects you have open.
+          </p>
+          <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                  <em>Notice</em>: Don't save the proto files.  The files should be read-only but just in case be sure to NOT save them.
+                  </p>
+                </div>
+          </div>
+         </div>
+
+       <h3>Exporting The Shell</h3>
+        <div>
+          <p>
+            For this example I'm going to use the Sam's Club becuase we tend to produce more clubs.  The Supercenter is very similar.  From your Project Browser find a sheet named
+            <em>Shell Plan</em>.
+            <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/shellplan_sheet_browser.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/shellplan_sheet.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+            </div>
+            In general the sheet layout for a Sam's club shell shuld look like this.  Try to tag and label as much as possible in Revit that way you'll have less
+            work to do in AutoCad and on subsequent shells.  See the next section for a link to the Sam's Club shell guideline. <br/>
+            You can now do the export.
+            <span class="inline revit-icon-medium revit-icon-revit-2014" style="margin: 0 .7em"></span>
+            <span class="inline ui-icon ui-icon-circle-arrow-e" style="margin: 0 .7em" ></span>
+            <span class="inline revit-icon-medium revit-icon-export" style="margin: 0 .7em"></span>Export
+            <span class="inline ui-icon ui-icon-circle-arrow-e" style="margin: 0 .7em" ></span>
+            <span class="inline revit-icon-medium revit-icon-export-cadformats" style="margin: 0 .7em"></span>Cad Formats
+            <span class="inline ui-icon ui-icon-circle-arrow-e" style="margin: 0 .7em" ></span>
+            <span class="inline revit-icon revit-icon-export-dwg-2013" style="margin: 0 .7em"></span> DWG (2013 icon) or
+            <span class="inline revit-icon revit-icon-export-dwg-2014" style="margin: 0 .7em"></span> DWG (2014 icon)
+          </p>
+          <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                  <em>Notice</em>: Be sure to use the shell export settings that you imported.  Otherwise you might have a lot more work to do in cad.
+                  <figure>
+                    <img src="{{ asset('bundles/rharevit/images/shellplan_export_selection.png') }}" style="vertical-align:middle;"/>
+                  </figure>
+                  </p>
+                </div>
+          </div>
+        </div>
+
+       <h3>AutoCad Cleanup</h3>
+        <div>
+          <p>
+            Now that you have a CAD plan you need to make it into the proper format for either Wal-Mart or Sam's.  Make sure to get the latest version of the respective guidelines before you start.
+            <ul class="ui-widget ui-widget-content ui-corner-all border">
+              <li>Get the Supercenter, Neighborhood Market, and Express shell plan guideline from <a href="http://wal-mart-us.evocoworkspace.com/Application/project/default.aspx?FolderID=41f454a1-0a3b-4424-b48d-0886001d0ba9">Wal-Mart Workspace</a></li>
+              <li>Get the Sam's Club shell plan guideline from <a href="http://wal-mart-us.evocoworkspace.com/Application/Project/Default.aspx?FolderID=41f454a1-0a3b-4424-b48d-0886001d0ba9&expandNode=36779404-3e6f-472f-b960-26696916c1b8&openToFolder=36779404-3e6f-472f-b960-26696916c1b8">Wal-Mart Workspace</a></li>
+            </ul>
+          </p>
+          <p>
+              The Wal-Mart exports start out relatively decently so you should be able to start following the Wa-Mart shell guideline at this point.
+              Sam's Club exports will have some information in both <em>Paper Space</em> and <em>Model Space</em>.  We need to move the paper space information into
+              model space before starting on the guideline.
+          </p>
+          <p>
+            <span class="inline ui-icon ui-icon-script" style="margin: 0 .1em" ></span>I've made AutoCad scripts which do a little magic.  If you use the
+            ribbon UI in AutoCad the button you want is under the manage tab.  You can also just type <code>SCRIPT</code> at the command prompt.
+            <div class="center">
+             <figure>
+                <img src="{{ asset('bundles/rharevit/images/CAD_ribbon_script.png') }}" style="vertical-align:middle;"/>
+                <figcaption></figcaption>
+             </figure>
+            </div>
+            Browse to the file below <img src="{{ asset('bundles/rharevit/images/folder_dropbox.png') }}" class="inline" style="margin: 0 .1em"/> folder<br/>
+              <img src="{{ asset('bundles/rharevit/images/folder_support.png') }}" class="inline" style="margin: 0 .7em"/>
+              <span class="inline ui-icon ui-icon-circle-arrow-e" style="margin: 0 .7em" ></span>
+              <img src="{{ asset('bundles/rharevit/images/folder_shellscript.png') }}" class="inline" style="margin: 0 .7em"/>
+              <span class="inline ui-icon ui-icon-circle-arrow-e" style="margin: 0 .7em" ></span>
+              <img src="{{ asset('bundles/rharevit/images/file_sam_shell_script.png') }}" class="inline" style="margin: 0 .7em"/>
+          </p>
+          <p>
+            Running this script will take a little bit of time but it should help get the plan closer to what it needs before you have to touch it.  To summarize what this script does:
+            <ul>
+              <li><span class="inline ui-icon ui-icon-minus" style="margin: 0 .1em" ></span>Finds all of the paper space information and moves it to model space</li>
+              <li><span class="inline ui-icon ui-icon-minus" style="margin: 0 .1em" ></span>Scales and centers the titleblock around the floor plan</li>
+              <li><span class="inline ui-icon ui-icon-minus" style="margin: 0 .1em" ></span>Tries to fix some blocks and put them on the correct layer</li>
+              <li><span class="inline ui-icon ui-icon-minus" style="margin: 0 .1em" ></span>Sets the LineTypeScale to 60</li>
+              <li><span class="inline ui-icon ui-icon-minus" style="margin: 0 .1em" ></span>Tries to put lines, grids, and dims on the proper shell layers</li>
+            </ul>
+          </p>
+        </div>
+     </div>
+      {% endblock %}
+
+{% block sidebar -%}
+  <div id="wrapper">
+   <div id="sidebar"  >
+        <ul class="menu">
+          <li><a href="{{ path('rha_revit_default_index') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
+          <li><a href="{{ path('rha_revit_keynoting') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Key Noting</a></li>
+          <li><a href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="{{ path('rha_revit_revisesheets') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revised Sheets</a></li>
+          <li><a href="{{ path('rha_revit_revitui') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revit UI</a></li>
+          <li><a href="{{ path('rha_revit_demoplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Demo/Phasing Plans</a></li>
+        </ul>
+   </div>
+   <div id="sidebarfooter"></div>
+  </div>
+
+{% endblock %}

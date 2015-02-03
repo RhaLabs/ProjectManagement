@@ -1,0 +1,73 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle::datagrid.html.twig' %}
+
+{% block pageheadscripts %}
+<script>
+$(function() {
+
+$( document ).tooltip( {
+  position: {
+    my: "right bottom-5",
+    at: "left top",
+    collision: "flipfit"
+  }
+});
+
+$( "#contact_company" ).autocomplete({
+  source: function( request, response ) {
+    $.ajax({
+      url: "{{ path('limetrail_company') }}",
+      type: "POST",
+      dataType: "json",
+      data: {
+        startsWith: request.term
+      },
+      success: function ( data ) {
+        response( $.map(data.data,
+          function( item ) {
+            return {
+              label: item.label,
+              value: item.value
+            }
+          }
+        ));
+      }
+    });
+  },
+  minLength: 2,
+  open: function () {
+    $( this ).removeClass("ui-corner-all").addClass( "ui-corner-top" );
+  },
+  close: function () {
+    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+  },
+  select: function ( event , ui ) {
+
+  }
+});
+});
+</script>
+{% endblock %}
+
+{% block body -%}
+    <h1>Contact list</h1>
+      <div id="clear" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+          <label for="company">Company: </label>
+          <input id="contact_company" title="Please enter at least the first two letters of the company name" required="required" name="contact[company]">
+          {{ form_row(form.firstName) }}
+          {{ form_row(form.middleName) }}
+          {{ form_row(form.lastName) }}
+          {{ form_row(form.jobTitle) }}
+          {{ form_row(form.directPhone) }}
+          {{ form_row(form.mobilePhone) }}
+          {{ form_row(form.email) }}
+          <div id="contact" style="display:none">
+            <p>Some hidden text</p>
+          </div>
+        {{ form_end(form) }}
+      </div>
+
+{% endblock %}

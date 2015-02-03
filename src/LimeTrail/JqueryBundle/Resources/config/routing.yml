@@ -1,0 +1,3 @@
+lime_trail_jquery_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: LimeTrailJqueryBundle:Default:index }

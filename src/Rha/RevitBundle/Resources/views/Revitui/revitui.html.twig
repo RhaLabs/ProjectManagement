@@ -1,0 +1,160 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+  {% stylesheets
+       'bundles/rharevit/css/tabs.css'
+       'bundles/rharevit/css/reviticons.css'
+       filter='cssrewrite'
+  %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+{% endblock %}
+{% block pageheadscripts %}
+  {% javascripts
+      '@LimeTrailJqueryBundle/Resources/public/js/jquery.cookie.js'
+  %}
+      <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+{% block javascripts %}
+  $(function() {
+    $(document).tooltip({
+      track: true,
+      position: {
+        my: "center bottom-20",
+        at: "center top",
+        using: function(position, feedback) {
+          $(this).css(position);
+          $("<div>")
+            .addClass(feedback.vertical)
+            .addClass(feedback.horizontal)
+            .appendTo(this);
+        }
+      }
+    });
+
+    $( "#tabs" ).tabs({
+      beforeLoad: function(event, ui) {
+        ui.ajaxSettings.dataType = 'html';
+        ui.jqXHR.error(function(){
+          ui.panel.html(
+            "Couldn't load this tab. We'll fix as soon as possible. "+
+           "If this continues please let us know.");
+        });
+      },
+      disabled: [1,2,5,6]
+    });
+
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+    $( "#menu" ).menu();
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li, #press" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+
+  });
+
+{% endblock %}
+{% block title %}RHA Revit Guide{% endblock %}
+{% block heading %}The Revit UI{% endblock %}
+{% block body -%}
+
+      <div id="tabs">
+        <ul>
+          <li><a href="{{ path('rha_revit_revitui_architecture') }}" title="Tab containing architectural tools">Architecture</a></li>
+          <li><a href="Docs/revitui/Structure.html" title="Tab containing structural tools.  For everyday use, you don't need these.">Structure</a></li>
+          <li><a href="Docs/revitui/Systems.html" title="Tab containing MEP tools.  For everyday use, you don't need these.">Systems</a></li>
+          <li><a href="{{ path('rha_revit_revitui_insert') }}">Insert</a></li>
+          <li><a href="{{ path('rha_revit_revitui_annotate') }}">Annotate</a></li>
+          <li><a href="Docs/revitui/Analyze.html">Analyze</a></li>
+          <li><a href="Docs/revitui/Massing.html">Massing&amp;Site</a></li>
+          <li><a href="{{ path('rha_revit_revitui_collaborate') }}">Collaborate</a></li>
+          <li><a href="{{ path('rha_revit_revitui_view') }}">View</a></li>
+          <li><a href="{{ path('rha_revit_revitui_manage') }}">Manage</a></li>
+          <li><a href="{{ path('rha_revit_revitui_addin') }}">Add-Ins</a></li>
+          <li><a href="{{ path('rha_revit_revitui_modify') }}">Modify</a></li>
+        </ul>
+      </div>
+
+    <div id="optionsbar" class="ui-content" title="Options Bar.  This bar changes depending on the tool or command you are using">
+      <!--<img src="Content/optionsbar.png" title="Options Bar.  This bar changes depending on the tool or command you are using"/> -->
+    </div
+    <div id="workspace" class="ui-content">
+      <img src="{{ asset('bundles/rharevit/images/revit_workspace.png') }}" title="The default Revit workspace" />
+    </div>
+
+
+  <div id="dialog" title="Optimum Viewing Size">
+    <p>
+      This page is designed for viewing using wide screen aspect ratios.
+      The Autodesk Revit application does not wrap the ribbon as you might experience here when
+      your browser width changes.  This is intentional.  This page is meant to show the Revit UI
+      in a static way, unlike the experience in the actual UI.
+    </p>
+    <form id="myForm" action="">
+      <input type="checkbox" id="hideinview" name="hideinview" value=""/>
+      Don't warn me again
+    </form>
+  </div>
+{% endblock %}
+
+{% block sidebar -%}
+  <div id="wrapper" style="width:700px">
+   <div id="sidebar"  >
+        <ul id="menu">
+          <li><a href="{{ path('rha_revit_default_index') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
+          <li><a href="{{ path('rha_revit_keynoting') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Key Noting</a></li>
+          <li><a href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="{{ path('rha_revit_shellplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Shell Plan</a></li>
+          <li><a href="{{ path('rha_revit_revisesheets') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revised Sheets</a></li>
+          <li><a href="{{ path('rha_revit_demoplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Demo/Phasing Plans</a></li>
+        </ul>
+   </div>
+  </div>
+{% endblock %}
+
+{% block pagebodyscripts -%}
+$(function(){
+  var cookie = $.cookie('revitui');
+  var $dialog = $( "#dialog" ).dialog({
+      autoOpen: false,
+      width: 400,
+      modal: true,
+      buttons: [
+        {
+          text: "Ok",
+          click: function() {
+            $('form#myForm').submit();
+          }
+        },
+        {
+          text: "Close",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+  if ( cookie !=1) {
+    $dialog.dialog('open');
+  }
+    $('form#myForm').submit(function(){
+      $(this).find('input[type="checkbox"]').each(function(){
+        if($(this).is(':checked')){
+          $.cookie('revitui', 1, {expires: 1000})
+        }
+      });
+      $dialog.dialog('close');
+    });
+});
+{% endblock %}

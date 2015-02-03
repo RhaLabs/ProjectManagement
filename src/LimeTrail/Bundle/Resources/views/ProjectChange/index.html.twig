@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block content_content %}
+<div class="row">
+    <div class="col-xs-6 well">
+        <h1>CI number {{ change.number }}</h1>
+        <h2>CI Title: {{ change.title }}</h2>
+        <h2>Comments:</h2>
+        <p>{{ change.comment }}</p>
+        <h2>Release Date: {{ change.releaseDate|date('m/d/Y') }}</h2>
+        <h2>Scope of Implementation</h2>
+        {% for scope in change.scopes %}
+        <p>{{ scope.name }}
+          {% if scope.hasDate == true %}
+            : {{ scope.date|date('m/d/Y') }}
+          {% endif %}
+        </p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

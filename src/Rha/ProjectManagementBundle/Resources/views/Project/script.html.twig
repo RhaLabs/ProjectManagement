@@ -1,0 +1,68 @@
+{% block pageheadscripts %}
+<script>
+$(function() {
+
+/*$( document ).tooltip( {
+  position: {
+    my: "right bottom-5",
+    at: "left top",
+    collision: "flipfit"
+  }
+});*/
+
+$( "#contact_companyName" ).autocomplete({
+  source: function( request, response ) {
+    $.ajax({
+      url: "{{ path('limetrail_company') }}",
+      type: "POST",
+      dataType: "json",
+      data: {
+        startsWith: request.term
+      },
+      success: function ( data ) {
+        response( $.map(data.data,
+          function( item ) {
+            return {
+              label: item.label,
+              value: item.label
+            }
+          }
+        ));
+      }
+    });
+  },
+  minLength: 2,
+  open: function () {
+    $( this ).removeClass("ui-corner-all").addClass( "ui-corner-top" );
+  },
+  close: function () {
+    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+  },
+  select: function ( event , ui ) {
+    selector( ui.item.value );
+  }
+});
+
+  function selector ( itemId ) {
+    $.ajax({
+      url: "{{ path('limetrail_company_offices') }}",
+      type: "POST",
+      dataType: "html",
+      data: {
+        companyId: itemId
+      },
+      success: function ( data ) {
+        $( "select#contact_officeAddress" ).empty();
+        $( data ).appendTo( "select#contact_officeAddress" );
+      }
+    });
+  }
+
+  $( "input[type=date]" ).datepicker({
+      beforeShowDay: $.datepicker.noWeekends,
+      dateFormat: 'yy-mm-dd'
+  });
+
+});
+</script>
+{% endblock %}

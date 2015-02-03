@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block title 'RHA Intranet' %}
+
+{% block content %}
+    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div>Your Application Links:
+    {% else %}
+
+    {% endif %}
+    {% if is_granted('ROLE_SUPERADMIN') %}
+
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+    <ul><a href="{{ path('limetrail_home') }}">Project Management Tools</a></ul>
+    {% endif %}
+    <ul><a href="{{ path('rha_revit_default_index') }}">Rha Revit Guide</a></ul>
+    </div>
+    </div>
+{% endblock %}
+
+{% block footer_content %}
+  <a href="{{ path('limepolicy', {'policy': "index"}) }}">Policies</a>
+{% endblock %}

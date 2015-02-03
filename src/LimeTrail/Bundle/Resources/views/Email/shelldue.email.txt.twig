@@ -1,0 +1,17 @@
+{% block body_text %}
+{% autoescape false %}
+{{ body_message }}
+
+{% for store in result %}
+Store Number: {{ store.number }}
+Name: {{ store.canonicalName }}
+PWO Date: {{ store.pwoPrj|date }}
+Store Type: {{ store.type }}
+
+{% endfor %}
+
+
+Thanks,
+RHA Web
+{% endautoescape %}
+{% endblock %}

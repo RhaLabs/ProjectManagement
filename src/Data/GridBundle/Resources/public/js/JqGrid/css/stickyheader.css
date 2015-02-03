@@ -1,0 +1,24 @@
+.StickyHeader {
+    position: fixed;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    zoom: 1 !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+tr.StickyHeader td.SortField {
+    padding: 5px 5px 5px 20px;
+}
+.ScrollSticky {
+    position: absolute !important;
+    width: 100% !important;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    zoom: 1 !important;
+}

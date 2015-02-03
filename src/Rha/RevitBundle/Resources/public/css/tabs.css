@@ -1,0 +1,91 @@
+.left-align {
+  white-space:nowrap;
+  text-align:left;
+  margin: 3px;
+}
+.revit-icon-medium {
+    text-align:center;
+    white-space:nowrap;
+    overflow:visible;
+    margin: 0 .1em 0 .1em;
+}
+.space {
+    text-align:center;
+    position:relative;
+    top:40px;
+}
+.stacked {
+  text-align:center;
+  white-space:normal;
+  margin: 1px 0 10px 0;
+}
+.custom-combobox {
+position: relative;
+display: inline-block;
+}  
+.custom-combobox-toggle {
+position: absolute;
+top: 0;
+bottom: 0;
+margin-left: -1px;
+padding: 0;
+/* support: IE7 */
+*height: 1.7em;
+*top: 0.1em;
+}
+.custom-combobox-input {
+margin: 0;
+padding: 0.3em;
+}  
+.ui-tooltip {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font: 'Exo' bold 14px;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+    border-collapse: separate;
+}
+ul.dropdown{ 
+/*position: relative;*/ 
+  padding-left: 0px;
+}
+ul.dropdown li { 
+  float: left; zoom: 1; 
+}
+/*
+ul.dropdown li a {
+  display: block; 
+  border-right: 
+  1px solid #333; 
+}
+//ul.dropdown li:last-child a         { border-right: none; } /* Doesn't work in IE */
+ul.dropdown li.hover,
+ul.dropdown li:hover                { position: relative; }
+
+
+/* 
+	LEVEL TWO
+*/
+ul.dropdown ul 						{ visibility: hidden; position: absolute; top: 100%; left: 0; padding-left: 0px;}
+ul.dropdown ul li 					{ font-weight: normal; border-bottom: 1px solid #ccc; float: none; }
+									  
+                                    /* IE 6 & 7 Needs Inline Block */
+/*ul.dropdown ul li a					{ border-right: none; width: 100%; display: inline-block; } 
+
+/* 
+	LEVEL THREE
+*/
+/*ul.dropdown ul ul 					{ left: 100%; top: 0; }
+ul.dropdown li:hover > ul 			{ visibility: visible; }*/
+#optionsbar {
+  background: url(../images/optionsbar-x.png) repeat-x;
+  height: 20px;
+  margin: 1px 0 1px 0;
+}
+#optionsbar:hover {
+  background: url(../images/optionsbar-active-x.png) repeat-x;
+  height: 20 px;
+  margin: 1px 0 1px 0;
+}
+
+

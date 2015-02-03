@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% use 'RhaProjectManagementBundle:Financial:script.html.twig' %}
+
+{% block content %}
+  {% for entity in contracts %}
+    <p>{{ entity.getSlug }}</p>
+  {% endfor %}
+  <div>
+    <a class="button" href='{{ path('rha_financial_contract_new') }}'>Create New Proposal</a>
+  </div>
+{% endblock %}

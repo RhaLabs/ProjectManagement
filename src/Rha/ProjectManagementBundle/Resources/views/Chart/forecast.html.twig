@@ -1,0 +1,216 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle:Contact:script.html.twig' %}
+
+{% block foot_script %}
+{{ parent() }}
+{% javascripts
+      'bundles/datagrid/js/JqGrid/js/ViewCommon.js'
+   %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/highcharts-more.js"></script>
+<script src="//code.highcharts.com/modules/exporting.js"></script>
+
+<script>window.Highcharts ||
+  {% javascripts
+      '@DataGridBundle/Resources/public/js/js/highcharts.js'
+      '@DataGridBundle/Resources/public/js/js/highcharts-more.js'
+      '@DataGridBundle/Resources/public/js/js/modules/exporting.js'
+  %}
+      document.write (decodeURIComponent('%3Cscript src="{{ asset_url }}"%3E%3C/script%3E'))
+  {% endjavascripts %}
+</script>
+
+<style type="text/css">
+ .label {
+         z-index: 1 !important;
+     }
+.highcharts-tooltip span {
+        background-color:white;
+        opacity:1;
+        z-index:9999 !important;
+    }
+</style>
+
+<script>
+$(function () {
+    Highcharts.setOptions({
+    chart: {
+        style: {
+            fontFamily: '"Inder", Helvetica, Tahoma, Arial, sans-serif',
+            fontSize: '1.25em'
+        }
+    }
+  });
+
+// Define tasks
+var tasks = [
+{% for data in result %}
+  {
+    name: '{{ data.number }} {{ data.canonicalName }}',
+    manager: '{{ data.contact }}',
+    {% if data.chartColor is defined %}
+      color: '{{ data.chartColor }}',
+    {% else %}
+      color: '#666666',
+    {% endif %}
+    pointInterval: 3600 * 1000 * 24 * 7, // one week
+    id: {{ data.id }},
+    sType: '{{ data.type }}',
+    data: [
+      {
+        x: {{ data.pwoPrj|date("U") }} * 1000,
+        y: {{ loop.index0 }},
+        label: '{{ data.pwoPrj|date("m/d/Y") }}',
+        from: new Date({{ data.pwoPrj|date("U") }} * 1000),
+        to: new Date({{ data.pwoPrj|date_modify("+#{data.otpPrj} day")|date("U") }} * 1000)
+      },
+      {
+        x: {{ data.pwoPrj|date_modify("+#{data.otpPrj} day")|date("U") }} * 1000,
+        y: {{ loop.index0 }},
+        from: new Date({{ data.pwoPrj|date("U") }} * 1000),
+        to: new Date({{ data.pwoPrj|date_modify("+#{data.otpPrj} day")|date("U") }} * 1000)
+      }
+    ]
+  },
+{% endfor %}
+];
+
+    $('#container').highcharts({
+        chart: {
+            type: 'line'
+        },
+
+        xAxis: {
+          type: 'datetime',
+          title: {
+            text: 'dates',
+          },
+          labels: {
+            format: '{value:%m/%d/%Y}',
+            align: 'left'
+          },
+          minRange: 1000,
+          min: {{ minDate|date("U") }} * 1000,
+          max: {{ maxDate|date("U") }} * 1000,
+          //tickInterval: 1000 * 3600 * 24 * 7 * 4,
+          startOfWeek: 1,
+          tickPosition: 'inside',
+          tickLength: 850,
+          tickWidth: 2,
+          //minorTickInterval: 1000* 3600 * 24 * 7.625,
+          //minorTickPosition: 'inside',
+          //minorTickLength: 900,
+        },
+
+        yAxis: {
+          title: {
+            text: 'Projects'
+          },
+          tickInterval: 1,
+          tickPixelInterval: 100,
+          labels: {
+            title: { text: 'Project' },
+            minPadding: 3,
+            maxPadding: 3,
+            tickInterval: 1,
+            startOnTick: false,
+            endOnTick: false,
+            formatter: function () {
+              if (tasks[this.value]) {
+                return tasks[this.value].name + ': ' + tasks[this.value].sType;
+              }
+            }
+          }
+        },
+
+        legend: { enabled: false },
+
+        tooltip: {
+          formatter: function () {
+            return '<b>' + tasks[this.y].name + '</b><br/>' +
+              Highcharts.dateFormat('%m/%e/%Y', this.point.options.from) +
+              ' - ' + Highcharts.dateFormat('%m/%e/%Y', this.point.options.to);
+          },
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+          useHTML: true
+        },
+
+        plotOptions: {
+          line: {
+            lineWidth: 9,
+            marker: { enabled: false },
+            dataLabels: {
+              enabled: true,
+              align: 'left',
+              inside: true,
+              useHTML: true,
+              formatter: function () {
+                return '<b>' + tasks[this.y].manager + '</b>';
+              }
+            }
+          },
+          series: {
+            cursor: 'pointer',
+            /*point: {
+              events: {
+                click : function () {
+                  window.location.href = '{{ path('limetrail_projectdates_override') }}' + '?projectId=' + tasks[this.y].id;
+                }
+              }
+            }*/
+            events: {
+              click: function (event) {
+                window.location.href = '{{ path('limetrail_projectdates_override') }}' + '?projectId=' + event.point.series.userOptions.id;
+              }
+            }
+          },
+        },
+
+        credits: {
+          text: 'Copyright RHA powered by Highcharts JS',
+          href: "{{ path('homepage') }}"
+        },
+
+        title: {
+          text: 'Project Schedule:'
+        },
+
+        subtitle: {
+          text: 'OTP after: {{ minDate|date("m/d/Y") }}<br/>PWO prior to: {{ maxDate|date("m/d/Y") }}',
+          useHTML: true
+        },
+
+        series: tasks,
+
+        exporting: {
+          filename: 'Workload Forecast',
+          sourceWidth: 1545,
+          sourceHeight: 1000,
+          buttons: {
+            contextButton: {
+              menuItems: null,
+              onclick: function () {
+                this.exportChart();
+              }
+            }
+          },
+          type: 'application/pdf'
+        }
+    });
+});
+</script>
+{{ block('pageheadscripts') }}
+{% endblock %}
+
+{% block content %}
+   <div class="col-sm-12" id="container" style="width:100%; height:1000px;"></div>
+   <button class="btn btn-default">
+        <a href="{{ path('limetrail_projectdates_aggregated') }}">
+            Trident
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'MopaBootstrapBundle::base_initializr.html.twig' %}
+
+{% block head_style %}
+{% stylesheets
+       '@ApplicationGlobalBundle/Resources/public/less/applicationglobalbundle.less'
+%}
+<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+{% endstylesheets %}
+{% endblock head_style %}
+
+
+{% block body_tag %}
+<body data-spy="scroll" data-target="#navbar">
+{% endblock body_tag %}
+
+
+{% block head_bottom %}
+    {{ parent() }}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-17161773-2']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+{% endblock head_bottom %}
+
+{% block navbar %}
+{% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { fixedTop: true, inverse: true, id: 'navbar' } %}
+    {% block brand %}
+        <a class="navbar-brand" href="{{ path('homepage') }}">RHA</a>
+    {% endblock %}
+
+    {% block menu %}
+        {{ mopa_bootstrap_menu('LimeTrailBundle:Builder:createMainMenu') }}
+     {#   {{ mopa_bootstrap_menu('exampledropdown', {'automenu': 'navbar', 'pull-right': true}) }}#}
+    {% endblock %} 
+{% endembed %}
+{% endblock navbar %}
+
+{% block body %}
+{{ parent() }}
+    
+{% endblock body%}
+
+{% block content_row %}
+{{ parent() }}
+{#
+
+{% if showTemplate is defined or showForm is defined %}
+<div class="row">
+    {% if showForm is defined %}
+    <div class="col-lg-6">
+        <p><strong>FormType Code</strong></p>
+        <pre class="prettyprint">{{ classSource(showForm) }}</pre>
+    </div>
+    {% endif %}
+    {% if showTemplate is defined %}
+    <div class="col-lg-6">
+        <p><strong>Template Code</strong></p>
+        <pre class="prettyprint">{{ twigSource(showTemplate) }}</pre>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+#}
+
+{% endblock content_row %}
+
+{% block footer %}
+    <p>&copy; <a href="{{ path('homepage') }}" target="_blank">Raymond Harris Architects</a> 2014-{{ "now"|date("Y") }}</p>
+{% endblock footer %}
+
+{% block foot_script %}
+{{ parent() }}
+    
+    {% javascripts
+      
+      '@ApplicationGlobalBundle/Resources/public/js/offcanvas.js'
+    %}
+      <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock foot_script %}

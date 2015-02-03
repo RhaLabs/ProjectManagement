@@ -1,0 +1,83 @@
+
+<!doctype html>
+<html lang="us">
+<head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Revit Modeling and Drawing Standards</title>
+
+    <link rel="stylesheet" href="Resource/svgtest.css" />
+    <link rel="stylesheet" href="Resource/site.css" />
+    <link href='http://fonts.googleapis.com/css?family=Inder|Exo' rel='stylesheet' type='text/css'>
+     <script src="js/jquery-1.10.2.min.js"></script>
+     <script src="js/jquery-ui-1.10.3.custom.js"></script>
+<script>
+/*function GetSVGasXML(elem, svgurl){
+ $.ajax({ url: svgurl,dataType: "xml", success: function (msg) {
+ onajaxsuccess(elem, msg);
+ } 
+});
+}
+  function onajaxsuccess(elem, responseText) {
+ var xmlDoc = responseText;
+ //document.write(xmlDoc.xml);
+  //append the imported SVG root element to the appropriate HTML element
+  $(elem).append(xmlDoc.xml);
+ }
+$.each($('div').find('#svg'), function(){
+  var svgurl = $(this).attr('data-ref');
+   GetSVGasXML(this, svgurl);
+});
+
+$('p#svg').load('Resource/images/svg/carat-1-s.svg', null, function(){
+  $('span#svg').click( function(){
+    alert('you clicked it');
+  });
+});*/
+$.ajax({
+  url: 'Resource/images/svg/carat-1-s.svg',
+  success: function(data) {
+    $('#svg-content').html(data);
+    $('#path7992').click(function() {
+      alert('You clicked the thingamabob!');
+    });
+  }
+});
+</script>
+<style>
+#carat {
+  stroke-width: 2;
+  stroke: #8DC262;
+}
+#carat:hover {
+  stroke-width: 2;
+  stroke: #ffffff;
+}
+</style>
+
+</head>
+
+<body>
+   <div id="article" class="ui-widget ui-helper-clearfix" >
+      <div class="header clear-fix">
+        <div class="center">
+          <img class="border" src="Content/RHA_logo_build.png" width="30%" align="middle"/><h1>Revit UI Icons</h1>
+        </div>
+      </div>
+      <div class="border"><strong class="border">Revit Icons 18px</strong>
+       <p><span class="icon ui-icon-carat-1-n"style="float: left; margin-right: .3em;"></span>ui-icon-carat-1-n</p> 
+       <p id="svg-content">test</p>
+    </div>
+  </div>
+
+
+  <script>
+  $(document).ready(function() {
+    $("p").css( {"float": "left", "margin":"0 0 10px 50px", "clear":"both"} );
+  });
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,17 @@
+parameters:
+    lime_trail.project_info_repository.class: LimeTrail\Bundle\ProjectInformationRepository
+
+services:
+#    lime_trail.example:
+#        class: %lime_trail.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+#     lime_trail.entity.project_information_repository:
+#         class: %lime_trail.project_info_repository.class%
+#         arguments: ["@thrace_data_grid.factory.datagrid", "@translator", "@router", "@doctrine.orm.entity_manager"]
+
+#     lime_trail.entity.project_information:
+#         class: Thrace\DataGridBundle\DataGrid\DataGrid
+#         factory_service: lime_trail.entity.project_information_repository
+#         factory_method: build
+#         tags: { name: thrace_data_grid.datagrid, alias: project_information }

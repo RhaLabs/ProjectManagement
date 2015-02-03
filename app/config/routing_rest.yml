@@ -1,0 +1,6 @@
+Rest_User:
+    resource: "@LimeTrail/Bundle/Resources/config/routing_rest.yml"
+    type:     rest
+
+
+

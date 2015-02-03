@@ -1,0 +1,78 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>ProjectInformation</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Projectphase</th>
+                <td>{{ entity.projectPhase }}</td>
+            </tr>
+            <tr>
+                <th>Confidential</th>
+                <td>{{ entity.confidential }}</td>
+            </tr>
+            <tr>
+                <th>Combo</th>
+                <td>{{ entity.combo }}</td>
+            </tr>
+            <tr>
+                <th>Managesitesdifferent</th>
+                <td>{{ entity.manageSitesDifferent }}</td>
+            </tr>
+            <tr>
+                <th>Sap</th>
+                <td>{{ entity.sap }}</td>
+            </tr>
+            <tr>
+                <th>Storesquarefootage</th>
+                <td>{{ entity.storeSquareFootage }}</td>
+            </tr>
+            <tr>
+                <th>Increasesquarefootage</th>
+                <td>{{ entity.increaseSquareFootage }}</td>
+            </tr>
+            <tr>
+                <th>Prjtotalsquarefootage</th>
+                <td>{{ entity.prjTotalSquareFootage }}</td>
+            </tr>
+            <tr>
+                <th>Acttotalsquarefootage</th>
+                <td>{{ entity.actTotalSquareFootage }}</td>
+            </tr>
+            <tr>
+                <th>Timestamp</th>
+                <td>{{ entity.timestamp|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ entity.user }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('projectinformation') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('projectinformation_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('projectinformation_delete', { 'id': entity.id }) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,8 @@
+'{{ name }}': {
+  name: '{{ name }}',
+  data: [
+    {% for data in result %}
+    ['{{ data.number }}-{{ data.sequence }} {{ data.name }}', 1],
+    {% endfor %}
+  ]
+}

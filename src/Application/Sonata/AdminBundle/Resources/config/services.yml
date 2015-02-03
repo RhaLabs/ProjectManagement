@@ -1,0 +1,7 @@
+parameters:
+#    application_sonata_admin.example.class: Application\Sonata\AdminBundle\Example
+
+services:
+#    application_sonata_admin.example:
+#        class: %application_sonata_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

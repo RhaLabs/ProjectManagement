@@ -1,0 +1,528 @@
+
+<!doctype html>
+<html lang="us">
+<head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Revit Modeling and Drawing Standards</title>
+
+    <link rel="stylesheet" href="Resource/jquery-ui-1.10.3.custom.css" />
+    <link rel="stylesheet" href="Resource/site.css" />
+    <link href='http://fonts.googleapis.com/css?family=Inder|Exo' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="Resource/reviticons.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<script>window.jQuery
+  {% javascripts
+      'bundles/limetrailjquery/js/jquery-1.11.0.min.js'
+   %}
+      || document.write (decodeURIComponent('%3Cscript src="{{ asset_url }}"%3E%3C/script%3E'))
+  {% endjavascripts %}
+  </script>
+
+   {% javascripts
+      '@LimeTrailJqueryBundle/Resources/public/js/jquery-ui.js'
+      '@LimeTrailJqueryBundle/Resources/public/js/jquery.ui.menubar.js'
+      '@LimeTrailJqueryBundle/Resources/public/js/site.js'
+   %}
+      <script src="{{ asset_url }}"></script>
+   {% endjavascripts %}
+<script>
+  $(function() {
+
+    $( "#accordion" ).accordion({
+      heightStyle: "content",
+      collapsible: true,
+      icons: { header: "ui-icon-triangle-1-e", activeHeader: "ui-icon-triangle-1-s"}
+      });
+
+
+
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#autocomplete" ).autocomplete({
+      source: availableTags
+    });
+
+
+
+    //$( "#button" ).button();
+    $(".button").button({
+      icons: { primary: "ui-icon-triangle-1-e"}
+    });
+    $( "#radioset" ).buttonset();
+
+
+
+    $( "#tabs" ).tabs();
+
+
+
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      width: 400,
+      buttons: [
+        {
+          text: "Ok",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        {
+          text: "Cancel",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+
+
+    $( "#datepicker" ).datepicker({
+      inline: true
+    });
+
+
+
+    $( "#slider" ).slider({
+      range: true,
+      values: [ 17, 67 ]
+    });
+
+
+
+    $( "#progressbar" ).progressbar({
+      value: 20
+    });
+
+    $( "#menu" ).menu();
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+  });
+  </script>
+
+</head>
+{% block title %}RHA Revit Guide{% endblock %}
+{% block heading %}List of Revit Icons{% endblock %}
+<body>
+   <div id="article" class="ui-widget ui-helper-clearfix" >
+      <div class="header clear-fix">
+        <div class="center">
+          <img class="border" src="Content/RHA_logo_build.png" width="30%" align="middle"/><h1>Revit UI Icons</h1>
+        </div>
+      </div>
+      <div class="border"><strong class="border">Revit Icons 18px</strong>
+       <p><span class="revit-icon revit-icon-copy"style="float: left; margin-right: .3em;"></span>revit-icon-copy</p>
+<p><span class="revit-icon revit-icon-rename"style="float: left; margin-right: .3em;"></span>revit-icon-rename</p>
+<p><span class="revit-icon revit-icon-delete  "style="float: left; margin-right: .3em;"></span>revit-icon-delete  </p>
+<p><span class="revit-icon revit-icon-visual-style-wireframe  "style="float: left; margin-right: .3em;"></span>revit-icon-visual-style-wireframe  </p>
+<p><span class="revit-icon revit-icon-visual-style-hiddenline  "style="float: left; margin-right: .3em;"></span>revit-icon-visual-style-hiddenline  </p>
+<p><span class="revit-icon revit-icon-visual-style-shaded  "style="float: left; margin-right: .3em;"></span>revit-icon-visual-style-shaded  </p>
+<p><span class="revit-icon revit-icon-visual-style-consistent  "style="float: left; margin-right: .3em;"></span>revit-icon-visual-style-consistent  </p>
+<p><span class="revit-icon revit-icon-visual-style-realistic  "style="float: left; margin-right: .3em;"></span>revit-icon-visual-style-realistic  </p>
+<p><span class="revit-icon revit-icon-visual-style-raytrace  "style="float: left; margin-right: .3em;"></span>revit-icon-visual-style-raytrace  </p>
+<p><span class="revit-icon revit-icon-sunpath-off  "style="float: left; margin-right: .3em;"></span>revit-icon-sunpath-off  </p>
+<p><span class="revit-icon revit-icon-sunpath-on  "style="float: left; margin-right: .3em;"></span>revit-icon-sunpath-on  </p>
+<p><span class="revit-icon revit-icon-shadows-off  "style="float: left; margin-right: .3em;"></span>revit-icon-shadows-off  </p>
+<p><span class="revit-icon revit-icon-shadows-on  "style="float: left; margin-right: .3em;"></span>revit-icon-shadows-on  </p>
+<p><span class="revit-icon revit-icon-render-off  "style="float: left; margin-right: .3em;"></span>revit-icon-render-off  </p>
+<p><span class="revit-icon revit-icon-render-on  "style="float: left; margin-right: .3em;"></span>revit-icon-render-on  </p>
+<p><span class="revit-icon revit-icon-cropview-off  "style="float: left; margin-right: .3em;"></span>revit-icon-cropview-off  </p>
+<p><span class="revit-icon revit-icon-cropview-on  "style="float: left; margin-right: .3em;"></span>revit-icon-cropview-on  </p>
+<p><span class="revit-icon revit-icon-cropregion-hide  "style="float: left; margin-right: .3em;"></span>revit-icon-cropregion-hide  </p>
+<p><span class="revit-icon revit-icon-cropregion-show  "style="float: left; margin-right: .3em;"></span>revit-icon-cropregion-show  </p>
+<p><span class="revit-icon revit-icon-3d-unlock  "style="float: left; margin-right: .3em;"></span>revit-icon-3d-unlock  </p>
+<p><span class="revit-icon revit-icon-3d-lock  "style="float: left; margin-right: .3em;"></span>revit-icon-3d-lock  </p>
+<p><span class="revit-icon revit-icon-temporary-hide-disable  "style="float: left; margin-right: .3em;"></span>revit-icon-temporary-hide-disable  </p>
+<p><span class="revit-icon revit-icon-temporary-hide-enable  "style="float: left; margin-right: .3em;"></span>revit-icon-temporary-hide-enable  </p>
+<p><span class="revit-icon revit-icon-revealhidden-off  "style="float: left; margin-right: .3em;"></span>revit-icon-revealhidden-off  </p>
+<p><span class="revit-icon revit-icon-revealhidden-on  "style="float: left; margin-right: .3em;"></span>revit-icon-revealhidden-on  </p>
+<p><span class="revit-icon revit-icon-temporary-view-disable  "style="float: left; margin-right: .3em;"></span>revit-icon-temporary-view-disable  </p>
+<p><span class="revit-icon revit-icon-temporary-view-enable  "style="float: left; margin-right: .3em;"></span>revit-icon-temporary-view-enable  </p>
+<p><span class="revit-icon revit-icon-analytical-off  "style="float: left; margin-right: .3em;"></span>revit-icon-analytical-off  </p>
+<p><span class="revit-icon revit-icon-analytical-on  "style="float: left; margin-right: .3em;"></span>revit-icon-analytical-on  </p>
+<p><span class="revit-icon revit-icon-displacement-off  "style="float: left; margin-right: .3em;"></span>revit-icon-displacement-off  </p>
+<p><span class="revit-icon revit-icon-displacement-on  "style="float: left; margin-right: .3em;"></span>revit-icon-displacement-on  </p>
+<p><span class="revit-icon revit-icon-filter  "style="float: left; margin-right: .3em;"></span>revit-icon-filter  </p>
+<p><span class="revit-icon revit-icon-worksets  "style="float: left; margin-right: .3em;"></span>revit-icon-worksets  </p>
+<p><span class="revit-icon revit-icon-workset  "style="float: left; margin-right: .3em;"></span>revit-icon-workset  </p>
+<p><span class="revit-icon revit-icon-pendingrequests  "style="float: left; margin-right: .3em;"></span>revit-icon-pendingrequests  </p>
+<p><span class="revit-icon revit-icon-designoptions  "style="float: left; margin-right: .3em;"></span>revit-icon-designoptions  </p>
+<p><span class="revit-icon revit-icon-select-links-off  "style="float: left; margin-right: .3em;"></span>revit-icon-select-links-off  </p>
+<p><span class="revit-icon revit-icon-select-links-on  "style="float: left; margin-right: .3em;"></span>revit-icon-select-links-on  </p>
+<p><span class="revit-icon revit-icon-select-underlay-off  "style="float: left; margin-right: .3em;"></span>revit-icon-select-underlay-off  </p>
+<p><span class="revit-icon revit-icon-select-underlay-on  "style="float: left; margin-right: .3em;"></span>revit-icon-select-underlay-on  </p>
+<p><span class="revit-icon revit-icon-select-pinned-off  "style="float: left; margin-right: .3em;"></span>revit-icon-select-pinned-off  </p>
+<p><span class="revit-icon revit-icon-select-pinned-on  "style="float: left; margin-right: .3em;"></span>revit-icon-select-pinned-on  </p>
+<p><span class="revit-icon revit-icon-select-face-off  "style="float: left; margin-right: .3em;"></span>revit-icon-select-face-off  </p>
+<p><span class="revit-icon revit-icon-select-face-on  "style="float: left; margin-right: .3em;"></span>revit-icon-select-face-on  </p>
+<p><span class="revit-icon revit-icon-select-drag-off  "style="float: left; margin-right: .3em;"></span>revit-icon-select-drag-off  </p>
+<p><span class="revit-icon revit-icon-select-drag-on  "style="float: left; margin-right: .3em;"></span>revit-icon-select-drag-on  </p>
+<p><span class="revit-icon revit-icon-detaillevel-coarse  "style="float: left; margin-right: .3em;"></span>revit-icon-detaillevel-coarse  </p>
+<p><span class="revit-icon revit-icon-detaillevel-medium  "style="float: left; margin-right: .3em;"></span>revit-icon-detaillevel-medium  </p>
+<p><span class="revit-icon revit-icon-detaillevel-fine  "style="float: left; margin-right: .3em;"></span>revit-icon-detaillevel-fine  </p>
+<p><span class="revit-icon revit-icon-open  "style="float: left; margin-right: .3em;"></span>revit-icon-open  </p>
+<p><span class="revit-icon revit-icon-save  "style="float: left; margin-right: .3em;"></span>revit-icon-save  </p>
+<p><span class="revit-icon revit-icon-synchronize  "style="float: left; margin-right: .3em;"></span>revit-icon-synchronize  </p>
+<p><span class="revit-icon revit-icon-undo  "style="float: left; margin-right: .3em;"></span>revit-icon-undo  </p>
+<p><span class="revit-icon revit-icon-redo  "style="float: left; margin-right: .3em;"></span>revit-icon-redo  </p>
+<p><span class="revit-icon revit-icon-measure  "style="float: left; margin-right: .3em;"></span>revit-icon-measure  </p>
+<p><span class="revit-icon revit-icon-dimension  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension  </p>
+<p><span class="revit-icon revit-icon-tag-category  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-category  </p>
+<p><span class="revit-icon revit-icon-text  "style="float: left; margin-right: .3em;"></span>revit-icon-text  </p>
+<p><span class="revit-icon revit-icon-view-3d  "style="float: left; margin-right: .3em;"></span>revit-icon-view-3d  </p>
+<p><span class="revit-icon revit-icon-view-section  "style="float: left; margin-right: .3em;"></span>revit-icon-view-section  </p>
+<p><span class="revit-icon revit-icon-thinlines-off  "style="float: left; margin-right: .3em;"></span>revit-icon-thinlines-off  </p>
+<p><span class="revit-icon revit-icon-thinlines-on  "style="float: left; margin-right: .3em;"></span>revit-icon-thinlines-on  </p>
+<p><span class="revit-icon revit-icon-closehidden  "style="float: left; margin-right: .3em;"></span>revit-icon-closehidden  </p>
+<p><span class="revit-icon revit-icon-switchwindows"style="float: left; margin-right: .3em;"></span>revit-icon-switchwindows</p>
+<p><span class="revit-icon revit-icon-export-dwg-2013 "style="float: left; margin-right: .3em;"></span>revit-icon-export-dwg-2013 </p>
+<p><span class="revit-icon revit-icon-export-dxf-2013 "style="float: left; margin-right: .3em;"></span>revit-icon-export-dxf-2013 </p>
+<p><span class="revit-icon revit-icon-export-dgn-2013 "style="float: left; margin-right: .3em;"></span>revit-icon-export-dgn-2013 </p>
+<p><span class="revit-icon revit-icon-export-acis-2013 "style="float: left; margin-right: .3em;"></span>revit-icon-export-acis-2013 </p>
+<p><span class="revit-icon revit-icon-export-dwg-2014 "style="float: left; margin-right: .3em;"></span>revit-icon-export-dwg-2014 </p>
+<p><span class="revit-icon revit-icon-export-dxf-2014 "style="float: left; margin-right: .3em;"></span>revit-icon-export-dxf-2014 </p>
+<p><span class="revit-icon revit-icon-export-dgn-2014 "style="float: left; margin-right: .3em;"></span>revit-icon-export-dgn-2014 </p>
+<p><span class="revit-icon revit-icon-export-acis-2014"style="float: left; margin-right: .3em;"></span>revit-icon-export-acis-2014</p>
+<p><span class="revit-icon revit-icon-tag-beam  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-beam  </p>
+<p><span class="revit-icon revit-icon-tag-multicategory  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-multicategory  </p>
+<p><span class="revit-icon revit-icon-tag-material  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-material  </p>
+<p><span class="revit-icon revit-icon-tag-area  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-area  </p>
+<p><span class="revit-icon revit-icon-tag-room  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-room  </p>
+<p><span class="revit-icon revit-icon-tag-space  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-space  </p>
+<p><span class="revit-icon revit-icon-view-reference  "style="float: left; margin-right: .3em;"></span>revit-icon-view-reference  </p>
+<p><span class="revit-icon revit-icon-stair-tread-number  "style="float: left; margin-right: .3em;"></span>revit-icon-stair-tread-number  </p>
+<p><span class="revit-icon revit-icon-tag-rebar  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-rebar  </p>
+<p><span class="revit-icon revit-icon-legend-duct  "style="float: left; margin-right: .3em;"></span>revit-icon-legend-duct  </p>
+<p><span class="revit-icon revit-icon-legend-pipe  "style="float: left; margin-right: .3em;"></span>revit-icon-legend-pipe  </p>
+<p><span class="revit-icon revit-icon-legend-color  "style="float: left; margin-right: .3em;"></span>revit-icon-legend-color  </p>
+<p><span class="revit-icon revit-icon-symbol-span  "style="float: left; margin-right: .3em;"></span>revit-icon-symbol-span  </p>
+<p><span class="revit-icon revit-icon-symbol-beam  "style="float: left; margin-right: .3em;"></span>revit-icon-symbol-beam  </p>
+<p><span class="revit-icon revit-icon-stair-path  "style="float: left; margin-right: .3em;"></span>revit-icon-stair-path  </p>
+<p><span class="revit-icon revit-icon-symbol-area  "style="float: left; margin-right: .3em;"></span>revit-icon-symbol-area  </p>
+<p><span class="revit-icon revit-icon-symbol-path  "style="float: left; margin-right: .3em;"></span>revit-icon-symbol-path  </p>
+<p><span class="revit-icon revit-icon-symbol-fabric  "style="float: left; margin-right: .3em;"></span>revit-icon-symbol-fabric  </p>
+<p><span class="revit-icon revit-icon-view-matchline  "style="float: left; margin-right: .3em;"></span>revit-icon-view-matchline  </p>
+<p><span class="revit-icon revit-icon-window-replicate  "style="float: left; margin-right: .3em;"></span>revit-icon-window-replicate  </p>
+<p><span class="revit-icon revit-icon-window-cascade  "style="float: left; margin-right: .3em;"></span>revit-icon-window-cascade  </p>
+<p><span class="revit-icon revit-icon-properties-type  "style="float: left; margin-right: .3em;"></span>revit-icon-properties-type  </p>
+<p><span class="revit-icon revit-icon-properties-match  "style="float: left; margin-right: .3em;"></span>revit-icon-properties-match  </p>
+<p><span class="revit-icon revit-icon-cope  "style="float: left; margin-right: .3em;"></span>revit-icon-cope  </p>
+<p><span class="revit-icon revit-icon-element-split  "style="float: left; margin-right: .3em;"></span>revit-icon-element-split  </p>
+<p><span class="revit-icon revit-icon-element-split-gap  "style="float: left; margin-right: .3em;"></span>revit-icon-element-split-gap  </p>
+<p><span class="revit-icon revit-icon-element-pin  "style="float: left; margin-right: .3em;"></span>revit-icon-element-pin  </p>
+<p><span class="revit-icon revit-icon-element-unpin  "style="float: left; margin-right: .3em;"></span>revit-icon-element-unpin  </p>
+<p><span class="revit-icon revit-icon-element-delete  "style="float: left; margin-right: .3em;"></span>revit-icon-element-delete  </p>
+<p><span class="revit-icon revit-icon-cut  "style="float: left; margin-right: .3em;"></span>revit-icon-cut  </p>
+<p><span class="revit-icon revit-icon-demolish  "style="float: left; margin-right: .3em;"></span>revit-icon-demolish  </p>
+<p><span class="revit-icon revit-icon-cut-boolean  "style="float: left; margin-right: .3em;"></span>revit-icon-cut-boolean  </p>
+<p><span class="revit-icon revit-icon-join-boolean  "style="float: left; margin-right: .3em;"></span>revit-icon-join-boolean  </p>
+<p><span class="revit-icon revit-icon-modify-array  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-array  </p>
+<p><span class="revit-icon revit-icon-modify-scale  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-scale  </p>
+<p><span class="revit-icon revit-icon-join-beam  "style="float: left; margin-right: .3em;"></span>revit-icon-join-beam  </p>
+<p><span class="revit-icon revit-icon-join-wall  "style="float: left; margin-right: .3em;"></span>revit-icon-join-wall  </p>
+<p><span class="revit-icon revit-icon-element-split-face  "style="float: left; margin-right: .3em;"></span>revit-icon-element-split-face  </p>
+<p><span class="revit-icon revit-icon-extend  "style="float: left; margin-right: .3em;"></span>revit-icon-extend  </p>
+<p><span class="revit-icon revit-icon-extend-mulitple  "style="float: left; margin-right: .3em;"></span>revit-icon-extend-mulitple  </p>
+<p><span class="revit-icon revit-icon-linework  "style="float: left; margin-right: .3em;"></span>revit-icon-linework  </p>
+<p><span class="revit-icon revit-icon-hideinview  "style="float: left; margin-right: .3em;"></span>revit-icon-hideinview  </p>
+<p><span class="revit-icon revit-icon-overrideinview  "style="float: left; margin-right: .3em;"></span>revit-icon-overrideinview  </p>
+
+<strong class="border">Revit Icons 38px</strong>
+
+<p><span class="revit-icon-medium revit-icon-revit-2013  "style="float: left; margin-right: .3em;"></span>revit-icon-revit-2013  </p>
+<p><span class="revit-icon-medium revit-icon-revit-2014  "style="float: left; margin-right: .3em;"></span>revit-icon-revit-2014  </p>
+<p><span class="revit-icon-medium revit-icon-new  "style="float: left; margin-right: .3em;"></span>revit-icon-new  </p>
+<p><span class="revit-icon-medium revit-icon-open"style="float: left; margin-right: .3em;"></span>revit-icon-open</p>
+<p><span class="revit-icon-medium revit-icon-save"style="float: left; margin-right: .3em;"></span>revit-icon-save</p>
+<p><span class="revit-icon-medium revit-icon-saveas"style="float: left; margin-right: .3em;"></span>revit-icon-saveas</p>
+<p><span class="revit-icon-medium revit-icon-print  "style="float: left; margin-right: .3em;"></span>revit-icon-print  </p>
+<p><span class="revit-icon-medium revit-icon-license  "style="float: left; margin-right: .3em;"></span>revit-icon-license  </p>
+<p><span class="revit-icon-medium revit-icon-close  "style="float: left; margin-right: .3em;"></span>revit-icon-close  </p>
+<p><span class="revit-icon-medium revit-icon-workflow  "style="float: left; margin-right: .3em;"></span>revit-icon-workflow  </p>
+<p><span class="revit-icon-medium revit-icon-publish  "style="float: left; margin-right: .3em;"></span>revit-icon-publish  </p>
+<p><span class="revit-icon-medium revit-icon-export  "style="float: left; margin-right: .3em;"></span>revit-icon-export  </p>
+<p><span class="revit-icon-medium revit-icon-export-cadformats  "style="float: left; margin-right: .3em;"></span>revit-icon-export-cadformats  </p>
+<p><span class="revit-icon-medium revit-icon-export-dwf  "style="float: left; margin-right: .3em;"></span>revit-icon-export-dwf  </p>
+<p><span class="revit-icon-medium revit-icon-export-site  "style="float: left; margin-right: .3em;"></span>revit-icon-export-site  </p>
+<p><span class="revit-icon-medium revit-icon-export-fbx  "style="float: left; margin-right: .3em;"></span>revit-icon-export-fbx  </p>
+<p><span class="revit-icon-medium revit-icon-export-gbxml  "style="float: left; margin-right: .3em;"></span>revit-icon-export-gbxml  </p>
+<p><span class="revit-icon-medium revit-icon-export-gbxmlmass  "style="float: left; margin-right: .3em;"></span>revit-icon-export-gbxmlmass  </p>
+<p><span class="revit-icon-medium revit-icon-export-ifc  "style="float: left; margin-right: .3em;"></span>revit-icon-export-ifc  </p>
+<p><span class="revit-icon-medium revit-icon-export-database  "style="float: left; margin-right: .3em;"></span>revit-icon-export-database  </p>
+<p><span class="revit-icon-medium revit-icon-saveas  "style="float: left; margin-right: .3em;"></span>revit-icon-saveas  </p>
+<p><span class="revit-icon-medium revit-icon-modify  "style="float: left; margin-right: .3em;"></span>revit-icon-modify  </p>
+<p><span class="revit-icon-medium revit-icon-modify-selected  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-selected  </p>
+<p><span class="revit-icon-medium revit-icon-wall  "style="float: left; margin-right: .3em;"></span>revit-icon-wall  </p>
+<p><span class="revit-icon-medium revit-icon-door  "style="float: left; margin-right: .3em;"></span>revit-icon-door  </p>
+<p><span class="revit-icon-medium revit-icon-window  "style="float: left; margin-right: .3em;"></span>revit-icon-window  </p>
+<p><span class="revit-icon-medium revit-icon-component  "style="float: left; margin-right: .3em;"></span>revit-icon-component  </p>
+<p><span class="revit-icon-medium revit-icon-column  "style="float: left; margin-right: .3em;"></span>revit-icon-column  </p>
+<p><span class="revit-icon-medium revit-icon-roof  "style="float: left; margin-right: .3em;"></span>revit-icon-roof  </p>
+<p><span class="revit-icon-medium revit-icon-ceiling  "style="float: left; margin-right: .3em;"></span>revit-icon-ceiling  </p>
+<p><span class="revit-icon-medium revit-icon-floor  "style="float: left; margin-right: .3em;"></span>revit-icon-floor  </p>
+<p><span class="revit-icon-medium revit-icon-curtain-system  "style="float: left; margin-right: .3em;"></span>revit-icon-curtain-system  </p>
+<p><span class="revit-icon-medium revit-icon-curtain-grid  "style="float: left; margin-right: .3em;"></span>revit-icon-curtain-grid  </p>
+<p><span class="revit-icon-medium revit-icon-mullion  "style="float: left; margin-right: .3em;"></span>revit-icon-mullion  </p>
+<p><span class="revit-icon-medium revit-icon-railing  "style="float: left; margin-right: .3em;"></span>revit-icon-railing  </p>
+<p><span class="revit-icon-medium revit-icon-ramp  "style="float: left; margin-right: .3em;"></span>revit-icon-ramp  </p>
+<p><span class="revit-icon-medium revit-icon-stair  "style="float: left; margin-right: .3em;"></span>revit-icon-stair  </p>
+<p><span class="revit-icon-medium revit-icon-modeltext  "style="float: left; margin-right: .3em;"></span>revit-icon-modeltext  </p>
+<p><span class="revit-icon-medium revit-icon-modelline  "style="float: left; margin-right: .3em;"></span>revit-icon-modelline  </p>
+<p><span class="revit-icon-medium revit-icon-modelgroup  "style="float: left; margin-right: .3em;"></span>revit-icon-modelgroup  </p>
+<p><span class="revit-icon-medium revit-icon-room  "style="float: left; margin-right: .3em;"></span>revit-icon-room  </p>
+<p><span class="revit-icon-medium revit-icon-room-separator  "style="float: left; margin-right: .3em;"></span>revit-icon-room-separator  </p>
+<p><span class="revit-icon-medium revit-icon-room-tag  "style="float: left; margin-right: .3em;"></span>revit-icon-room-tag  </p>
+<p><span class="revit-icon-medium revit-icon-area  "style="float: left; margin-right: .3em;"></span>revit-icon-area  </p>
+<p><span class="revit-icon-medium revit-icon-area-boundary  "style="float: left; margin-right: .3em;"></span>revit-icon-area-boundary  </p>
+<p><span class="revit-icon-medium revit-icon-area-tag  "style="float: left; margin-right: .3em;"></span>revit-icon-area-tag  </p>
+<p><span class="revit-icon-medium revit-icon-opening-byface  "style="float: left; margin-right: .3em;"></span>revit-icon-opening-byface  </p>
+<p><span class="revit-icon-medium revit-icon-opening-shaft  "style="float: left; margin-right: .3em;"></span>revit-icon-opening-shaft  </p>
+<p><span class="revit-icon-medium revit-icon-opening-wall  "style="float: left; margin-right: .3em;"></span>revit-icon-opening-wall  </p>
+<p><span class="revit-icon-medium revit-icon-opening-vertical  "style="float: left; margin-right: .3em;"></span>revit-icon-opening-vertical  </p>
+<p><span class="revit-icon-medium revit-icon-opening-dormer  "style="float: left; margin-right: .3em;"></span>revit-icon-opening-dormer  </p>
+<p><span class="revit-icon-medium revit-icon-level  "style="float: left; margin-right: .3em;"></span>revit-icon-level  </p>
+<p><span class="revit-icon-medium revit-icon-grid  "style="float: left; margin-right: .3em;"></span>revit-icon-grid  </p>
+<p><span class="revit-icon-medium revit-icon-plane-set  "style="float: left; margin-right: .3em;"></span>revit-icon-plane-set  </p>
+<p><span class="revit-icon-medium revit-icon-plane-show  "style="float: left; margin-right: .3em;"></span>revit-icon-plane-show  </p>
+<p><span class="revit-icon-medium revit-icon-plane-ref  "style="float: left; margin-right: .3em;"></span>revit-icon-plane-ref  </p>
+<p><span class="revit-icon-medium revit-icon-plane-viewer  "style="float: left; margin-right: .3em;"></span>revit-icon-plane-viewer  </p>
+<p><span class="revit-icon-medium revit-icon-link-revit  "style="float: left; margin-right: .3em;"></span>revit-icon-link-revit  </p>
+<p><span class="revit-icon-medium revit-icon-link-cad  "style="float: left; margin-right: .3em;"></span>revit-icon-link-cad  </p>
+<p><span class="revit-icon-medium revit-icon-link-dwf  "style="float: left; margin-right: .3em;"></span>revit-icon-link-dwf  </p>
+<p><span class="revit-icon-medium revit-icon-link-decal  "style="float: left; margin-right: .3em;"></span>revit-icon-link-decal  </p>
+<p><span class="revit-icon-medium revit-icon-link-pointcloud  "style="float: left; margin-right: .3em;"></span>revit-icon-link-pointcloud  </p>
+<p><span class="revit-icon-medium revit-icon-link-manage  "style="float: left; margin-right: .3em;"></span>revit-icon-link-manage  </p>
+<p><span class="revit-icon-medium revit-icon-import-cad  "style="float: left; margin-right: .3em;"></span>revit-icon-import-cad  </p>
+<p><span class="revit-icon-medium revit-icon-import-xml  "style="float: left; margin-right: .3em;"></span>revit-icon-import-xml  </p>
+<p><span class="revit-icon-medium revit-icon-import-file  "style="float: left; margin-right: .3em;"></span>revit-icon-import-file  </p>
+<p><span class="revit-icon-medium revit-icon-import-image  "style="float: left; margin-right: .3em;"></span>revit-icon-import-image  </p>
+<p><span class="revit-icon-medium revit-icon-manage-image  "style="float: left; margin-right: .3em;"></span>revit-icon-manage-image  </p>
+<p><span class="revit-icon-medium revit-icon-load-family  "style="float: left; margin-right: .3em;"></span>revit-icon-load-family  </p>
+<p><span class="revit-icon-medium revit-icon-load-group  "style="float: left; margin-right: .3em;"></span>revit-icon-load-group  </p>
+<p><span class="revit-icon-medium revit-icon-dimension-aligned  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension-aligned  </p>
+<p><span class="revit-icon-medium revit-icon-dimension-linear  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension-linear  </p>
+<p><span class="revit-icon-medium revit-icon-dimension-angular  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension-angular  </p>
+<p><span class="revit-icon-medium revit-icon-dimension-radial  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension-radial  </p>
+<p><span class="revit-icon-medium revit-icon-dimension-diameter  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension-diameter  </p>
+<p><span class="revit-icon-medium revit-icon-dimension-arc  "style="float: left; margin-right: .3em;"></span>revit-icon-dimension-arc  </p>
+<p><span class="revit-icon-medium revit-icon-spot-elevation  "style="float: left; margin-right: .3em;"></span>revit-icon-spot-elevation  </p>
+<p><span class="revit-icon-medium revit-icon-spot-coordinate  "style="float: left; margin-right: .3em;"></span>revit-icon-spot-coordinate  </p>
+<p><span class="revit-icon-medium revit-icon-spot-slope  "style="float: left; margin-right: .3em;"></span>revit-icon-spot-slope  </p>
+<p><span class="revit-icon-medium revit-icon-detailline  "style="float: left; margin-right: .3em;"></span>revit-icon-detailline  </p>
+<p><span class="revit-icon-medium revit-icon-region  "style="float: left; margin-right: .3em;"></span>revit-icon-region  </p>
+<p><span class="revit-icon-medium revit-icon-detail-component  "style="float: left; margin-right: .3em;"></span>revit-icon-detail-component  </p>
+<p><span class="revit-icon-medium revit-icon-detail-component-repeating  "style="float: left; margin-right: .3em;"></span>revit-icon-detail-component-repeating  </p>
+<p><span class="revit-icon-medium revit-icon-revision-cloud  "style="float: left; margin-right: .3em;"></span>revit-icon-revision-cloud  </p>
+<p><span class="revit-icon-medium revit-icon-detailgroup  "style="float: left; margin-right: .3em;"></span>revit-icon-detailgroup  </p>
+<p><span class="revit-icon-medium revit-icon-insulation  "style="float: left; margin-right: .3em;"></span>revit-icon-insulation  </p>
+<p><span class="revit-icon-medium revit-icon-text  "style="float: left; margin-right: .3em;"></span>revit-icon-text  </p>
+<p><span class="revit-icon-medium revit-icon-checkspelling  "style="float: left; margin-right: .3em;"></span>revit-icon-checkspelling  </p>
+<p><span class="revit-icon-medium revit-icon-findreplace  "style="float: left; margin-right: .3em;"></span>revit-icon-findreplace  </p>
+<p><span class="revit-icon-medium revit-icon-tag-bycategory  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-bycategory  </p>
+<p><span class="revit-icon-medium revit-icon-tag-all  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-all  </p>
+<p><span class="revit-icon-medium revit-icon-tag-keynote-element  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-keynote-element  </p>
+<p><span class="revit-icon-medium revit-icon-tag-keynote-material  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-keynote-material  </p>
+<p><span class="revit-icon-medium revit-icon-tag-keynote-user  "style="float: left; margin-right: .3em;"></span>revit-icon-tag-keynote-user  </p>
+<p><span class="revit-icon-medium revit-icon-symbol  "style="float: left; margin-right: .3em;"></span>revit-icon-symbol  </p>
+<p><span class="revit-icon-medium revit-icon-worksets  "style="float: left; margin-right: .3em;"></span>revit-icon-worksets  </p>
+<p><span class="revit-icon-medium revit-icon-synchronize  "style="float: left; margin-right: .3em;"></span>revit-icon-synchronize  </p>
+<p><span class="revit-icon-medium revit-icon-reloadlatest  "style="float: left; margin-right: .3em;"></span>revit-icon-reloadlatest  </p>
+<p><span class="revit-icon-medium revit-icon-relinquish  "style="float: left; margin-right: .3em;"></span>revit-icon-relinquish  </p>
+<p><span class="revit-icon-medium revit-icon-history  "style="float: left; margin-right: .3em;"></span>revit-icon-history  </p>
+<p><span class="revit-icon-medium revit-icon-restore  "style="float: left; margin-right: .3em;"></span>revit-icon-restore  </p>
+<p><span class="revit-icon-medium revit-icon-requests  "style="float: left; margin-right: .3em;"></span>revit-icon-requests  </p>
+<p><span class="revit-icon-medium revit-icon-copymonitor  "style="float: left; margin-right: .3em;"></span>revit-icon-copymonitor  </p>
+<p><span class="revit-icon-medium revit-icon-coordinationreview  "style="float: left; margin-right: .3em;"></span>revit-icon-coordinationreview  </p>
+<p><span class="revit-icon-medium revit-icon-coordinationsettings  "style="float: left; margin-right: .3em;"></span>revit-icon-coordinationsettings  </p>
+<p><span class="revit-icon-medium revit-icon-reconcilehosting  "style="float: left; margin-right: .3em;"></span>revit-icon-reconcilehosting  </p>
+<p><span class="revit-icon-medium revit-icon-interference  "style="float: left; margin-right: .3em;"></span>revit-icon-interference  </p>
+<p><span class="revit-icon-medium revit-icon-viewtemplates  "style="float: left; margin-right: .3em;"></span>revit-icon-viewtemplates  </p>
+<p><span class="revit-icon-medium revit-icon-visibilitygraphics  "style="float: left; margin-right: .3em;"></span>revit-icon-visibilitygraphics  </p>
+<p><span class="revit-icon-medium revit-icon-filters  "style="float: left; margin-right: .3em;"></span>revit-icon-filters  </p>
+<p><span class="revit-icon-medium revit-icon-thinlines  "style="float: left; margin-right: .3em;"></span>revit-icon-thinlines  </p>
+<p><span class="revit-icon-medium revit-icon-hiddenlines-show  "style="float: left; margin-right: .3em;"></span>revit-icon-hiddenlines-show  </p>
+<p><span class="revit-icon-medium revit-icon-hiddenlines-remove  "style="float: left; margin-right: .3em;"></span>revit-icon-hiddenlines-remove  </p>
+<p><span class="revit-icon-medium revit-icon-cutprofile  "style="float: left; margin-right: .3em;"></span>revit-icon-cutprofile  </p>
+<p><span class="revit-icon-medium revit-icon-render  "style="float: left; margin-right: .3em;"></span>revit-icon-render  </p>
+<p><span class="revit-icon-medium revit-icon-render-cloud  "style="float: left; margin-right: .3em;"></span>revit-icon-render-cloud  </p>
+<p><span class="revit-icon-medium revit-icon-render-gallery  "style="float: left; margin-right: .3em;"></span>revit-icon-render-gallery  </p>
+<p><span class="revit-icon-medium revit-icon-3dview  "style="float: left; margin-right: .3em;"></span>revit-icon-3dview  </p>
+<p><span class="revit-icon-medium revit-icon-view-camera  "style="float: left; margin-right: .3em;"></span>revit-icon-view-camera  </p>
+<p><span class="revit-icon-medium revit-icon-view-walk  "style="float: left; margin-right: .3em;"></span>revit-icon-view-walk  </p>
+<p><span class="revit-icon-medium revit-icon-section  "style="float: left; margin-right: .3em;"></span>revit-icon-section  </p>
+<p><span class="revit-icon-medium revit-icon-view-callout  "style="float: left; margin-right: .3em;"></span>revit-icon-view-callout  </p>
+<p><span class="revit-icon-medium revit-icon-view-callout-sketch  "style="float: left; margin-right: .3em;"></span>revit-icon-view-callout-sketch  </p>
+<p><span class="revit-icon-medium revit-icon-view-plan  "style="float: left; margin-right: .3em;"></span>revit-icon-view-plan  </p>
+<p><span class="revit-icon-medium revit-icon-view-plan-floor  "style="float: left; margin-right: .3em;"></span>revit-icon-view-plan-floor  </p>
+<p><span class="revit-icon-medium revit-icon-view-plan-reflected  "style="float: left; margin-right: .3em;"></span>revit-icon-view-plan-reflected  </p>
+<p><span class="revit-icon-medium revit-icon-view-plan-framing  "style="float: left; margin-right: .3em;"></span>revit-icon-view-plan-framing  </p>
+<p><span class="revit-icon-medium revit-icon-view-plan-regoin  "style="float: left; margin-right: .3em;"></span>revit-icon-view-plan-regoin  </p>
+<p><span class="revit-icon-medium revit-icon-view-plan-area  "style="float: left; margin-right: .3em;"></span>revit-icon-view-plan-area  </p>
+<p><span class="revit-icon-medium revit-icon-view-elevation  "style="float: left; margin-right: .3em;"></span>revit-icon-view-elevation  </p>
+<p><span class="revit-icon-medium revit-icon-view-drafting  "style="float: left; margin-right: .3em;"></span>revit-icon-view-drafting  </p>
+<p><span class="revit-icon-medium revit-icon-view-duplicate  "style="float: left; margin-right: .3em;"></span>revit-icon-view-duplicate  </p>
+<p><span class="revit-icon-medium revit-icon-view-duplicate-detailing  "style="float: left; margin-right: .3em;"></span>revit-icon-view-duplicate-detailing  </p>
+<p><span class="revit-icon-medium revit-icon-view-duplicate-dependent  "style="float: left; margin-right: .3em;"></span>revit-icon-view-duplicate-dependent  </p>
+<p><span class="revit-icon-medium revit-icon-view-legend  "style="float: left; margin-right: .3em;"></span>revit-icon-view-legend  </p>
+<p><span class="revit-icon-medium revit-icon-view-legend-keynote  "style="float: left; margin-right: .3em;"></span>revit-icon-view-legend-keynote  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule-quantities  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule-quantities  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule-column  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule-column  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule-materials  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule-materials  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule-sheetlist  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule-sheetlist  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule-note  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule-note  </p>
+<p><span class="revit-icon-medium revit-icon-view-schedule-views  "style="float: left; margin-right: .3em;"></span>revit-icon-view-schedule-views  </p>
+<p><span class="revit-icon-medium revit-icon-view-scopebox  "style="float: left; margin-right: .3em;"></span>revit-icon-view-scopebox  </p>
+<p><span class="revit-icon-medium revit-icon-sheet  "style="float: left; margin-right: .3em;"></span>revit-icon-sheet  </p>
+<p><span class="revit-icon-medium revit-icon-addview  "style="float: left; margin-right: .3em;"></span>revit-icon-addview  </p>
+<p><span class="revit-icon-medium revit-icon-titleblock  "style="float: left; margin-right: .3em;"></span>revit-icon-titleblock  </p>
+<p><span class="revit-icon-medium revit-icon-revisions  "style="float: left; margin-right: .3em;"></span>revit-icon-revisions  </p>
+<p><span class="revit-icon-medium revit-icon-guidegrid  "style="float: left; margin-right: .3em;"></span>revit-icon-guidegrid  </p>
+<p><span class="revit-icon-medium revit-icon-window-switch  "style="float: left; margin-right: .3em;"></span>revit-icon-window-switch  </p>
+<p><span class="revit-icon-medium revit-icon-window-closehidden  "style="float: left; margin-right: .3em;"></span>revit-icon-window-closehidden  </p>
+<p><span class="revit-icon-medium revit-icon-ui  "style="float: left; margin-right: .3em;"></span>revit-icon-ui  </p>
+<p><span class="revit-icon-medium revit-icon-materials  "style="float: left; margin-right: .3em;"></span>revit-icon-materials  </p>
+<p><span class="revit-icon-medium revit-icon-objectstyles  "style="float: left; margin-right: .3em;"></span>revit-icon-objectstyles  </p>
+<p><span class="revit-icon-medium revit-icon-snaps  "style="float: left; margin-right: .3em;"></span>revit-icon-snaps  </p>
+<p><span class="revit-icon-medium revit-icon-project-information  "style="float: left; margin-right: .3em;"></span>revit-icon-project-information  </p>
+<p><span class="revit-icon-medium revit-icon-project-parameters  "style="float: left; margin-right: .3em;"></span>revit-icon-project-parameters  </p>
+<p><span class="revit-icon-medium revit-icon-project-units  "style="float: left; margin-right: .3em;"></span>revit-icon-project-units  </p>
+<p><span class="revit-icon-medium revit-icon-project-parameters-shared  "style="float: left; margin-right: .3em;"></span>revit-icon-project-parameters-shared  </p>
+<p><span class="revit-icon-medium revit-icon-project-transfer  "style="float: left; margin-right: .3em;"></span>revit-icon-project-transfer  </p>
+<p><span class="revit-icon-medium revit-icon-purge  "style="float: left; margin-right: .3em;"></span>revit-icon-purge  </p>
+<p><span class="revit-icon-medium revit-icon-settings-structural  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-structural  </p>
+<p><span class="revit-icon-medium revit-icon-settings-mep  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-mep  </p>
+<p><span class="revit-icon-medium revit-icon-settings-panelschedule  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-panelschedule  </p>
+<p><span class="revit-icon-medium revit-icon-settings-additional  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-additional  </p>
+<p><span class="revit-icon-medium revit-icon-settings-fill  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-fill  </p>
+<p><span class="revit-icon-medium revit-icon-settings-material  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-material  </p>
+<p><span class="revit-icon-medium revit-icon-settings-analysis  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-analysis  </p>
+<p><span class="revit-icon-medium revit-icon-settings-line-styles  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-line-styles  </p>
+<p><span class="revit-icon-medium revit-icon-settings-line-weights  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-line-weights  </p>
+<p><span class="revit-icon-medium revit-icon-settings-line-patterns  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-line-patterns  </p>
+<p><span class="revit-icon-medium revit-icon-settings-underlay  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-underlay  </p>
+<p><span class="revit-icon-medium revit-icon-settings-sun  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-sun  </p>
+<p><span class="revit-icon-medium revit-icon-settings-arrowhead  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-arrowhead  </p>
+<p><span class="revit-icon-medium revit-icon-settings-temporarydimensions  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-temporarydimensions  </p>
+<p><span class="revit-icon-medium revit-icon-settings-detaillevel  "style="float: left; margin-right: .3em;"></span>revit-icon-settings-detaillevel  </p>
+<p><span class="revit-icon-medium revit-icon-location  "style="float: left; margin-right: .3em;"></span>revit-icon-location  </p>
+<p><span class="revit-icon-medium revit-icon-coordinates  "style="float: left; margin-right: .3em;"></span>revit-icon-coordinates  </p>
+<p><span class="revit-icon-medium revit-icon-coordinates-acquire  "style="float: left; margin-right: .3em;"></span>revit-icon-coordinates-acquire  </p>
+<p><span class="revit-icon-medium revit-icon-coordinates-publish  "style="float: left; margin-right: .3em;"></span>revit-icon-coordinates-publish  </p>
+<p><span class="revit-icon-medium revit-icon-coordinates-specify  "style="float: left; margin-right: .3em;"></span>revit-icon-coordinates-specify  </p>
+<p><span class="revit-icon-medium revit-icon-coordiantes-report  "style="float: left; margin-right: .3em;"></span>revit-icon-coordiantes-report  </p>
+<p><span class="revit-icon-medium revit-icon-position  "style="float: left; margin-right: .3em;"></span>revit-icon-position  </p>
+<p><span class="revit-icon-medium revit-icon-position-relocate  "style="float: left; margin-right: .3em;"></span>revit-icon-position-relocate  </p>
+<p><span class="revit-icon-medium revit-icon-position-rotate  "style="float: left; margin-right: .3em;"></span>revit-icon-position-rotate  </p>
+<p><span class="revit-icon-medium revit-icon-mirror-project  "style="float: left; margin-right: .3em;"></span>revit-icon-mirror-project  </p>
+<p><span class="revit-icon-medium revit-icon-rotate-project  "style="float: left; margin-right: .3em;"></span>revit-icon-rotate-project  </p>
+<p><span class="revit-icon-medium revit-icon-designoptions  "style="float: left; margin-right: .3em;"></span>revit-icon-designoptions  </p>
+<p><span class="revit-icon-medium revit-icon-manage-links  "style="float: left; margin-right: .3em;"></span>revit-icon-manage-links  </p>
+<p><span class="revit-icon-medium revit-icon-manage-images  "style="float: left; margin-right: .3em;"></span>revit-icon-manage-images  </p>
+<p><span class="revit-icon-medium revit-icon-manage-decals  "style="float: left; margin-right: .3em;"></span>revit-icon-manage-decals  </p>
+<p><span class="revit-icon-medium revit-icon-view-starting  "style="float: left; margin-right: .3em;"></span>revit-icon-view-starting  </p>
+<p><span class="revit-icon-medium revit-icon-phases  "style="float: left; margin-right: .3em;"></span>revit-icon-phases  </p>
+<p><span class="revit-icon-medium revit-icon-properties  "style="float: left; margin-right: .3em;"></span>revit-icon-properties  </p>
+<p><span class="revit-icon-medium revit-icon-selectid  "style="float: left; margin-right: .3em;"></span>revit-icon-selectid  </p>
+<p><span class="revit-icon-medium revit-icon-selectionid  "style="float: left; margin-right: .3em;"></span>revit-icon-selectionid  </p>
+<p><span class="revit-icon-medium revit-icon-macro-manage  "style="float: left; margin-right: .3em;"></span>revit-icon-macro-manage  </p>
+<p><span class="revit-icon-medium revit-icon-macro-security  "style="float: left; margin-right: .3em;"></span>revit-icon-macro-security  </p>
+<p><span class="revit-icon-medium revit-icon-warnings  "style="float: left; margin-right: .3em;"></span>revit-icon-warnings  </p>
+<p><span class="revit-icon-medium revit-icon-legend-component  "style="float: left; margin-right: .3em;"></span>revit-icon-legend-component  </p>
+<p><span class="revit-icon-medium revit-icon-properties-type  "style="float: left; margin-right: .3em;"></span>revit-icon-properties-type  </p>
+<p><span class="revit-icon-medium revit-icon-modify-align  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-align  </p>
+<p><span class="revit-icon-medium revit-icon-modify-offset  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-offset  </p>
+<p><span class="revit-icon-medium revit-icon-modify-move  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-move  </p>
+<p><span class="revit-icon-medium revit-icon-modify-copy  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-copy  </p>
+<p><span class="revit-icon-medium revit-icon-modify-mirror-pickline  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-mirror-pickline  </p>
+<p><span class="revit-icon-medium revit-icon-modify-mirror-drawline  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-mirror-drawline  </p>
+<p><span class="revit-icon-medium revit-icon-modify-rotate  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-rotate  </p>
+<p><span class="revit-icon-medium revit-icon-modify-trim  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-trim  </p>
+<p><span class="revit-icon-medium revit-icon-modify-measure  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-measure  </p>
+<p><span class="revit-icon-medium revit-icon-modify-assembly  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-assembly  </p>
+<p><span class="revit-icon-medium revit-icon-modify-parts  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-parts  </p>
+<p><span class="revit-icon-medium revit-icon-modifiy-group  "style="float: left; margin-right: .3em;"></span>revit-icon-modifiy-group  </p>
+<p><span class="revit-icon-medium revit-icon-modify-createsimilar  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-createsimilar  </p>
+<p><span class="revit-icon-medium revit-icon-modify-profile-edit  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-profile-edit  </p>
+<p><span class="revit-icon-medium revit-icon-modify-profile-reset  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-profile-reset  </p>
+<p><span class="revit-icon-medium revit-icon-wall-attach  "style="float: left; margin-right: .3em;"></span>revit-icon-wall-attach  </p>
+<p><span class="revit-icon-medium revit-icon-wall-detach  "style="float: left; margin-right: .3em;"></span>revit-icon-wall-detach  </p>
+<p><span class="revit-icon-medium revit-icon-modify-paste  "style="float: left; margin-right: .3em;"></span>revit-icon-modify-paste  </p>
+<p><span class="revit-icon-medium revit-icon-text-edit  "style="float: left; margin-right: .3em;"></span>revit-icon-text-edit  </p>
+<p><span class="revit-icon-medium revit-icon-workplane  "style="float: left; margin-right: .3em;"></span>revit-icon-workplane  </p>
+<p><span class="revit-icon-medium revit-icon-face-picknew  "style="float: left; margin-right: .3em;"></span>revit-icon-face-picknew  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+<p><span class="revit-icon-medium revit-icon-blank  "style="float: left; margin-right: .3em;"></span>revit-icon-blank  </p>
+
+      </div>
+   </div>
+  <div id="wrapper" style="width:700px">
+   <div id="sidebar"  >
+        <ul id="menu">
+          <li><a href="./Keynoting.html"><span class="ui-icon ui-icon-circle-triangle-e"></span>Key Noting</a></li>
+          <li><a href="./paintcalcs.html?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="./shellplan.html"><span class="ui-icon ui-icon-circle-triangle-e"></span>Shell Plan</a></li>
+          <li><a href="./revisedsheets.html"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revised Sheets</a></li>
+          <li><a href="./demoplans.html"><span class="ui-icon ui-icon-circle-triangle-e"></span>Demo/Phasing Plans</a></li>
+        </ul>
+   </div>
+  </div>
+
+  <footer>
+    <div class="footer">
+       <p>&copy; RHA</p>
+    </div>
+  </footer>
+
+  <script>
+  $(document).ready(function() {
+    $("p").css( {"float": "left", "margin":"0 0 10px 50px", "clear":"both"} );
+  });
+  </script>
+</body>
+</html>

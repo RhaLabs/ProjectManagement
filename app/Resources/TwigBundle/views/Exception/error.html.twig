@@ -1,0 +1,55 @@
+{% spaceless %}
+<!doctype html>
+<html lang="us">
+<head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>That's no moon: {{ status_text }}</title>
+        <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}?v=2" />
+	<link rel='stylesheet' href='//fonts.googleapis.com/css?family=Inder|Exo' type='text/css'>
+   {% stylesheets
+       'bundles/limetrailjquery/css/jquery-ui-1.10.4.custom.css'
+       'bundles/limetrailjquery/css/jquery.ui.menubar.css'
+       'bundles/limetrailjquery/css/site.css'
+       filter='cssrewrite'
+    %}
+   <link rel="stylesheet" href="{{ asset_url }}" />
+   {% endstylesheets %}
+        {% block stylesheets %}{% endblock %}
+        {% block head %}{% endblock %}
+        
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<script>window.jQuery 
+  {% javascripts
+      'bundles/limetrailjquery/js/jquery-1.11.0.min.js'
+   %}
+      || document.write (unescape('%3Cscript src="{{ asset_url }}"%3E%3C/script%3E'))
+  {% endjavascripts %}
+  </script>
+        
+   {% javascripts
+      '@LimeTrailJqueryBundle/Resources/public/js/jquery-ui.js'
+      '@LimeTrailJqueryBundle/Resources/public/js/jquery.ui.menubar.js'
+      '@LimeTrailJqueryBundle/Resources/public/js/site.js'
+   %}
+      <script src="{{ asset_url }}"></script>
+   {% endjavascripts %}
+   {% block gridscripts %}{% endblock %}
+   {% block pageheadscripts %}{% endblock %}
+
+
+</head>
+
+<body>
+    <h1>There's been a disturbance in the Force.</h1>
+    <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+    <iframe id="iframe1" src="http://www.gigapan.com/gigapans/9877089383539a6eb1441038318565bc/snapshots/387374,387372,376661,376658,376657,376651,376650,376649,376646,376645,376644/options/hidetitle,fullscreen,showcaptions/iframe/flash.html?height=500"
+      frameborder="0" height="625" scrolling="no" width="100%"></iframe>
+    <p>Image from NASA's Lunar Reconnaissance Orbiter Camera, check out the <a href="http://lroc.sese.asu.edu/posts/738">blog post.</a></p>
+</body>
+
+</html>
+{% endspaceless %}
+

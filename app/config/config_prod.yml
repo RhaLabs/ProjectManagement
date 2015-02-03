@@ -1,0 +1,34 @@
+imports:
+    - { resource: config.yml }
+
+doctrine:
+    orm:
+        metadata_cache_driver: xcache
+        result_cache_driver: xcache
+        query_cache_driver: xcache
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+
+assetic:
+    use_controller: false
+    filters:
+        uglifyjs2:
+            bin: %uglifyjs%
+            node: %node_path%
+            apply_to: "\.js$"
+            compress: true
+            mangle: true
+#            screw_ie8: true
+        uglifycss:
+            bin: %uglifycss%
+            node: %node_path%
+            apply_to: "\.css$"

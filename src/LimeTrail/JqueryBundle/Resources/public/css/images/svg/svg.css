@@ -1,0 +1,8 @@
+#carat {
+  stroke-width: 2;
+  stroke: #8DC262;
+}
+#carat:hover {
+  stroke-width: 2;
+  stroke: #ffffff;
+}

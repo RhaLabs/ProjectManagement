@@ -1,0 +1,285 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+  {% stylesheets
+       'bundles/rharevit/css/reviticons.css'
+       filter='cssrewrite'
+  %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+  $(function() {
+
+    $( "#accordion" ).accordion({
+      heightStyle: "content",
+      collapsible: true,
+      icons: { header: "ui-icon-triangle-1-e", activeHeader: "ui-icon-triangle-1-s"}
+      });
+
+      $( "#menu" ).menu();
+
+
+
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#autocomplete" ).autocomplete({
+      source: availableTags
+    });
+
+
+
+    //$( "#button" ).button();
+    $("#button").button({
+      icons: { primary: "ui-icon-triangle-1-e"}
+    });
+    $( "#radioset" ).buttonset();
+
+
+
+    $( "#tabs" ).tabs();
+
+
+
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      width: 400,
+      buttons: [
+        {
+          text: "Ok",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        {
+          text: "Cancel",
+          click: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+
+    // Link to open the dialog
+    $( "#dialog-link" ).click(function( event ) {
+      $( "#dialog" ).dialog( "open" );
+      event.preventDefault();
+    });
+
+
+
+    $( "#datepicker" ).datepicker({
+      inline: true
+    });
+
+
+
+    $( "#slider" ).slider({
+      range: true,
+      values: [ 17, 67 ]
+    });
+
+
+
+    $( "#progressbar" ).progressbar({
+      value: 20
+    });
+
+
+    // Hover states on the static widgets
+    $( "#dialog-link, #icons li" ).hover(
+      function() {
+        $( this ).addClass( "ui-state-hover" );
+      },
+      function() {
+        $( this ).removeClass( "ui-state-hover" );
+      }
+    );
+  });
+{% endblock %}
+{% block title %}RHA Revit Guide{% endblock %}
+{% block heading %}Revising Sheets in Revit{% endblock %}
+{% block body -%}
+
+      <div id="accordion">
+        <h3 id="Get_Started">Getting Started: Setup Revisions</h3>
+            <div>
+               <p class="border">First thing first, check your project's <strong>Sheet Issues/Revisions</strong> settings.
+                       <div class="center">
+                         <figure>
+                             <img src="{{ asset('bundles/rharevit/images/sheet_revisions_location.png') }}" style="vertical-align:middle;"/>
+                             <figcaption>Ribbon Location</figcaption>
+                         </figure>
+                       </div>
+                      <div class="center">
+                         <figure>
+                             <img src="{{ asset('bundles/rharevit/images/sheet_revision_default_dialog.png') }}" style="vertical-align:middle;"/>
+                             <figcaption>Dialog Box</figcaption>
+                         </figure>
+                       </div>
+               We want the <em>Numbering</em> to be Per Sheet.
+               Also make sure that <em>Cloud and Tag</em> is shown under the <strong>Show</strong> column for the current revision.  Then set
+               the <em>Numbering</em> column to numeric.  The Date column should be Month/Day/Year in the follwoing format: MM/DD/YY.  The <em>Description</em>
+               column is where you put the type of change.  For us it will be one of htree kinds: REV, ADD, or CCD.
+               <div class="center">
+                         <figure>
+                             <img src="{{ asset('bundles/rharevit/images/sheet_revision_dialog_standardinput.png') }}" style="vertical-align:middle;"/>
+                             <figcaption>Dialog Box</figcaption>
+                         </figure>
+                       </div>
+               </p>
+               <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                  <em>Notice</em>: Check the Issued box once you have printed and issued the change you were working on.  This locks the change so no one can accidentally edit the clouds
+                  and helps Revit manage the revisions for you.<br/>Once issued, change the <em>Show</em> column to <strong>Tag</strong>.  Tags must always be shown.
+                  </p>
+                </div>
+               </div>
+               <div class="center">
+                         <figure>
+                             <img src="{{ asset('bundles/rharevit/images/sheet_revision_dialog_standardinput_changes.png') }}" style="vertical-align:middle;"/>
+                             <figcaption>Dialog Box</figcaption>
+                         </figure>
+               </div>
+            </div>
+         <h3 id="Clouding">Revising: Where to Cloud?</h3>
+            <div>
+              <p class="border">
+                If you ask the question, "Where to put revision clouds in Revit?"  You will get varied opinions.  Some poeple insist upon clouds only in sheets and other demand
+                that clouds stay in the views.  Revit doesn't really care where you put the cloud.  That being said we should be clouding changes in the sheets.
+              </p>
+            </div>
+         <h3 id="Find">Finding Revised Sheets</h3>
+            <div>
+              <p class="border">
+                Wether you write your narratives as you go or do it all after the fact, making a list of revised sheets for any particular change can be very helpful.
+                If the consultants cloud and tag their changes too then you can also find out all of their revised sheets too.  So lets try it.  Create a new sheet list.
+                Look under Views Schedules Sheet List.  Make your first schedule look like the one shown below.
+              </p>
+
+                       <div id="tabs">
+                              <ul>
+                                <li><a href="#tabs-1">Fields</a></li>
+                                <li><a href="#tabs-2">Filter</a></li>
+                                <li><a href="#tabs-3">Sorting/Grouping</a></li>
+                                <li><a href="#tabs-4">Formatting</a></li>
+                                <li><a href="#tabs-5">Appearance</a></li>
+                              </ul>
+                              <div id="tabs-1">
+                                <p>
+                                  <div class="center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/revisedsheetlist_edit_fields.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Find the fields as shown in the right box.  The order doesn't really matter as long
+                                      as you have the fields.
+                                        <div class="ui-widget">
+                                            <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                              <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                              <em>Notice</em>: The protos use different fields (parameters) for the sheet sequence.  Find the appropriate field for your project.<br/>
+                                              Sam's Clubs prior to 4/27/13:
+                                              <pre>SEQUENCE#</pre>
+                                              Supercenter's prior to 4/27/13:
+                                              <pre>Sequence No</pre>
+                                              All protos (currently):
+                                              <pre>Sequence Number</pre>
+                                              </p>
+                                            </div>
+                                        </div>
+                                      </figcaption>
+                                    </figure>
+                                  </div>
+                                </p>
+                              </div>
+                              <div id="tabs-2">
+                                <p>
+                                  <div class="center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/revisedsheetlist_edit_filter.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Setup filters to match the above.  Use Current Revision Description equals and from the drop down box just select the change you want to see</figcaption>
+                                    </figure>
+                                  </div>
+                                </p>
+                              </div>
+                              <div id="tabs-3">
+                                <p><div class="center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/revisedsheetlist_edit_sorting.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Sort by the Sequence Number this way all of the sheets will be listed in order</figcaption>
+                                    </figure>
+                              </div></p>
+                              </div>
+                              <div id="tabs-4">
+                                <p><div class="center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/revisedsheetlist_edit_formatting.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Notice the field Sheet Number is selected and the Heading: is <em>Sheet #</em>.  This is how you can change the text of the columns
+                                      to read differently.</figcaption>
+                                    </figure>
+                              </div></p>
+                              </div>
+                              <div id="tabs-5">
+                                <p>
+                                  <div class="center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/revisedsheetlist_edit_appearance.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption>Not important for this excercise - the defaults should be fine</figcaption>
+                                    </figure>
+                                  </div>
+                                </p>
+                              </div>
+                         </div>
+
+                        <div style="margin-top: 20px; padding: 0 .7em;">
+                          <p style="float: left">
+                          After you've gotten the dialog box edited as shown above then its time to click <img src="{{ asset('bundles/rharevit/images/ok_button.png') }}" style="display:inline; vertical-align:middle"/><br/>
+                          You should now see a schedule which looks something like this, although it may have more rows.
+                          </p>
+                          <div class="border center">
+                                    <figure>
+                                      <img src="{{ asset('bundles/rharevit/images/revisedsheetlist_result.png') }}" style="vertical-align:middle;"/>
+                                      <figcaption></figcaption>
+                                    </figure>
+                          </div>
+                        </div>
+            </div>
+      </div>
+    </div>
+   </div>
+      {% endblock %}
+
+{% block sidebar -%}
+   <div id="sidebar" class="ui-widget ui-helper-clearfix ui-corner-all" >
+        <ul id="menu">
+          <li><a href="{{ path('rha_revit_default_index') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
+          <li><a href="{{ path('rha_revit_keynoting') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Key Noting</a></li>
+          <li><a href="{{ path('rha_revit_paintcalcs') }}?smooth=38304&split=4777"><span class="ui-icon ui-icon-circle-triangle-e"></span>Paint Areas Calculation</a></li>
+          <li><a href="{{ path('rha_revit_shellplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Shell Plan</a></li>
+          <li><a href="{{ path('rha_revit_revitui') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Revit UI</a></li>
+          <li><a href="{{ path('rha_revit_demoplan') }}"><span class="ui-icon ui-icon-circle-triangle-e"></span>Demo/Phasing Plans</a></li>
+         </ul>
+   </div>
+
+{% endblock %}
