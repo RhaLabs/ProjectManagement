@@ -1,41 +1,21 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>Contact</h1>
+{% block content_content -%}
+    <h1>Store Information</h1>
 
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Firstname</th>
-                <td>{{ entity.firstName }}</td>
+                <th>Store Number</th>
+                <td>{{ entity.storeNumber }}</td>
             </tr>
             <tr>
-                <th>Middlename</th>
-                <td>{{ entity.middleName }}</td>
+                <th>City</th>
+                <td>{{ entity.city.name }}</td>
             </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Jobtitle</th>
-                <td>{{ entity.jobTitle }}</td>
-            </tr>
-            <tr>
-                <th>Directphone</th>
-                <td>{{ entity.directPhone }}</td>
-            </tr>
-            <tr>
-                <th>Mobilephone</th>
-                <td>{{ entity.mobilePhone }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>Website</th>
-                <td>{{ entity.website }}</td>
+             <tr>
+                <th>State</th>
+                <td>{{ entity.state.name }}</td>
             </tr>
             <tr>
                 <th>Id</th>
@@ -44,17 +24,4 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('trail_contact') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('trail_contact_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

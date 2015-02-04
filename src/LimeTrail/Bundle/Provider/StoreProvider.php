@@ -50,6 +50,19 @@ class StoreProvider
         return $t;
     }
     
+    public function findStoreByNumber($number)
+    {
+        $q = $this->em->getRepository('LimeTrailBundle:StoreInformation');
+
+        $t = $q->findOneBy(array('storeNumber' => $number));
+
+        if (!$t) {
+            return null;
+        }
+
+        return $t;
+    }
+    
     public function findProjectChangesByProjectAndChange(\LimeTrail\Bundle\Entity\ProjectInformation $project, \LimeTrail\Bundle\Entity\ChangeInitiation $change)
     {
       $q = $this->em->getRepository('LimeTrailBundle:ProjectChangeInitiation');
@@ -286,7 +299,7 @@ class StoreProvider
         }
     }
   // @var $class must be a class name. $name is the value to find
-  private function getNameOf($class, $name)
+  public function getNameOf($class, $name)
   {
       print "getNameOf()\n";
       print $name."\n";
@@ -430,7 +443,7 @@ class StoreProvider
         return $c;
     }
 
-    private function getCityFromState($qcity, $state)
+    public function getCityFromState($qcity, $state)
     {
         print "getCityFromState($qcity, ".$state->getName().")\n";
         if (!$qcity) {
@@ -485,7 +498,7 @@ class StoreProvider
         return $string;
     }
   // @var $state must be a string
-  private function getState($state)
+  public function getState($state)
   {
       print "getState()\n";
       $q = $this->em->getRepository('LimeTrailBundle:State');
@@ -513,7 +526,7 @@ class StoreProvider
   }
 
     // @var $zipcode must be a string
-  private function getZipcode($zipcode)
+  public function getZipcode($zipcode)
   {
       print "getZipcode()\n";
       $q = $this->em->getRepository('LimeTrailBundle:Zip');
