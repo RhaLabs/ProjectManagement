@@ -19,6 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     node_path:           /usr/bin/node
+    node_paths:        [/usr/local/lib/node_modules, /usr/local/bin]
     java_path:           /usr/bin/java
     uglifycss:          /usr/local/bin/uglifycss
     uglifyjs:           /usr/local/bin/uglifyjs2

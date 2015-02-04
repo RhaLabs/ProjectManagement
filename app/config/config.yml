@@ -52,11 +52,12 @@ mopa_bootstrap:
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
+    node: %node_path%
     filters:
         cssrewrite: ~
         less:
             node: %node_path%
-            node_paths: [/usr/local/lib/node_modules, /usr/local/bin]
+            node_paths: %node_paths%
             apply_to: "\.less$"
 
 # Doctrine Configuration
@@ -251,7 +252,7 @@ sonata_user:
 
 knp_markdown:
     parser:
-        service:              markdown.parser.sundown
+        service:              markdown.parser.flavored
     sundown:
         extensions:
             fenced_code_blocks:   true
