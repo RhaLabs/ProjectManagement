@@ -1,6 +1,6 @@
 <?php
 
-namespace LimeTrail\Bundle\Form;
+namespace LimeTrail\Bundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,10 +15,11 @@ class StoreInformationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number')
+            ->add('storeNumber')/*
             ->add('city')
             ->add('county')
-            ->add('state')
+            ->add('state')*/
+            ->add('projects', new ProjectInformationType())
         ;
     }
 

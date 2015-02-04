@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle::datagrid.html.twig' %}
+
+{% block pageheadscripts %}
+<script>
+$(function() {
+
+$( document ).tooltip( {
+  position: {
+    my: "right bottom-5",
+    at: "left top",
+    collision: "flipfit"
+  }
+});
+
+$( "#contact_company" ).autocomplete({
+  source: function( request, response ) {
+    $.ajax({
+      url: "{{ path('limetrail_company') }}",
+      type: "POST",
+      dataType: "json",
+      data: {
+        startsWith: request.term
+      },
+      success: function ( data ) {
+        response( $.map(data.data,
+          function( item ) {
+            return {
+              label: item.label,
+              value: item.value
+            }
+          }
+        ));
+      }
+    });
+  },
+  minLength: 2,
+  open: function () {
+    $( this ).removeClass("ui-corner-all").addClass( "ui-corner-top" );
+  },
+  close: function () {
+    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+  },
+  select: function ( event , ui ) {
+
+  }
+});
+});
+</script>
+{% endblock %}
+
+{% block body -%}
+    <h1>Store list</h1>
+      <div id="clear" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+
+        {{ form_end(form) }}
+      </div>
+
+{% endblock %}

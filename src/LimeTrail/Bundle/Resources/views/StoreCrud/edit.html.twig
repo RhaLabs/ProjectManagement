@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle:StoreCrud:script.html.twig' %}
+
+{% block content_content -%}
+    <h1>Contact edit</h1>
+      <div id="clear" class="well ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+    {{ form(edit_form) }}
+
+        <div class="button">
+        <a href="{{ path('limetrail_storeinformation') }}">
+            Back to the list
+        </a>
+    </div>
+    <div class="btn btn-warn">{{ form(delete_form) }}</div>
+
+</div>
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    {{ block('scripts') }}
+{% endblock foot_script %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace LimeTrail\Bundle\Form;
+namespace LimeTrail\Bundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,6 +11,7 @@ class ProjectInformationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('projectNumber')/*
             ->add('projectPhase')
             ->add('confidential')
             ->add('combo')
@@ -20,17 +21,8 @@ class ProjectInformationType extends AbstractType
             ->add('increaseSquareFootage')
             ->add('prjTotalSquareFootage')
             ->add('actTotalSquareFootage')
-            ->add('timestamp')
-            ->add('user')
-            ->add('ProjectType', new ProjectTypeType())
-            ->add('storeTypeId')
-            ->add('developmentTypeId')
-            ->add('descriptionOfTypeId')
-            ->add('programYearId')
-            ->add('programCategoryId')
-            ->add('prototypeId')
-            ->add('sequenceId')
-            ->add('projectStatusId')
+            ->add('ProjectType', new ProjectTypeType())*/
+
         ;
     }
 

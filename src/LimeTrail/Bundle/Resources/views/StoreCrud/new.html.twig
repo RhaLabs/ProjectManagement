@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% use 'LimeTrailBundle:StoreCrud:script.html.twig' %}
+
+{% block content_content -%}
+    <h1>Add New Store</h1>
+      <div id="clear" class="well ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+        {{ form_end(form) }}
+      </div>
+
+{% endblock content_content %}
+
+{% block foot_script %}
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            // Change JQueryUI plugin names to fix name collision with Bootstrap:
+            $.widget.bridge('uitooltip', $.ui.tooltip);
+            $.widget.bridge('uibutton', $.ui.button);
+        </script>
+    {{ parent() }}
+    {{ block('scripts') }}
+{% endblock foot_script %}
