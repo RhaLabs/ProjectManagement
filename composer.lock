@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ef080a48e5c686c29398bd4a33de0bd",
+    "hash": "8b70df74979e0aa481cdb8654ef29676",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -73,12 +73,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craue/CraueFormFlowBundle.git",
-                "reference": "3494ca27ef2d32bc1fd15c749a52f7508d62c2e2"
+                "reference": "9e304951caedb5ec89c843b154151ed44aad98dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/3494ca27ef2d32bc1fd15c749a52f7508d62c2e2",
-                "reference": "3494ca27ef2d32bc1fd15c749a52f7508d62c2e2",
+                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/9e304951caedb5ec89c843b154151ed44aad98dd",
+                "reference": "9e304951caedb5ec89c843b154151ed44aad98dd",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
                 "Symfony2",
                 "form"
             ],
-            "time": "2015-01-29 18:07:46"
+            "time": "2015-02-02 11:31:11"
         },
         {
             "name": "doctrine/annotations",
@@ -1676,16 +1676,15 @@
         {
             "name": "knplabs/knp-paginator-bundle",
             "version": "dev-master",
-            "target-dir": "Knp/Bundle/PaginatorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "b51aa32f129711fa76f853b7536efefd8c5dbf07"
+                "reference": "5990419ed9cfb54fac4a4b63056c3cd2ceb2f14a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/b51aa32f129711fa76f853b7536efefd8c5dbf07",
-                "reference": "b51aa32f129711fa76f853b7536efefd8c5dbf07",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5990419ed9cfb54fac4a4b63056c3cd2ceb2f14a",
+                "reference": "5990419ed9cfb54fac4a4b63056c3cd2ceb2f14a",
                 "shasum": ""
             },
             "require": {
@@ -1694,6 +1693,9 @@
                 "symfony/framework-bundle": "~2.0",
                 "twig/twig": "~1.5"
             },
+            "require-dev": {
+                "symfony/expression-language": "~2.4"
+            },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1701,8 +1703,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Knp\\Bundle\\PaginatorBundle": ""
+                "psr-4": {
+                    "Knp\\Bundle\\PaginatorBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1730,7 +1732,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2014-11-29 17:18:09"
+            "time": "2015-02-03 02:04:01"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1805,48 +1807,6 @@
                 "minification"
             ],
             "time": "2014-12-12 05:04:05"
-        },
-        {
-            "name": "kwattro/markdown-bundle",
-            "version": "dev-master",
-            "target-dir": "Kwattro/MarkdownBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kwattro/KwattroMarkdownBundle.git",
-                "reference": "4f462db0900f8f79c7b2fce6fccca190ff9ccb8e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kwattro/KwattroMarkdownBundle/zipball/4f462db0900f8f79c7b2fce6fccca190ff9ccb8e",
-                "reference": "4f462db0900f8f79c7b2fce6fccca190ff9ccb8e",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/framework-bundle": "2.*",
-                "symfony/twig-bundle": "*"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "Kwattro\\MarkdownBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kwattro",
-                    "homepage": "https://github.com/kwattro"
-                }
-            ],
-            "description": "A Bundle that integrates the Sundown parser",
-            "keywords": [
-                "markdown",
-                "sundown"
-            ],
-            "time": "2014-08-06 10:37:18"
         },
         {
             "name": "liuggio/ExcelBundle",
@@ -2469,17 +2429,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.15",
+            "version": "v3.0.16",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "0692cd6a8fcf645abce8ea45f7cbbd1942e2b23c"
+                "reference": "aa30f8cd3ee68144e043ca30713aa7d7df35c5fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/0692cd6a8fcf645abce8ea45f7cbbd1942e2b23c",
-                "reference": "0692cd6a8fcf645abce8ea45f7cbbd1942e2b23c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/aa30f8cd3ee68144e043ca30713aa7d7df35c5fa",
+                "reference": "aa30f8cd3ee68144e043ca30713aa7d7df35c5fa",
                 "shasum": ""
             },
             "require": {
@@ -2518,7 +2478,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-01-07 07:13:43"
+            "time": "2015-02-01 05:42:21"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2674,12 +2634,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "fc2219a681f61104cfbc12e90721fffd13296bc0"
+                "reference": "86afaffaeeb2130c32b3a7a7ea6ce9b9a480768d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/fc2219a681f61104cfbc12e90721fffd13296bc0",
-                "reference": "fc2219a681f61104cfbc12e90721fffd13296bc0",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/86afaffaeeb2130c32b3a7a7ea6ce9b9a480768d",
+                "reference": "86afaffaeeb2130c32b3a7a7ea6ce9b9a480768d",
                 "shasum": ""
             },
             "require": {
@@ -2747,7 +2707,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-01-30 00:13:02"
+            "time": "2015-02-02 15:46:10"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -2949,12 +2909,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "ab941c34b26481748fd26be2ffa16a478d114976"
+                "reference": "43b5278961b638bbee363033971a984518cc0a92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/ab941c34b26481748fd26be2ffa16a478d114976",
-                "reference": "ab941c34b26481748fd26be2ffa16a478d114976",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/43b5278961b638bbee363033971a984518cc0a92",
+                "reference": "43b5278961b638bbee363033971a984518cc0a92",
                 "shasum": ""
             },
             "require": {
@@ -3006,7 +2966,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2015-01-30 11:31:00"
+            "time": "2015-02-03 14:24:35"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -3655,16 +3615,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "c34ef418015793a4653f2670afb69dd167ebf578"
+                "reference": "23b647f1e4eeb24a457d3c47f5f5046377d5a3bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/c34ef418015793a4653f2670afb69dd167ebf578",
-                "reference": "c34ef418015793a4653f2670afb69dd167ebf578",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/23b647f1e4eeb24a457d3c47f5f5046377d5a3bf",
+                "reference": "23b647f1e4eeb24a457d3c47f5f5046377d5a3bf",
                 "shasum": ""
             },
             "require": {
@@ -3767,7 +3727,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-01-07 14:47:29"
+            "time": "2015-02-02 18:02:30"
         },
         {
             "name": "thrace/datagrid-bundle",
@@ -3833,12 +3793,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a0a00b25eee4a86f236c935c3b60976f537cbb07"
+                "reference": "391054fa2d50d0e19a2be852ca1a4bc0c356bb56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a0a00b25eee4a86f236c935c3b60976f537cbb07",
-                "reference": "a0a00b25eee4a86f236c935c3b60976f537cbb07",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/391054fa2d50d0e19a2be852ca1a4bc0c356bb56",
+                "reference": "391054fa2d50d0e19a2be852ca1a4bc0c356bb56",
                 "shasum": ""
             },
             "replace": {
@@ -3876,7 +3836,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-01-30 16:07:53"
+            "time": "2015-02-03 05:22:45"
         },
         {
             "name": "twig/extensions",
@@ -3986,54 +3946,6 @@
                 "templating"
             ],
             "time": "2015-01-25 17:32:08"
-        },
-        {
-            "name": "varspool/pygments-bundle",
-            "version": "1.0.0",
-            "target-dir": "Varspool/PygmentsBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/varspool/PygmentsBundle.git",
-                "reference": "6b0a2f46032b97119ee574bf413224b24d302552"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/varspool/PygmentsBundle/zipball/6b0a2f46032b97119ee574bf413224b24d302552",
-                "reference": "6b0a2f46032b97119ee574bf413224b24d302552",
-                "shasum": ""
-            },
-            "require": {
-                "kwattro/markdown-bundle": "dev-master",
-                "symfony/framework-bundle": "2.*"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Varspool\\PygmentsBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dominic Scheirlinck",
-                    "homepage": "https://github.com/dominics"
-                }
-            ],
-            "description": "A bundle that integrates Pygments to provide code-highlighting within Sundown rendered Markdown",
-            "keywords": [
-                "markdown",
-                "pygments",
-                "sundown"
-            ],
-            "time": "2014-09-25 14:52:03"
         },
         {
             "name": "willdurand/negotiation",
@@ -4870,8 +4782,7 @@
         "craue/formflow-bundle": 20,
         "sonata-project/block-bundle": 20,
         "sonata-project/datagrid-bundle": 20,
-        "jms/serializer-bundle": 20,
-        "kwattro/markdown-bundle": 20
+        "jms/serializer-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
