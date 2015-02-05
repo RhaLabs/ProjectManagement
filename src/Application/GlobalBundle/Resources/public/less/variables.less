@@ -1,18 +1,20 @@
+/* Custom and specifi variables are at the end
+ * 
+ */
 
-
-
-    @gray-base: #2a2a2a;
-    @gray-darker: lighten(@gray-base, 13.5%);
-    @gray-dark: lighten(@gray-base, 20%);
-    @gray: lighten(@gray-base, 33.5%);
-    @gray-light: lighten(@gray-base, 46.7%);
-    @gray-lighter: lighten(@gray-base, 93.5%);
-    @brand-primary: darken(#ba0d0d, 6.5%);
-    @brand-success: #5cb85c;
-    @brand-info: #5bc0de;
-    @brand-warning: #f0ad4e;
-    @brand-danger: #d9534f;
-    @body-bg: #b6b6b6;
+/* Bootstrap variables */
+    @gray-base: @RhaGrey;
+    @gray-darker: lighten(@gray-base, 5%);
+    @gray-dark: lighten(@gray-base, 18%);
+    @gray: lighten(@gray-base, 30%);
+    @gray-light: lighten(@gray-base, 42%);
+    @gray-lighter: lighten(@gray-base, 84%);
+    @brand-primary: darken(@RhaRed, 1%);
+    @brand-success: @RhaSuccess;
+    @brand-info: @RhaInfo;
+    @brand-warning: @RhaWarning;
+    @brand-danger: @RhaDanger;
+    @body-bg: #ffffff;
     @text-color: @gray-dark;
     @link-color: @brand-primary;
     @link-hover-color: darken(@link-color, 15%);
@@ -36,7 +38,7 @@
     @headings-font-weight: 500;
     @headings-line-height: 1.1;
     @headings-color: inherit;
-    @icon-font-path: "bundles/applicationglobal/bootstrap/fonts/";
+    @icon-font-path: "/fonts/";
     @icon-font-name: "glyphicons-halflings-regular";
     @icon-font-svg-id: "glyphicons_halflingsregular";
     @padding-base-vertical: 6px;
@@ -64,7 +66,7 @@
     @table-bg-active: @table-bg-hover;
     @table-border-color: #bababa;
     @btn-font-weight: normal;
-    @btn-default-color: #bababa;
+    @btn-default-color: @link-color;
     @btn-default-bg: #fff;
     @btn-default-border: #8b8b8b;
     @btn-primary-color: #fff;
@@ -76,10 +78,10 @@
     @btn-info-color: #fff;
     @btn-info-bg: @brand-info;
     @btn-info-border: darken(@btn-info-bg, 5%);
-    @btn-warning-color: #e3a345;
+    @btn-warning-color: darken(@btn-warning-bg, 35%);
     @btn-warning-bg: @brand-warning;
     @btn-warning-border: darken(@btn-warning-bg, 5%);
-    @btn-danger-color: #ba0d0d;
+    @btn-danger-color: darken(@btn-danger-bg, 35%);
     @btn-danger-bg: @brand-danger;
     @btn-danger-border: darken(@btn-danger-bg, 5%);
     @btn-link-disabled-color: @gray-light;
@@ -137,7 +139,7 @@
     @container-md: @container-desktop;
     @container-large-desktop: (1140px + @grid-gutter-width);
     @container-lg: @container-large-desktop;
-    @navbar-height: 50px;
+    @navbar-height: 70px;
     @navbar-margin-bottom: @line-height-computed;
     @navbar-border-radius: @border-radius-base;
     @navbar-padding-horizontal: floor((@grid-gutter-width / 2));
@@ -160,13 +162,13 @@
     @navbar-default-toggle-icon-bar-bg: #888;
     @navbar-default-toggle-border-color: #ddd;
     @navbar-inverse-color: lighten(@gray-light, 15%);
-    @navbar-inverse-bg: #222;
+    @navbar-inverse-bg: @RhaGrey;
     @navbar-inverse-border: darken(@navbar-inverse-bg, 10%);
     @navbar-inverse-link-color: lighten(@gray-light, 15%);
     @navbar-inverse-link-hover-color: #fff;
     @navbar-inverse-link-hover-bg: transparent;
     @navbar-inverse-link-active-color: @navbar-inverse-link-hover-color;
-    @navbar-inverse-link-active-bg: darken(@navbar-inverse-bg, 10%);
+    @navbar-inverse-link-active-bg: darken(@navbar-inverse-bg, 5%);
     @navbar-inverse-link-disabled-color: #444;
     @navbar-inverse-link-disabled-bg: transparent;
     @navbar-inverse-brand-color: @navbar-inverse-link-color;
@@ -213,17 +215,17 @@
     @jumbotron-bg: @gray-lighter;
     @jumbotron-heading-color: inherit;
     @jumbotron-font-size: ceil((@font-size-base * 1.5));
-    @state-success-text: #3c763d;
-    @state-success-bg: #dff0d8;
+    @state-success-text: @RhaSuccess;
+    @state-success-bg: lighten(@RhaSuccess, @LightenBackground);
     @state-success-border: darken(spin(@state-success-bg, -10), 5%);
-    @state-info-text: #31708f;
-    @state-info-bg: #d9edf7;
+    @state-info-text: @RhaInfo;
+    @state-info-bg: lighten(@RhaInfo, @LightenBackground);
     @state-info-border: darken(spin(@state-info-bg, -10), 7%);
-    @state-warning-text: #8a6d3b;
-    @state-warning-bg: #fcf8e3;
+    @state-warning-text: @RhaWarning;
+    @state-warning-bg: lighten(@RhaWarning, @LightenBackground);
     @state-warning-border: darken(spin(@state-warning-bg, -10), 5%);
-    @state-danger-text: #a94442;
-    @state-danger-bg: #f2dede;
+    @state-danger-text: @RhaDanger;
+    @state-danger-bg: lighten(@RhaDanger, @LightenBackground);
     @state-danger-border: darken(spin(@state-danger-bg, -10), 5%);
     @tooltip-max-width: 200px;
     @tooltip-color: #fff;
@@ -375,3 +377,19 @@
     @page-header-border-color: @gray-lighter;
     @dl-horizontal-offset: @component-offset-horizontal;
     @hr-border: @gray-lighter;
+    
+/* Custom variables */
+    @badgeColor: gold;
+    @badgeWidth: 75px;
+    @badgeHeight: 75px;
+    @badgeBorderRadius: 50px;
+    @LightenBackground: 25%;
+    
+/* RHA Theme */
+    @RhaBackgroundColor: #ffffff;
+    @RhaGrey: #4a494a;
+    @RhaRed: #B42E34;
+    @RhaSuccess: #64ad45;
+    @RhaInfo: #4ea8de;
+    @RhaWarning: #f49b32;
+    @RhaDanger: #ed1f24;

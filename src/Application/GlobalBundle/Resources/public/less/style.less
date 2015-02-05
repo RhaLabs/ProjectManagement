@@ -1,14 +1,44 @@
 
-
 .container {
     width: auto !important;
     margin: 0px 10px 0px 30px !important;
 }
 
 .navbar-brand {
-    &>img{
-        height: auto;
-        max-height: 50px;
+    height: auto;
+    position: absolute !important;
+    top: 10px;
+    width: 100%;
+    padding: 0px 40px 0px 0px !important;
+    & #name {
+        position: relative;
+        top: 20px;
+        
+        @media (max-width: @grid-float-breakpoint) {
+            display: none;
+        }
+    }
+}
+
+.navbar-toggle {
+    z-index: 900;
+}
+
+.nav-badge {
+    width: 75px;
+    position: absolute;
+    z-index: 10;
+    right:  10px;
+    top: 50px;
+}
+
+.navbar-nav {
+    top: 25px !important;
+    position: relative !important;
+    &>li > a {
+        padding-bottom: 0px !important;
+        padding-top: 0px !important;
+        margin: 25px 0px 0px 0px;
     }
 }
 
@@ -20,6 +50,20 @@
 hr {
     border-color: #aaa;
     clear: both;
+    
+    &, .brand {
+        background-color: @RhaRed;
+        border: none !important;
+        height: 2px;
+        margin: 0px 0px 0px 100px !important;
+        position:relative;
+        top: -15px;
+        z-index: 10;
+        
+        @media (max-width: @grid-float-breakpoint) {
+            display: none;
+        }
+    }
 }
 
 .boxed {
@@ -34,8 +78,130 @@ main {
     }
 }
 
+.col-centered {
+    float: none;
+    display: block;
+    margin: 0px auto;
+}
+
 footer {
     font-size: smaller;
     margin-top: 10px;
     .pull-right();
 }
+
+.flip, .card {
+    width: 130px;
+    height: 122px;
+    position:absolute;
+    top:0; left:0;
+    font-family: sans-serif;
+}
+.flip {
+  display: inline-block !important;
+  -webkit-perspective: 800;
+  -ms-perspective: 800;
+  -moz-perspective: 800;
+  -o-perspective: 800;
+   width: 130px;
+   height: 122px;
+   position: relative;
+   margin: 2px 4px;
+}
+
+.front {
+
+}
+
+.back {
+        background: orange; text-align:center; line-height:200px;
+        -ms-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+}
+
+.flip:hover .card {
+      -webkit-transform: rotateY(360deg);
+      -ms-transform: rotateY(360deg);
+      -moz-transform: rotateY(360deg);
+      -o-transform: rotateY(360deg);
+      transform: rotateY(360deg);
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  font-family: Georgia;
+  font-size: 3em;
+  text-align: center;
+  line-height: 200px;
+  backface-visibility: hidden;  /* W3C */
+  -webkit-backface-visibility: hidden; /* Safari & Chrome */
+  -moz-backface-visibility: hidden; /* Firefox */
+  -ms-backface-visibility: hidden; /* Internet Explorer */
+  -o-backface-visibility: hidden; /* Opera */
+  -webkit-transition: all 0.7s linear;        
+  -ms-transition: all 0.7s linear;
+  -moz-transition: all 0.7s linear;
+  -o-transition: all 0.7s linear;
+  transition: all 0.7s linear;
+}
+
+/* Make create.js edit bar appear at the bottom of the page */
+.create-ui-logo {
+    bottom: 0px !important;
+    top: auto !important;
+}
+
+.create-ui-toolbar-wrapper {
+    bottom: 0px !important;
+    top: auto !important;
+}
+
+.BadgeBorderRadius {
+    -moz-border-radius:    @badgeBorderRadius;
+    -webkit-border-radius: @badgeBorderRadius;
+    -o-border-radius:      @badgeBorderRadius;
+    -ms-border-radius:     @badgeBorderRadius;
+    border-radius:         @badgeBorderRadius;
+}
+
+.badge-ribbon {
+    position: relative;
+    background: @badgeColor;
+    height: @badgeHeight;
+    width: @badgeWidth;
+    .BadgeBorderRadius;
+    padding: 30px 7px;
+    
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        border-bottom: 70px solid @badgeColor;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        top: 70px;
+        left: -10px;
+        -webkit-transform: rotate(-140deg);
+        -moz-transform:    rotate(-140deg);
+        -ms-transform:     rotate(-140deg);
+        -o-transform:      rotate(-140deg);
+        transform:         rotate(-140deg);
+    }
+    
+    &:after {
+        left: auto;
+        right: -10px;
+        -webkit-transform: rotate(140deg);
+        -moz-transform:    rotate(140deg);
+        -ms-transform:     rotate(140deg);
+        -o-transform:      rotate(140deg);
+        transform:         rotate(140deg);
+    }
+}
+
+

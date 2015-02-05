@@ -31,11 +31,17 @@
 {% block navbar %}
 {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { fixedTop: true, inverse: true, id: 'navbar' } %}
     {% block brand %}
-        <a class="navbar-brand" href="{{ path('homepage') }}">RHA</a>
+        <div class="navbar-brand">
+            <a href="{{ path('homepage') }}">
+                <img src="{{ asset('bundles/applicationglobal/images/logo-white.svg') }}" style="height:50px"></img>
+            </a>
+            <img id="name" src="{{ asset('bundles/applicationglobal/images/name.svg') }}" class="pull-right"></img>
+            <hr class="brand"/>
+        </div>
     {% endblock %}
 
     {% block menu %}
-        {{ mopa_bootstrap_menu('LimeTrailBundle:Builder:createMainMenu') }}
+        {{ mopa_bootstrap_menu('LimeTrailBundle:Builder:createMainMenu', {'automenu': 'navbar', 'pull-right': true}) }}
      {#   {{ mopa_bootstrap_menu('exampledropdown', {'automenu': 'navbar', 'pull-right': true}) }}#}
     {% endblock %} 
 {% endembed %}
