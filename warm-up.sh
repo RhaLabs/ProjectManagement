@@ -5,6 +5,9 @@ cp parameters.yml.dist ./app/config/
 #cd www
 rm -fR ./app/logs/*
 rm -fR ./app/cache/*
+rm -fr web/js/*
+rm -fr web/css/*
+rm -fr web/bundles/*
 
 php composer.phar self-update
 php composer.phar update -o
