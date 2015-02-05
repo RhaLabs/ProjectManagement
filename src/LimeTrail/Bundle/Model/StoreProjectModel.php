@@ -40,11 +40,19 @@ class StoreProjectModel
         } else {
             $projects = $store->getProjects();
             
-            $project = $this->provider->findFirstResultIn($projects, 'Sequence', $this->formData->sequenceNumber);
+            $projectExists = false;
             
-            if ( !($project instanceof ProjectInformation) ) {
-              $project = $this->CreateProject($this->formData);
+            foreach( $projects AS $project ) {
+                if($this->formData->sequenceNumber == $project->getSequence()) {
+                    $projectExists = true;
+                }
             }
+            
+            if ( $projectExists ) {
+                throw new \Exception("Duplicate Project");
+            }
+            
+            $project = $this->CreateProject($this->formData);
         }
         
         $store->addProject($project);
