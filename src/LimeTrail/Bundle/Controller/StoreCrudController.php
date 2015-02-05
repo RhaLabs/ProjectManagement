@@ -122,8 +122,13 @@ class StoreCrudController extends Controller
             $em->flush();
             
             $store = $entityArray['store'];
+            
+            $request->getSession()->getFlashBag()->add(
+                'notice',
+                'Your changes were saved!'
+            );
 
-            return $this->redirect($this->generateUrl('storeinformation_show', array('id' => $store->getId())));
+            return $this->redirect($this->generateUrl('storeinformation_hackform'));
         }
 
         return array(
