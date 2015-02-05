@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b70df74979e0aa481cdb8654ef29676",
+    "hash": "39061364f0de518a822da046da765000",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -299,7 +299,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -320,7 +320,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1238,9 +1238,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -3731,17 +3731,17 @@
         },
         {
             "name": "thrace/datagrid-bundle",
-            "version": "dev-master",
+            "version": "dev-revert_search_options",
             "target-dir": "Thrace/DataGridBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thrace-project/datagrid-bundle.git",
-                "reference": "afb8d12e94e8701a08ee49f08c409179818a82f6"
+                "url": "https://github.com/RhaLabs/datagrid-bundle.git",
+                "reference": "e22d2a7903694cc44ac81f5606ba1ab5761d2684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thrace-project/datagrid-bundle/zipball/afb8d12e94e8701a08ee49f08c409179818a82f6",
-                "reference": "afb8d12e94e8701a08ee49f08c409179818a82f6",
+                "url": "https://api.github.com/repos/RhaLabs/datagrid-bundle/zipball/e22d2a7903694cc44ac81f5606ba1ab5761d2684",
+                "reference": "e22d2a7903694cc44ac81f5606ba1ab5761d2684",
                 "shasum": ""
             },
             "require": {
@@ -3768,7 +3768,6 @@
                     "Thrace\\DataGridBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3780,12 +3779,15 @@
             ],
             "description": "This bundle provides easy creating of jqGrid datagrids",
             "keywords": [
+                "Symfony",
                 "datagrid",
-                "jqgrid",
-                "jquery",
-                "symfony"
+                "jQuery",
+                "jqGrid"
             ],
-            "time": "2014-12-15 09:17:08"
+            "support": {
+                "source": "https://github.com/RhaLabs/datagrid-bundle/tree/revert_search_options"
+            },
+            "time": "2015-02-05 17:14:39"
         },
         {
             "name": "twbs/bootstrap",
@@ -3793,12 +3795,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "0e40c818d9e27d35034b7872ac34d2fa5a886734"
+                "reference": "27677fab5b704d8c61c4561dd7dd55d54fbcc8f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0e40c818d9e27d35034b7872ac34d2fa5a886734",
-                "reference": "0e40c818d9e27d35034b7872ac34d2fa5a886734",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/27677fab5b704d8c61c4561dd7dd55d54fbcc8f2",
+                "reference": "27677fab5b704d8c61c4561dd7dd55d54fbcc8f2",
                 "shasum": ""
             },
             "replace": {
@@ -3836,7 +3838,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-02-03 21:12:24"
+            "time": "2015-02-04 15:38:17"
         },
         {
             "name": "twig/extensions",
