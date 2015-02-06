@@ -741,6 +741,7 @@ class WebScrapeCommand extends ContainerAwareCommand
     $changesCommand = $this->getApplication()->find('limetrail:scrapechanges');
     
     $arguments = array(
+                  '',
                   '--user' => $this->getContainer()->getParameter('qb_user'),
                   '--login-pass' => $this->getContainer()->getParameter('qb_pass'),
                  );
