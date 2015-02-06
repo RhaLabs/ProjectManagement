@@ -18,6 +18,44 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInformation
 {
     /**
+     * @ORM\ManyToMany(targetEntity="Tenant", inversedBy="project")
+     * @ORM\JoinTable(name="projects_tenants",
+          joinColumns={
+            @ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+          inverseJoinColumns={
+            @ORM\JoinColumn(name="tenant_id", referencedColumnName="id")}
+        )
+      */
+    protected $tenants;
+    
+    public function setTenant(\LimeTrail\Bundle\Entity\Tenant $tenant)
+    {
+        $this->tenants->add($tenant);
+        
+        $tenant->addProject($this);
+        
+        return $this;
+    }
+    
+    public function setTenants($tenants)
+    {
+        if (is_array($tenants)) {
+            foreach ($tenants AS $tenant) {
+                $this->setTenant($tenant);
+            }
+            
+            return $this;
+         }
+         
+         return $this->setTenants($tenants);
+    }
+    
+    public function getTenants()
+    {
+        return $this->tenants;
+    }
+    
+    /**
      * @ORM\ManyToOne(targetEntity="ProjectType", inversedBy="project")
      */
     private $ProjectType;
@@ -167,6 +205,7 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
       //$this->dateOverride = new ArrayCollection();
       $this->contacts = new ArrayCollection();
       $this->changes = new ArrayCollection();
+      $this->tenants = new ArrayCollection();
 
         $this->isChanged = null;
     }
