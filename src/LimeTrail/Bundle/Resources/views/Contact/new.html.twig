@@ -4,7 +4,7 @@
 
 {% block content_content -%}
     <h1>Add New Contact</h1>
-      <div id="clear" class="well ui-accordion-content ui-helper-reset ui-widget-content ui-corner-all ui-accordion-content-active">
+      <div id="clear" class="well">
         {{ form_start(form) }}
           {{ form_errors(form) }}
           {{ form_row(form.companyName, {'attr': {'title': 'Please enter at least the first two letters of the company name', 'required': 'required'} }) }}
@@ -25,12 +25,13 @@
 {% endblock content_content %}
 
 {% block foot_script %}
+    {{ parent() }}
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
         <script type="text/javascript">
             // Change JQueryUI plugin names to fix name collision with Bootstrap:
             $.widget.bridge('uitooltip', $.ui.tooltip);
             $.widget.bridge('uibutton', $.ui.button);
         </script>
-    {{ parent() }}
+
     {{ block('scripts') }}
 {% endblock foot_script %}
