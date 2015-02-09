@@ -96,12 +96,19 @@ footer {
 
 .grid {
     table {
-        border-collaspe: collapse;
+        border-collapse: collapse;
+        border: 1px solid @gray-base;
         width: 100%;
     }
     td, th {
-        border: 1px solid @gray-base;
+        
     }
+    
+    .grid-row-titles {
+        border-top-left-radius: @border-radius-base;
+        border-top-right-radius: @border-radius-base;
+    }
+    
     th {
         vertical-align: top;
         
@@ -117,6 +124,12 @@ footer {
         
         div.sort_down {
             background: transparent url("data:image/gif;base64,R0lGODlhFwAKAHAAACH5BAEAAAIALAAAAAAXAAoAgQAAAJCQkAAAAAAAAAIalI+py60RDpTRiZmwvdXozXkdKH6keKZqUwAAOw==") no-repeat bottom left;
+        }
+    }
+    
+    .grid-row-cells {
+        tr {
+            padding: 0px 5px;
         }
     }
     
@@ -147,10 +160,10 @@ footer {
     
     /* Column filter */
     .grid-filter-operator select{
-        width: 70px;
+        width: 80px;
     }
     .grid-filter-input-query input, .grid .grid-filter-select-query select{
-        width: 50px;
+        width: 80px;
     }
 
     .grid-filter-input-query-to, .grid .grid-filter-select-query-to{
