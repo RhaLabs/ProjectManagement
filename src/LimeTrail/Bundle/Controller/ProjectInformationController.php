@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -100,7 +102,7 @@ class ProjectInformationController extends Controller
     {
         $em = $this->getDoctrine()->getManager('limetrail');
 
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
+        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
         $ProjectDatesGrid = $this->container->get('thrace_data_grid.provider')->get('project_dates');
         $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('project_info');
 
@@ -110,7 +112,34 @@ class ProjectInformationController extends Controller
 
         return $this->render('LimeTrailBundle:ProjectInformation:grid.html.twig', array(
             'ProjectInfoDataGrid' => $ProjectInfoDataGrid, 'identifier' => 'project_info', 'ProjectDatesDataGrid' => $ProjectDatesGrid,
-        ));
+        ));*/
+        
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'project_information', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias, $id)
+            {
+                $query->andWhere("$tableAlias.storeNumber = :num")
+                      ->setParameter(':num', $id);
+            }
+        );
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(5));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        return $grid->getGridResponse();
     }
 
     /**

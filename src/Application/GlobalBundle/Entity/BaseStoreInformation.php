@@ -2,6 +2,8 @@
 
 namespace Application\GlobalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,6 +15,8 @@ class BaseStoreInformation
     /**
      * @var integer
      * @ORM\Column(type="integer")
+     *
+     * @GRID\Column(field="storeNumber", title="Store Number")
      */
     protected $storeNumber;
 
@@ -47,6 +51,8 @@ class BaseStoreInformation
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @GRID\Column(field="id", visible=false)
      */
     protected $id;
 

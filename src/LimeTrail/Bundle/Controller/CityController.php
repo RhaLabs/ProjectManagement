@@ -98,13 +98,12 @@ class CityController extends Controller
      */
     public function cityurlAction(Request $request)
     {
-        $storeid = $request->query->get('id');
+        $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager('limetrail');
-        $store = $em->getRepository('LimeTrailBundle:StoreInformation')->find($storeid);
-        $entity = $store->getCity();
+        $city = $em->getRepository('LimeTrailBundle:City')->find($id);
 
         return array(
-            'url' => $entity->getUrl(),
+            'url' => $city->getUrl(),
         );
     }
 

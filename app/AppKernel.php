@@ -45,6 +45,7 @@ class AppKernel extends Kernel
             new Application\GlobalBundle\ApplicationGlobalBundle(),
             new Scheb\TwoFactorBundle\SchebTwoFactorBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new APY\DataGridBundle\APYDataGridBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

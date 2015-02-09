@@ -1,0 +1,111 @@
+{% extends 'APYDataGridBundle::blocks.html.twig' %}
+
+{% block grid_column_id_city_name_cell %}
+    <a href="{{ path('cityurl', {'id': row.field('city.id')}) }}">{{ value }}</a>
+{% endblock grid_column_id_city_name_cell %}
+
+{% block grid_column_id_state_abbreviation_cell %}
+    <a href="{{ path('stateurl', {'id': row.field('state.id')}) }}">{{ value }}</a>
+{% endblock grid_column_id_state_abbreviation_cell %}
+
+{% block grid_column_id_state_name_cell %}
+    <a href="{{ path('stateurl', {'id': row.field('state.id')}) }}">{{ value }}</a>
+{% endblock grid_column_id_state_name_cell %}
+
+{% block grid_column_id_projectcontacts_cell %}
+    <a href="{{ path('limetrail_contacts_get', {'id': row.field('projects.id')}) }}">Contacts</a>
+{% endblock grid_column_id_projectcontacts_cell %}
+
+{# block grid_column_id_county_name_cell %}
+    <a href="{{ path('countyurl', {'id': row.field('county.id')}) }}">{{ value }}</a>
+{% endblock grid_column_id_county_name_cell #}
+
+{% block grid_column_id_storeNumber_cell %}
+    <a href="{{ path('limetrail_projectinformation_show', {'id': value}) }}">{{ value }}</a>
+{% endblock grid_column_id_storeNumber_cell %}
+
+{% block grid_column_id_projects_dates_recAct_cell %}
+
+{% endblock %}
+{% block grid_column_id_projects_dates_recPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_intClosingAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_intClosingPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_desCivilAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_desCivilPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_cwaAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_cwaPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_pwoAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_pwoPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_pwoIdAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_pwoIdPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_otpAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_otpPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_archPermitAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_archPermitPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_otbAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_otbPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_bidDateAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_bidDatePrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_awardAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_awardPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_constrStartAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_constrStartPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_possAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_possPrj_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_goAct_cell %}
+    
+{% endblock %}
+{% block grid_column_id_projects_dates_goPrj_cell %}
+    
+{% endblock %}
+

@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+
 use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,17 +22,33 @@ class StoreInformationController extends Controller
      * Lists all StoreInformation entities.
      *
      * @Route("/", name="limetrail_storeinformation")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      * @Template()
      */
     public function indexAction()
     {
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
+        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
         $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('store_info');
 
         return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
             'ProjectInfoDataGrid' => $ProjectInfoDataGrid,  'identifier' => 'store_info',
-        ));
+        ));*/
+        
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'store_information', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(5, 10, 15));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        return $grid->getGridResponse();
     }
     /**
      * Displays a form to edit an existing Store entity.

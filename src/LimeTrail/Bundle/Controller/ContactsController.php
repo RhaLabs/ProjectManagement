@@ -2,6 +2,9 @@
 
 namespace LimeTrail\Bundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -9,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use LimeTrail\Bundle\Entity\ProjectContacts;
 use LimeTrail\Bundle\Entity\Contact;
+use LimeTrail\Bundle\Entity\JobRole;
 use LimeTrail\Bundle\Entity\Company;
 /**
  * StoreInformation controller.
@@ -47,9 +51,9 @@ class ContactsController extends Controller
      * @Method("GET")
      * @Template()
      */
-        public function projectAction($id)
-        {
-            $em = $this->getDoctrine()->getManager('limetrail');
+    public function projectAction($id)
+    {
+            /*$em = $this->getDoctrine()->getManager('limetrail');
 
             $alias = 'projects_contact';
 
@@ -61,8 +65,75 @@ class ContactsController extends Controller
 
             return $this->render('LimeTrailBundle:Contacts:index.html.twig', array(
             'ProjectInfoDataGrid' => $ConactsDataGrid, 'identifier' => $alias,
-        ));
-        }
+            ));*/
+            
+        $source = new Entity('LimeTrailBundle:ProjectContacts', 'project_contacts', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias, $id)
+            {
+                $query->andWhere("_project.id = :pid")->setParameter('pid', $id);
+            }
+        );
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(30));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        //grid actions
+        $rowAction = new RowAction(
+            'Edit',
+            "limetrail_projectcontacts_edit");
+        $rowAction->setRouteParameters(
+            array(
+                'id',
+                'jobrole.id',
+            )
+        );
+        
+        $grid->addRowAction($rowAction);
+        
+        return $grid->getGridResponse();
+    }
+    
+    /**
+     *
+     * Edit contacts for a store
+     *
+     * @Route("/project/edit/{id}/{jobroleId}", name="limetrail_projectcontacts_edit")
+     * @Method("POST")
+     * @Template()
+     */
+    public function projectContactEditAction($id, $jobroleId)
+    {
+        //TODO build SF2 form
+        $contactprovider = $this->get('lime_trail_contact.provider');
+        
+        $jobrole = $contactprovider->findJobRoleById($jobRoleId);
+        $projectcontact = $contactprovider->findProjectContactById($projectContactId);
+        $contact = $projectcontact->getContact();
+        
+        
+        
+        $this->get('validator')->validate($contact);
+        
+        $em = $this->get('doctrine')->getManager('limetrail');
+        
+        $em->persist($projectcontact);
+        $em->persist($contact);
+        $em->flush();
+    }
 
     /**
      * Lists all Job Roles

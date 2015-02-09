@@ -42,14 +42,12 @@ class StateController extends Controller
      */
     public function stateurlAction(Request $request)
     {
-        $storeid = $request->query->get('id');
+        $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager('limetrail');
-        $stateprovider = $this->get('lime_trail_state.provider');
-        $store = $em->getRepository('LimeTrailBundle:StoreInformation')->find($storeid);
-        $entity = $store->getState();
+        $state = $em->getRepository('LimeTrailBundle:State')->find($id);
 
         return array(
-            'url' => $entity->getUrl(),
+            'url' => $state->getUrl(),
         );
     }
 }

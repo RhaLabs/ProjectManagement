@@ -58,6 +58,8 @@ class ContactsBuilder
             ->setSortName('c.lastName')
             ->setSortOrder('ASC')
             ->setShrinkToFit(false)
+            ->setForceFit(true)
+            ->setAutoWidth(true)
             ->setHeight('100%')
             ->setHideGrid(false)
             ->setRowNum(50)
