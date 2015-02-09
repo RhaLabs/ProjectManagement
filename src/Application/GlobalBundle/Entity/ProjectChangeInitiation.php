@@ -2,6 +2,8 @@
 
 namespace Application\GlobalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,8 @@ class ProjectChangeInitiation
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @GRID\Column(field="dateImplemented", type="datetime", format="m/d/Y", title="Implementation Date")
      */
     protected $dateImplemented;
 
@@ -69,6 +73,8 @@ class ProjectChangeInitiation
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @GRID\Column(field="dateAssigned", type="datetime", format="m/d/Y", title="Date Assigned")
      */
     protected $dateAssigned;
 
@@ -87,6 +93,8 @@ class ProjectChangeInitiation
     /**
      * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
+     *
+     * @GRID\Column(field="drawingChange", title="Drawing Change")
      */
     protected $drawingChange;
 
@@ -105,6 +113,8 @@ class ProjectChangeInitiation
     /**
      * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
+     *
+     * @GRID\Column(field="drawingChangeNumber", title="Drawing Change Number")
      */
     protected $drawingChangeNumber;
 
@@ -125,6 +135,8 @@ class ProjectChangeInitiation
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @GRID\Column(field="id", visible=false)
      */
     protected $id;
 

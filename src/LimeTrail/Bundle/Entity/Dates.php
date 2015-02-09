@@ -75,6 +75,23 @@ class Dates extends \Application\GlobalBundle\Entity\BaseDates
     {
         return $property.'Changed';
     }
+    
+    public function __get($method)
+    {
+        switch (true) {
+            case (0 == strpos($method, 'get')):
+                $property = substr($method, 3);
+                break;
+            default:
+                $property = $method;
+        }
+        
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        
+        return null;
+    }
 
     /**
      * @var string

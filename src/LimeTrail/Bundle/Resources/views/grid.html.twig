@@ -16,96 +16,249 @@
     <a href="{{ path('limetrail_contacts_get', {'id': row.field('projects.id')}) }}">Contacts</a>
 {% endblock grid_column_id_projectcontacts_cell %}
 
+{% block grid_column_id_projectchanges_cell %}
+    <a href="{{ path('limetrail_project_change_get', {'id': row.field('projects.id')}) }}">CI Changes</a>
+{% endblock grid_column_id_projectchanges_cell %}
+
+{% block grid_column_id_change_number_cell %}
+    <a href="{{ path('get_change', {'number': value }) }}">{{ value }}</a>
+{% endblock grid_column_id_change_number_cell %}
+
 {# block grid_column_id_county_name_cell %}
     <a href="{{ path('countyurl', {'id': row.field('county.id')}) }}">{{ value }}</a>
 {% endblock grid_column_id_county_name_cell #}
 
 {% block grid_column_id_storeNumber_cell %}
-    <a href="{{ path('limetrail_projectinformation_show', {'id': value}) }}">{{ value }}</a>
+    {% if row.field('projects.isChanged') == 'Changed' %}
+        {% set changedStyle = 'style=background:gold' %}
+    {% else %}
+        {% set changedStyle = '' %}
+    {% endif %}
+    <a {{ changedStyle }} href="{{ path('limetrail_projectinformation_show', {'id': value}) }}">{{ value }}</a>
 {% endblock grid_column_id_storeNumber_cell %}
 
 {% block grid_column_id_projects_dates_recAct_cell %}
+    {% if row.field('projects.dates.recActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
+{% endblock %}
 
-{% endblock %}
 {% block grid_column_id_projects_dates_recPrj_cell %}
-    
+    {% if row.field('projects.dates.recPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_intClosingAct_cell %}
-    
+    {% if row.field('projects.dates.intClosingActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_intClosingPrj_cell %}
-    
+    {% if row.field('projects.dates.intClosingPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_desCivilAct_cell %}
-    
+    {% if row.field('projects.dates.desCivilActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_desCivilPrj_cell %}
-    
+    {% if row.field('projects.dates.desCivilPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_cwaAct_cell %}
-    
+    {% if row.field('projects.dates.cwaActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_cwaPrj_cell %}
-    
+    {% if row.field('projects.dates.cwaPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_pwoAct_cell %}
-    
+    {% if row.field('projects.dates.pwoActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_pwoPrj_cell %}
-    
+    {% if row.field('projects.dates.pwoPrjChanged') == 'true' %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_pwoIdAct_cell %}
-    
+    {% if row.field('projects.dates.pwoIdActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_pwoIdPrj_cell %}
-    
+    {% if row.field('projects.dates.pwoIdPrjChanged') == 'true' %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_otpAct_cell %}
-    
+    {% if row.field('projects.dates.otpActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_otpPrj_cell %}
-    
+    {% if row.field('projects.dates.otpPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_archPermitAct_cell %}
-    
+    {% if row.field('projects.dates.archPermitActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_archPermitPrj_cell %}
-    
+    {% if row.field('projects.dates.archPermitPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_otbAct_cell %}
-    
+    {% if row.field('projects.dates.otbActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_otbPrj_cell %}
-    
+    {% if row.field('projects.dates.otbPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_bidDateAct_cell %}
-    
+    {% if row.field('projects.dates.bidDateActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_bidDatePrj_cell %}
-    
+    {% if row.field('projects.dates.bidDatePrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_awardAct_cell %}
-    
+    {% if row.field('projects.dates.awardActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_awardPrj_cell %}
-    
+    {% if row.field('projects.dates.awardPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_constrStartAct_cell %}
-    
+    {% if row.field('projects.dates.constrStartActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_constrStartPrj_cell %}
-    
+    {% if row.field('projects.dates.constrStartPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_possAct_cell %}
-    
+    {% if row.field('projects.dates.possActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_possPrj_cell %}
-    
+    {% if row.field('projects.dates.possPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_goAct_cell %}
-    
+    {% if row.field('projects.dates.goActChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 {% block grid_column_id_projects_dates_goPrj_cell %}
-    
+    {% if row.field('projects.dates.goPrjChanged') == true %}
+        <div style="background: gold">{{ value }}</div>
+    {% else %}
+        {{  value }}
+    {% endif %}
 {% endblock %}
+
 

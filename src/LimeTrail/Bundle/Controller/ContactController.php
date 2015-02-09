@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -39,40 +41,39 @@ class ContactController extends Controller
      * Lists all Contact entities.
      *
      * @Route("/", name="trail_contact")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function indexAction()
     {
-        /*$entities = $this->container->get('lime_trail_contact.provider')->findAllContacts();
-
-        return array(
-            'entities' => $entities,
-        );*/
+        /*
         $em = $this->getDoctrine()->getManager('limetrail');
 
-        $alias = 'contacts';
+        $alias = 'contacts';*/
 
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
+        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
         $ContactsDataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
-
-        /*$colModel = $ContactsDataGrid->getColModel();
-
-        foreach ($colModel as &$column) {
-          if ($column['name'] == 'City') {
-            unset($column['editable']);
-            unset($column['edittype']);
-            unset($column['editrules']);
-            unset($column['editoptions']);
-          }
-        }
-
-        $ContactsDataGrid->setColModel($colModel);*/
 
         return $this->render('LimeTrailBundle:Contact:index.html.twig', array(
             'ContactsDataGrid' => $ContactsDataGrid,
             'identifier' => 'contacts',
-        ));
+        ));*/
+        
+        $source = new Entity('LimeTrailBundle:Contact', 'allContacts', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Set the source
+        $grid->setSource($source);
+           
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(10,20,30,40));
+    
+        // Set the default page
+        $grid->setDefaultPage(1);
+            
+        return $grid->getGridResponse();
     }
     /**
      * Creates a new Contact entity.

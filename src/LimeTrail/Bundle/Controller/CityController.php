@@ -92,13 +92,12 @@ class CityController extends Controller
     /**
      * Lists all City entities.
      *
-     * @Route("/cityurl", name="cityurl")
+     * @Route("/cityurl/{id}", name="cityurl")
      * @Method("GET")
      * @Template("LimeTrailBundle:City:cityurl.html.twig")
      */
-    public function cityurlAction(Request $request)
+    public function cityurlAction($id)
     {
-        $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager('limetrail');
         $city = $em->getRepository('LimeTrailBundle:City')->find($id);
 

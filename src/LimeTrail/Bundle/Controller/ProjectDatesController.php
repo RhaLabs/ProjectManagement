@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Column\BooleanColumn;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -90,8 +89,6 @@ class ProjectDatesController extends Controller
 
         // Set the source
         $grid->setSource($source);
-        
-        
 
         // Set the selector of the number of items per page
         $grid->setLimits(array(30,60,80,120));

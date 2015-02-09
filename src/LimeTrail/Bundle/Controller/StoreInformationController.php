@@ -114,7 +114,7 @@ class StoreInformationController extends Controller
         );
 
         return $this->redirect($url);
-      }*/
+      }
 
       $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('mystore_info');
 
@@ -122,7 +122,59 @@ class StoreInformationController extends Controller
 
         return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
             'DataGrid' => $ProjectInfoDataGrid,  'identifier' => 'mystore_info',
-        ));
+        ));*/
+        
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'myProjects', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($qb) use ($tableAlias, $email)
+            {
+                $date_from = new \DateTime(
+                  date('Y-m-d',
+                    strtotime(
+                      date('Y-m-d').
+                      " -10 weekdays "
+                    )
+                  )
+                );
+                $date_to = new \DateTime(date('Y-m-d'));
+                
+                $qb->andWhere(
+                      $qb->expr()->eq('_projects_dates.runDate', ':today')
+                      )
+                   /*->andWhere(
+                      $qb->expr()->gte('d.goPrj', ':date_to')
+                      )*/
+                   ->andWhere('_projects_contacts_contact.email = :e')
+                   ->andWhere(
+                          $qb->expr()->orx(
+                            $qb->expr()->gte('_projects_dates.goAct', ':d'),
+                            $qb->expr()->isNull('_projects_dates.goAct')
+                          )
+                        )
+                   ->setParameter('e', $email)
+                   ->setParameter('today', $date_to, \Doctrine\DBAL\Types\Type::DATETIME)
+                   ->setParameter('d', $date_from, \Doctrine\DBAL\Types\Type::DATETIME)
+                ;
+            }
+        );
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(30));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        return $grid->getGridResponse();
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Application\GlobalBundle\Entity\ProjectChangeInitiation as AbstractChange;
@@ -17,12 +19,15 @@ use Application\GlobalBundle\Entity\ProjectChangeInitiation as AbstractChange;
           @ORM\Index(name="drawingChange_idx", columns={"drawingChange"})
         },
       )
+ *
  */
 class ProjectChangeInitiation extends AbstractChange
 {
     /**
      * @var string
      * @ORM\ManyToOne(targetEntity="ProjectInformation", inversedBy="projectChanges")
+     *
+     * @GRID\Column(field="project.id", title="project id", visible=false)
      */
     private $project;
 
@@ -42,6 +47,11 @@ class ProjectChangeInitiation extends AbstractChange
 
     /**
      * @ORM\ManyToOne(targetEntity="ChangeInitiation", inversedBy="projectChange")
+     *
+     * @GRID\Column(field="change.id", title="change id", visible=false)
+     * @GRID\Column(field="change.number", title="CI Number")
+     * @GRID\Column(field="change.title", title="CI Title")
+     * @GRID\Column(field="change.releaseDate", type="datetime", format="m/d/Y", title="Release Date")
      */
     private $change;
 
