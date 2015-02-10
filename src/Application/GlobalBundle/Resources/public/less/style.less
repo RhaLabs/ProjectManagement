@@ -95,13 +95,49 @@ footer {
 }
 
 .grid {
+    
+    border-collapse: separate;
+  border: solid @table-border-color 1px;
+  border-radius: @table-radius;
+  border-left:0px;
+  width: 100%;
+
+    td, th {
+      border-left: 1px solid @table-border-color;
+      border-top: 1px solid @table-border-color;
+    }
+
+    th {
+      border-top: none;
+    }
+
+    th:first-child {
+      border-radius: @table-radius 0 0 0;
+    }
+
+    th:last-child {
+      border-radius: 0 @table-radius 0 0;
+    }
+
+    th:only-child{
+      border-radius: @table-radius @table-radius 0 0;
+    }
+
+    tr:last-child td:first-child {
+      border-radius: 0 0 0 @table-radius;
+    }
+
+    tr:last-child td:last-child {
+      border-radius: 0 0 @table-radius 0;
+    }
+
+/*
     table {
         border-collapse: collapse;
-        border: 1px solid @gray-base;
         width: 100%;
     }
     td, th {
-        
+        border: 1px solid @gray;
     }
     
     .grid-row-titles {
@@ -125,10 +161,10 @@ footer {
         div.sort_down {
             background: transparent url("data:image/gif;base64,R0lGODlhFwAKAHAAACH5BAEAAAIALAAAAAAXAAoAgQAAAJCQkAAAAAAAAAIalI+py60RDpTRiZmwvdXozXkdKH6keKZqUwAAOw==") no-repeat bottom left;
         }
-    }
+    }*/
     
     .grid-row-cells {
-        tr {
+        td {
             padding: 0px 5px;
         }
     }
@@ -164,11 +200,12 @@ footer {
     }
     .grid-filter-input-query input, .grid .grid-filter-select-query select{
         width: 80px;
+        display: block;
     }
 
     .grid-filter-input-query-to, .grid .grid-filter-select-query-to{
-        margin-left: 77px;
-        display: block;
+        margin-left: 80px;
+        
     }
     
     /* Hover state */
