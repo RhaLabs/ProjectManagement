@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use LimeTrail\Bundle\Entity\ProjectInformation;
-use LimeTrail\Bundle\Form\ProjectInformationType;
+use LimeTrail\Bundle\Form\Type\ProjectInformationType;
 
 /**
  * ProjectInformation controller.
@@ -151,7 +151,7 @@ class ProjectInformationController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager('limetrail');
 
         $entity = $em->getRepository('LimeTrailBundle:ProjectInformation')->find($id);
 
@@ -160,25 +160,23 @@ class ProjectInformationController extends Controller
         }
 
         $editForm = $this->createForm(new ProjectInformationType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
      * Edits an existing ProjectInformation entity.
      *
-     * @Route("/{id}", name="limetrail_projectinformation_update")
+     * @Route("/{id}", name="projectinformation_update")
      * @Method("PUT")
      * @Template("LimeTrailBundle:ProjectInformation:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager('limetrail');
 
         $entity = $em->getRepository('LimeTrailBundle:ProjectInformation')->find($id);
 
@@ -186,7 +184,6 @@ class ProjectInformationController extends Controller
             throw $this->createNotFoundException('Unable to find ProjectInformation entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ProjectInformationType(), $entity);
         $editForm->bind($request);
 
@@ -194,13 +191,12 @@ class ProjectInformationController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('projectinformation_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('limetrail_projectdates_aggregated'));
         }
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
     /**

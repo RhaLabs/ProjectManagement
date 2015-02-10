@@ -1,4 +1,4 @@
-.StickyHeader {
+.stuckHeader {
     position: fixed;
     -webkit-box-sizing: border-box !important;
     -moz-box-sizing: border-box !important;

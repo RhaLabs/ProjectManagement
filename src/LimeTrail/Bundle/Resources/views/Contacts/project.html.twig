@@ -1,5 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    {{ grid(grid, 'LimeTrailBundle::grid.html.twig') }}
+    {{ grid(data.grid, 'LimeTrailBundle::grid.html.twig') }}
+    <div class="row">
+        <a class="btn btn-default" aria-role="button" href="{{ path('limetrail_projectcontacts_add', { 'id': projectId } ) }}">Add New Project Contact</a>
+    </div>
 {% endblock %}

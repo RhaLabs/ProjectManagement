@@ -10,12 +10,14 @@
         </div>
         <div class="grid_body">
         <table class="table table-bordered">
+        <thead class="sticky">
         {% if grid.isTitleSectionVisible %}
             {{ grid_titles(grid) }}
         {% endif %}
         {% if grid.isFilterSectionVisible %}
             {{ grid_filters(grid) }}
         {% endif %}
+        </thead>
         {{ grid_rows(grid) }}
         </table>
         </div>

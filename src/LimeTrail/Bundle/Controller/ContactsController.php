@@ -14,6 +14,10 @@ use LimeTrail\Bundle\Entity\ProjectContacts;
 use LimeTrail\Bundle\Entity\Contact;
 use LimeTrail\Bundle\Entity\JobRole;
 use LimeTrail\Bundle\Entity\Company;
+use LimeTrail\Bundle\Model\ProjectContactModel;
+use LimeTrail\Bundle\Form\Data\ProjectContactData;
+use LimeTrail\Bundle\Form\Data\NewProjectContactData;
+
 /**
  * StoreInformation controller.
  *
@@ -99,12 +103,18 @@ class ContactsController extends Controller
             array(
                 'id',
                 'jobrole.id',
+                'project.id'
             )
         );
         
         $grid->addRowAction($rowAction);
         
-        return $grid->getGridResponse();
+        $gridResponse = $grid->getGridResponse();
+        
+        return array(
+            'data' => $gridResponse,
+            'projectId' => $id
+            );
     }
     
     /**
@@ -112,27 +122,130 @@ class ContactsController extends Controller
      * Edit contacts for a store
      *
      * @Route("/project/edit/{id}/{jobroleId}", name="limetrail_projectcontacts_edit")
-     * @Method("POST")
+     * @Method({"GET","POST"})
      * @Template()
      */
-    public function projectContactEditAction($id, $jobroleId)
+    public function projectContactEditAction($id, $jobroleId, Request $request)
     {
-        //TODO build SF2 form
+        $em = $this->getDoctrine()->getManager('limetrail');
+        
         $contactprovider = $this->get('lime_trail_contact.provider');
         
-        $jobrole = $contactprovider->findJobRoleById($jobRoleId);
-        $projectcontact = $contactprovider->findProjectContactById($projectContactId);
+        $jobrole = $contactprovider->findJobRoleById($jobroleId);
+        $projectcontact = $contactprovider->findProjectContactById($id);
         $contact = $projectcontact->getContact();
         
+        $formData = new ProjectContactData($contact, $jobrole, $projectcontact);
+
+        $builder = $this->createFormBuilder($formData);
+        $builder->add('firstName', 'text')
+                ->add('middleName', 'text', array('required' => false))
+                ->add('lastName', 'text')
+                ->add('jobTitle', 'text', array('required' => false))
+                ->add('jobRole', 'entity', array(
+                    'class' => 'LimeTrailBundle:JobRole',
+                    'property' => 'jobRole',
+                ))
+                ->add('directPhone', 'text', array('required' => false))
+                ->add('mobilePhone', 'text', array('required' => false))
+                ->add('email', 'email')
+                ->add('website', 'text', array('required' => false))
+                ->add('chartColor', 'text', array('required' => false))
+                ->add('save', 'submit', array('label' => 'Save Contact'));
         
+        $form = $builder->getForm();
+                
         
-        $this->get('validator')->validate($contact);
+        $form->handleRequest($request);
         
-        $em = $this->get('doctrine')->getManager('limetrail');
+        if ($form->isValid()) {
+            $formData = $form->getData();
+
+            $projectContactModel = new ProjectContactModel($formData, $contactprovider);
+            
+            $projectContactModel->ProcessFormData();
+            
+            $entityArray = $projectContactModel->getEntityResult();
+            
+            foreach ( $entityArray AS $entity) {
+                $em->persist($entity);
+            }
+            
+            $em->flush();
+            
+            $request->getSession()->getFlashBag()->add(
+                'notice',
+                'Your changes were saved!'
+            );
+
+            return $this->redirect($this->generateUrl('limetrail_contacts_get', array('id' => $request->get('projectId'))));
+        }
+
+        return array(
+            'entity' => $formData,
+            'form'   => $form->createView(),
+        );
+    }
+    
+    /**
+     *
+     * Adds contacts for a store
+     *
+     * @Route("/project/add/{id}", name="limetrail_projectcontacts_add")
+     * @Method({"GET","POST"})
+     * @Template()
+     */
+    public function projectContactAddAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager('limetrail');
         
-        $em->persist($projectcontact);
-        $em->persist($contact);
-        $em->flush();
+        $entity = $em->getRepository('LimeTrailBundle:ProjectInformation')->find($id);
+        
+        $formData = new NewProjectContactData($entity);
+
+        $builder = $this->createFormBuilder($formData);
+        $builder->add('contact', 'entity', array(
+                    'class' => 'LimeTrailBundle:Contact',
+                    'query_builder' => function($repo) {
+                        $qb = $repo->createQueryBuilder('c');
+                        $qb->select('c')
+                           ->orderBy('c.lastName', 'ASC');
+                        
+                        return $qb;
+                    },
+                ))
+                ->add('jobRole', 'entity', array(
+                    'class' => 'LimeTrailBundle:JobRole',
+                    'property' => 'jobRole',
+                ))
+                ->add('save', 'submit', array('label' => 'Save Contact'));
+        
+        $form = $builder->getForm();
+                
+        
+        $form->handleRequest($request);
+        
+        if ($form->isValid()) {
+            $formData = $form->getData();
+            
+            $provider = $this->container->get('lime_trail_contact.provider');
+            
+            $projectContact = $provider->createProjectContact($formData->project, $formData->jobRole, $formData->contact);
+            
+            $em->flush();
+            
+            $request->getSession()->getFlashBag()->add(
+                'notice',
+                'Your changes were saved!'
+            );
+
+            return $this->redirect($this->generateUrl('limetrail_contacts_get', array('id' => $id)));
+        }
+
+        return array(
+            'entity' => $formData,
+            'form'   => $form->createView(),
+        );
     }
 
     /**

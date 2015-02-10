@@ -3,3 +3,13 @@
 {% block content %}
     {{ grid(grid, 'LimeTrailBundle::grid.html.twig') }}
 {% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    
+    {% javascripts
+      '@ApplicationGlobalBundle/Resources/public/js/stickHeader.js'
+    %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

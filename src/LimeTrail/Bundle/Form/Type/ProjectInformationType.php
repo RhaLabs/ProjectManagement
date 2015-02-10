@@ -11,18 +11,8 @@ class ProjectInformationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('projectNumber')/*
-            ->add('projectPhase')
-            ->add('confidential')
-            ->add('combo')
-            ->add('manageSitesDifferent')
-            ->add('sap')
-            ->add('storeSquareFootage')
-            ->add('increaseSquareFootage')
-            ->add('prjTotalSquareFootage')
-            ->add('actTotalSquareFootage')
-            ->add('ProjectType', new ProjectTypeType())*/
-
+            ->add('projectNumber')
+            ->add('canonicalName')
         ;
     }
 
