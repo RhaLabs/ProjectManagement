@@ -38,11 +38,11 @@
 {% endblock grid_column_id_storeNumber_cell %}
 
 {% block grid_column_id_projects_projectNumber_cell %}
-    {{ value }}&nbsp;<a href="{{ path('limetrail_projectinformation_edit', {'id': row.field('projects.id')}) }}">Edit</a>
+    {{ value }}&nbsp;<a class="pull-right" href="{{ path('limetrail_projectinformation_edit', {'id': row.field('projects.id')}) }}">Edit</a>
 {% endblock %}
 
 {% block grid_column_id_projects_canonicalName_cell %}
-    {{ value }}&nbsp;<a href="{{ path('limetrail_projectinformation_edit', {'id': row.field('projects.id')}) }}">Edit</a>
+    {{ value }}&nbsp;<a class="pull-right" href="{{ path('limetrail_projectinformation_edit', {'id': row.field('projects.id')}) }}">Edit</a>
 {% endblock %}
 
 {% block grid_column_id_projects_dates_recAct_cell %}

@@ -182,16 +182,6 @@ footer {
 .stuckHeader {
     position: fixed;
     background: @body-bg;
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    box-sizing: border-box !important;
-    zoom: 1 !important;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
     
@@ -199,6 +189,7 @@ footer {
         td {
             padding: 0px 5px;
         }
+        white-space: nowrap;
     }
     
     /* Boolean column */
@@ -236,7 +227,6 @@ footer {
     }
 
     .grid-filter-input-query-to, .grid .grid-filter-select-query-to{
-        margin-left: 80px;
         
     }
     
@@ -268,6 +258,10 @@ footer {
     select, .grid-search .grid-filter-input-query input {
         width: 150px;
     }
+}
+
+.grid-row-actions {
+
 }
 
 .flip, .card {

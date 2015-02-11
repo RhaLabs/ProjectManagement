@@ -96,10 +96,14 @@ class ContactsController extends Controller
         $grid->setDefaultPage(1);
         
         //grid actions
-        $rowAction = new RowAction(
+        $editAction = new RowAction(
             'Edit',
-            "limetrail_projectcontacts_edit");
-        $rowAction->setRouteParameters(
+            "limetrail_projectcontacts_edit",
+            false,
+            '_self',
+            array('class' => 'btn btn-sm btn-default')
+        );
+        $editAction->setRouteParameters(
             array(
                 'id',
                 'jobrole.id',
@@ -107,7 +111,24 @@ class ContactsController extends Controller
             )
         );
         
-        $grid->addRowAction($rowAction);
+        $grid->addRowAction($editAction);
+        
+        $deleteAction = new RowAction(
+            'Delete',
+            'limetrail_projectcontacts_delete',
+            true,
+            '_self',
+            array('class' => 'btn btn-sm btn-danger'),
+            'ROLE_ADMIN'
+        );
+        $deleteAction->setRouteParameters(
+            array(
+                'id',
+                'project.id'
+            )
+        );
+        
+        $grid->addRowAction($deleteAction);
         
         $gridResponse = $grid->getGridResponse();
         
@@ -246,6 +267,32 @@ class ContactsController extends Controller
             'entity' => $formData,
             'form'   => $form->createView(),
         );
+    }
+    
+    /**
+     *
+     * Deletes contacts for a store
+     *
+     * @Route("/project/delete/{id}/{projectId}", name="limetrail_projectcontacts_delete")
+     * @Method({"GET","POST"})
+     * @Template()
+     */
+    public function projectContactDeleteAction($id, $projectId, Request $request)
+    {
+        $provider = $this->container->get('lime_trail_contact.provider');
+        
+        $projectcontact = $provider->findProjectContactById($id);   
+        
+        $provider->deleteProjectContact($projectcontact);
+        
+        $this->getDoctrine()->getManager('limetrail')->flush();
+            
+        $request->getSession()->getFlashBag()->add(
+            'notice',
+            'Your changes were saved!'
+        );
+
+        return $this->redirect($this->generateUrl('limetrail_contacts_get', array('id' => $projectId)));
     }
 
     /**

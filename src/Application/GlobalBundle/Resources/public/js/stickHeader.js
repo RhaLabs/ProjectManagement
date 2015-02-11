@@ -13,12 +13,13 @@ $(function stickHeaderWhileScrolling() {
     var frozenElemHeight = frozenElement.outerHeight();
     var predecessorBottom = predecessor.css("top");
     var frozenElemLeft = frozenElement.offset().left;
-    table.bind("resize.reportstickyheaders", adjustLeft);
+    table.bind("resize", adjustLeft);
     $(window).off(".reportstickyheaders");
-    $(window).on("scroll.reportstickyheaders", adjustStuckElement);
-    $(window).on("resize.reportstickyheaders", adjustElementWidths);
-    $(window).on("updateStickyHeaders.reportstickyheaders", updateStickyHeaders);
+    $(window).on("scroll", adjustStuckElement);
+    $(window).on("resize", adjustElementWidths);
+    $(window).on("updateStickyHeaders", updateStickyHeaders);
     adjustStuckElement();
+    adjustElementWidths();
     function adjustStuckElement() {
         var isStuck = frozenElement.hasClass("stuckHeader");
         var predecessorBottomOffset = predecessor.offset().top + predecessor.outerHeight();
@@ -51,14 +52,14 @@ $(function stickHeaderWhileScrolling() {
     function adjustElementWidths() {
         var isStuck = frozenElement.hasClass("stuckHeader");
         if (isStuck) {
-            var refRow = table.children("tbody").children(".odd, .even").first();
+            var refRow = table.children("tbody").children("tr").first();
             if (refRow.length > 0) {
                 var nextRowTds = refRow.find("td");
                 var col = 0;
                 frozenElement.width(refRow.width());
-                frozenElement.find("td").each(function() {
+                frozenElement.find("th").each(function() {
                     var t = $(this);
-                    t.width($(nextRowTds[col]).outerWidth());
+                    t.width($(nextRowTds[col]).outerWidth(true));
                     ++col
                 })
             }
