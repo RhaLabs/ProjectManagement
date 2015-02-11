@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block head_style %}
+    {{ parent() }}
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+{% endblock %}
+
 {% block content %}
     {{ grid(grid, 'LimeTrailBundle::grid.html.twig') }}
 {% endblock %}
@@ -12,4 +18,21 @@
     %}
       <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    
+    <script type="text/javascrpt" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+    
+    <script>
+    $(document).ready({
+        var table = $('.table').DataTable( {
+        "scrollY": "300px",
+        "scrollX": "100%",
+        "scrollCollapse": true,
+        "paging": false
+        } );
+    
+        new $.fn.dataTable.fixedColumns( table, {
+            "leftColumns": 4
+        } );
+    });
+    </script>
 {% endblock %}
