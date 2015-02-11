@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,17 +21,46 @@ class ProjectScheduleController extends Controller
      * Lists all StoreInformation entities.
      *
      * @Route("/", name="limetrail_projectschedule")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
-        $alias = 'schedule';
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
-        $DataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'shells', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($qb) use ($tableAlias)
+            {
+                  $date = new \DateTime(date('Y-m-d'));
+    
+                  $qb->andWhere($qb->expr()->eq('_projects_dates.runDate', ':date'))
+                     ->andWhere(
+                      $qb->expr()->orx(
+                        $qb->expr()->gte('_projects_dates.pwoPrj', ':date'),
+                        $qb->expr()->isNull('_projects_dates.pwoPrj')
+                      )
+                    )
+                     ->andWhere('_projects_ProjectStatus.name = :n')
+                     ->setParameter('n', 'Active')
+                     ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
+                     ;
+            }
+        );
 
-        return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
-            'DataGrid' => $DataGrid, 'identifier' => $alias,
-        ));
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(30, 60, 80));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        return $grid->getGridResponse();
     }
 }

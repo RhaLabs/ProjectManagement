@@ -159,7 +159,7 @@
         {% block jquery %}
           {# Load jQuery from Google CDN
            http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/ #}
-          <script>window.jQuery || document.write('<script src="{% block jquery_cdn_url %}//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js{% endblock jquery_cdn_url %}"><\/script>')</script>
+          <script src="{% block jquery_cdn_url %}//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js{% endblock jquery_cdn_url %}"></script>
           <script>window.jQuery || document.write('<script src="{% block jquery_local_url %}../js/libs/jquery-1.11.0.min.js{% endblock jquery_local_url %}"><\/script>')</script>
         {% endblock jquery %}
         

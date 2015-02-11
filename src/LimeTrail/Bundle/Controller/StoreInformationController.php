@@ -248,12 +248,60 @@ class StoreInformationController extends Controller
 
         $result = array_count_values($finalResult);
 
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
-        $DataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'projects_by_manager', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($qb) use ($name)
+            {
+                if ($name === 'walmart') {
+                  $date = new \DateTime(date('Y-m-d'));
+                  $past = clone $date;
 
-        return $this->render('LimeTrailBundle:StoreInformation:gridbyclient.html.twig', array(
-            'DataGrid' => $DataGrid, 'identifier' => $alias, 'result' => $result,
-        ));
+                  $qb
+                  ->andWhere(
+                    $qb->expr()->orx(
+                        $qb->expr()->eq('_projects_contacts_jobrole.jobRole', ':dpm'),
+                        $qb->expr()->eq('_projects_contacts_jobrole.jobRole', ':saam')
+                      )
+                    )
+                  ->andWhere('_projects_ProjectStatus.name = :n')
+                  ->andWhere(
+                    $qb->expr()->eq('_projects_dates.runDate', ':date')
+                  )
+                  ->andWhere(
+                    $qb->expr()->orx(
+                     $qb->expr()->gte('_projects_dates.goAct', ':d'),
+                     $qb->expr()->isNull('_projects_dates.goAct')
+                    )
+                  )
+                  ->setParameter('dpm', 'WM Design Project Manager')
+                  ->setParameter('saam', 'WM SAAM')
+                  ->setParameter('n', 'Active')
+                  ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
+                  ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME)
+                  ;
+                }
+            }
+        );
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(30, 60, 80));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+
+        return array(
+            'data' => $grid->getGridResponse(), 'result' => $result,
+        );
     }
 
     /**
