@@ -13,15 +13,22 @@
 {% block foot_script %}
     {{ parent() }}
     
-    {% javascripts
-      '@ApplicationGlobalBundle/Resources/public/js/jquery.fixedheadertable.min.js'
-    %}
-      <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+
+    
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
     
     <script type="text/javascript" charset="utf8">
-    $( document ).ready(function() {
-        $('table').fixedHeaderTable({ fixedColumn: true });
+    $( document ).ready(function( ) {
+        var table = $('table').DataTable( {
+        "scrollY": "600px",
+        "scrollX": "100%",
+        "scrollCollapse": true,
+        "paging": false
+        } );
+    
+        new $.fn.dataTable.FixedColumns( table, {
+            "leftColumns": 4
+        } );
     });
     </script>
 {% endblock %}
