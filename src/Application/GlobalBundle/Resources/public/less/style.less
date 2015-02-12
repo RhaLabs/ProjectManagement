@@ -94,6 +94,185 @@ footer {
     .dropdown-menu();
 }
 
+.fixedHeader {
+    .sticky {
+        background: @body-bg !important;
+    }
+}
+
+.DTFC_LeftBodyLiner{
+    background: @body-bg !important;
+}
+    
+.grid {
+    
+    // Bordered with rounded corners
+    // see commit
+    // https://github.com/twbs/bootstrap/commit/4cec956e0cb5c89b12ca98063a9754b9a4b1a29c#diff-bf82e22471483bbe1193741e44bad483
+    // ----------------
+    
+    .table-bordered {
+      border: 1px solid @table-border-color;
+      border-collapse: separate; // Done so we can round those corners!
+      border-left: 0;
+      border-radius: @border-radius-base;
+    
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr {
+          > th,
+          > td {
+            border-left: 1px solid @table-border-color;
+          }
+        }
+      }
+      // Prevent a double border
+      > caption + thead > tr:first-child th,
+      > caption + tbody > tr:first-child th,
+      > caption + tbody > tr:first-child td,
+      > colgroup + thead > tr:first-child th,
+      > colgroup + tbody > tr:first-child th,
+      > colgroup + tbody > tr:first-child td,
+      > thead:first-child > tr:first-child th,
+      > tbody:first-child > tr:first-child th,
+      > tbody:first-child > tr:first-child td {
+        border-top: 0;
+      }
+      > thead:first-child > tr:first-child > th,
+      > tbody:first-child > tr:first-child > td,
+      > tbody:first-child > tr:first-child > th {
+        // For first th/td in the first row in the first thead or tbody
+        &:first-child{
+          border-top-left-radius: @border-radius-base;
+        }
+        // For last th/td in the first row in the first thead or tbody
+        &:last-child{
+          border-top-right-radius: @border-radius-base;
+        }
+      }
+      > thead:last-child > tr:last-child > th,
+      > tbody:last-child > tr:last-child > td,
+      > tbody:last-child > tr:last-child > th,
+      > tfoot:last-child > tr:last-child > td,
+      > tfoot:last-child > tr:last-child > th {
+        // For first th/td (can be either) in the last row in the last thead, tbody, and tfoot
+        &:first-child{
+          border-bottom-left-radius: @border-radius-base;
+        }
+        // For last th/td (can be either) in the last row in the last thead, tbody, and tfoot
+        &:last-child{
+          border-bottom-right-radius: @border-radius-base;
+        }
+      }
+    
+      // Clear border-radius for first and last td in the last row in the last tbody for table with tfoot
+      > tfoot + tbody:last-child > tr:last-child > td:first-child {
+        border-bottom-left-radius: 0;
+      }
+      > tfoot + tbody:last-child > tr:last-child > td:last-child {
+        border-bottom-right-radius: 0;
+      }
+    
+      // Special fixes to round the left border on the first td/th
+      > caption,
+      > colgroup {
+        + thead > tr:first-child > th,
+        + tbody > tr:first-child > td {
+          &:first-child {
+            border-top-left-radius: @border-radius-base;
+          }
+          &:last-child {
+            border-top-right-radius: @border-radius-base;
+          }
+        }
+      }
+    }
+
+    .sticky {
+        background: @body-bg !important;
+    }
+
+    
+    .grid-row-cells {
+        td {
+            padding: 0px 5px;
+        }
+        white-space: nowrap;
+    }
+    
+    /* Boolean column */
+    .grid_boolean_true {
+        background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR42q2T60uTYRiH/Tv2bnttAwlkRCGChFD7FCQSm2ZDMQ/L0nRnj7TNGDbTooychzFSSssstdqc8zB1anNrSpm47FVCzH3pQLVhdLBfzztoJlifvOEHz4fnuu7nGBe311XgOyLMnTmsz/akMBljB8OSEVFY4kpkJM5Efbp9v/C/cJ43VSrzJId0HhluBy3oW+mKpnOpGSWuExD30iFxDy3dFSZdpZkTSZHr80Y41/phe3UDpvnKaNixY60PjbNVOGTjRZJtvJ2SHE+KINOdtMHC7MSaQBkq/CXQzJ6DjqScpNp3HvY3D3B5ugIiC3dDdJMriAlk7iSDajwr2pmFWVDlPQPFTCEU0wVQTxfCvT4Ig1cJB5Hk9hxDwjWuISbIGBExncFmWINNqPAVQ/lUTsB8KKdIPPmYeOsCW6HIOtpeNMI234j4ei4TExy3J2w+Wr2L2oAGWm8RWckAlj4uQDVZiPH1oSj8c+sH2p5fgWGyGH3BTvCN1GZMIH5Ib/avdMPoV6HWr8Xnb5+i0Iev72KwZa4ealc29O6z6A92gF/zt6CHZm4tNKF98Sp0U3KYfdWIfP8Shbd+bcHy7BLKnFnQEEFLoA7tXjPoKmp7C6l3+Ab5QBrsq/dRPSmH2n0adTPlWH6/iLa5BpQOnoTCcQo6Zw7sr7uRbj0KupLaPsRkK09wgFyN2aPBY+YeKkfzoB3OgWpIBqWDDQtn48lyF4xDxeCrORu0mhLseAuJTVxpfAMVMbnL4CCS1oAZ+tEiXBiWo5VswU5gvbMIvFJOhMC7v8Z9DVwpbaJCkg4x2v1m9L60onfBCovXhLSWVPAVnBCt+gf8p+iLXCFtoPR0DcXwtZwwX8UJk44MiZ4upYR7/nt/A+w9sdKFchsrAAAAAElFTkSuQmCC") no-repeat bottom left;
+        display: inline-block;
+        text-indent: 16px;
+        width: 16px;
+        overflow: hidden;
+    }
+    .grid_boolean_false {
+        background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACSElEQVR42q2Ty0vUURTHv/5SJ1SmUaGckUYdG5FyVdAicGMkFAXBtEl8gJseIP0FEVEtbNNiFm0iMMUgGKhVIUj0oqKFQ40N2TwwdewxOik6zcy953tbmD/HxFV9d/dwz+f7PXAO8I8q+bugb1xspjFdhuwlWUcSJL+SvEfhaPXgcHxbQOH6hYChCa6WlLvLm/eh1OkEAKjlJWSjUVjZpXlSBvbcehDaAshfOx8w5FB+t7eyosUPSU2DqWkAgOX2wvI0YPljFLmpD6sU6fPefhSyAbmr53wkXxTqvJ7KlhYUXo0BACou3wEArFzpB2hQ3t6JpcgkVqITKSHb/XefJCwAENHdWcux0WwMDI09GjUh2iA7/hjO1v0wVbUerVQ3AFgAoLXucfj9kNkkDA0oBkZzE4BKIAUin4hjV2sblFI9xYD6MpcLeiYJo2k7rksKhKi1ei4WR5mrBlrp+g2A0jBi7MZ1RzUV2RhB/YEIASG0VihKoOby6UVY7gY7qiji18txrDy8b7tTEaV7G5FNp6GVnitOMPwz8h47PI32Z1GEs/8Sqk6fBRUhmhAhHI0+fA+/g9Z62AYopUYKC6lUZjKCio7jNmQxeBMLwUGIrL1dJ07iRySMzMznlNZ6ZNMiTXZ3BCgy5DpwuLK6tQ25ZAK5WBzGGDiafHA0+ZCOhPHl9dgqyb6jTz+FtqzyxJkjASGDO2s87tq2g3C4qmEMkMss4tvEW2RmY/MkB449mwpte0xvTh1qJtlFYS8pm4+JHO18Hovjf+o3Xg+XX4ZLBPIAAAAASUVORK5CYII=") no-repeat bottom left;
+        display: inline-block;
+        text-indent: 16px;
+        width: 16px;
+        overflow: hidden;
+    }
+    .align-left {
+        text-align: left;
+    }
+    .align-center {
+        text-align: center;
+    }
+    .align-right {
+        text-align: right;
+    }
+    
+    /* Column filter */
+    .grid-filter-operator select{
+        width: 80px;
+    }
+    .grid-filter-input-query input, .grid .grid-filter-select-query select{
+        width: 80px;
+        display: block;
+    }
+
+    .grid-filter-input-query-to, .grid .grid-filter-select-query-to{
+        
+    }
+    
+    /* Hover state */
+    .grid-row-cells:hover {
+        background: url("images/ui-bg_glass_25_ba0d0d_1x400.png") repeat-x scroll 50% 50% @RhaRed;
+        border: 1px solid @state-danger-border;
+        color: @body-bg;
+        
+        a {
+            color: darken(@brand-primary, 50%);
+            text-decoration: underline;
+        }
+    }
+}
+
+/* Grid Search */
+
+.grid-search {
+    border: 1px solid @gray-base;
+    padding: 10px;
+
+    label{
+        width: 80px;
+        display: inline-block;
+        text-align: right;
+    }
+
+    select, .grid-search .grid-filter-input-query input {
+        width: 150px;
+    }
+}
+
+.grid-row-actions {
+
+}
+
 .flip, .card {
     width: 130px;
     height: 122px;

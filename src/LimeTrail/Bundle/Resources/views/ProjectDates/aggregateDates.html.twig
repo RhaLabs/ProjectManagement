@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block head_style %}
+    {{ parent() }}
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">
+{% endblock %}
+
+{% block content %}
+    {{ grid(grid, 'LimeTrailBundle::grid.html.twig') }}
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.min.js"></script>
+
+    {% javascripts
+      '@ApplicationGlobalBundle/Resources/public/js/initDataTable.js'
+    %}
+      <script type="text/javascript" charset="utf8" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

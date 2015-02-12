@@ -1,51 +1,9 @@
 {% extends '::base.html.twig' %}
 
-{% use 'LimeTrailBundle::datagrid.html.twig' with head_bottom as grid_head_bottom %}
-
-{% block head_style %}
-    {{ parent() }}
-    {{ block('stylesheets') }}
-{% endblock head_style %}
-
-{% block head_bottom %}
-{{ parent() }}
-{{ block('grid_head_bottom') }}
-<script>
-/*$("#thrace-datagrid-store_info").jqGrid('ajaxSelectOptions',function(rowid,col,cellcontent,e){
-  //this.editRow()
-});*/
-jQuery.extend(jQuery.jgrid.edit, {
-  recreateForm: true,
-});
-jQuery.extend(jQuery.jgrid.defaults, {
-  ajaxSelectOptions: {
-    type: "GET",
-    dataType: 'html',
-    data: {
-      myid: function() {
-        var row_id, cellValue;
-        var $storegrid = $("#{{ 'thrace-datagrid-' ~ identifier }}"),
-        row_id = $storegrid.jqGrid('getGridParam','selrow'),
-        cellValue = $storegrid.jqGrid('getCell', row_id, 'State');
-        return cellValue;
-      }
-    }
-  }
-});
-
-$.ajaxSetup({
-  beforeSend: function(jqXHR, settings){
-    settings.url = settings.url.replace(/(\?\w+=)/gi,'');
-  }
-});
-</script>
-{% endblock %}
-
 {% block content %}
-   <div class="col-sm-12 col-md-6" id="container" style="width:100%; height:400px; margin-bottom: 40px;"></div>
-   <div class="col-sm-12 col-md-6" id="map" style="height:500px; min-width:310px; max-width:800px; margin:0 auto"></div>
-   <div class="col-sm-12">{{ thrace_datagrid(identifier) }}</div>
-   {{ block('sidebar') }}
+   <div class="col-sm-12 col-md-6" id="container" style="height:400px;"></div>
+   <div class="col-sm-12 col-md-6" id="map" style="height:500px;"></div>
+   {{ grid(data.grid, 'LimeTrailBundle::grid.html.twig') }}
 {% endblock %}
 
 

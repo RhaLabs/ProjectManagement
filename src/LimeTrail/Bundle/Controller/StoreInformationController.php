@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+
 use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,17 +22,33 @@ class StoreInformationController extends Controller
      * Lists all StoreInformation entities.
      *
      * @Route("/", name="limetrail_storeinformation")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      * @Template()
      */
     public function indexAction()
     {
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
+        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
         $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('store_info');
 
         return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
             'ProjectInfoDataGrid' => $ProjectInfoDataGrid,  'identifier' => 'store_info',
-        ));
+        ));*/
+        
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'store_information', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(5, 10, 15));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        return $grid->getGridResponse();
     }
     /**
      * Displays a form to edit an existing Store entity.
@@ -96,7 +114,7 @@ class StoreInformationController extends Controller
         );
 
         return $this->redirect($url);
-      }*/
+      }
 
       $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('mystore_info');
 
@@ -104,7 +122,59 @@ class StoreInformationController extends Controller
 
         return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
             'DataGrid' => $ProjectInfoDataGrid,  'identifier' => 'mystore_info',
-        ));
+        ));*/
+        
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'myProjects', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($qb) use ($tableAlias, $email)
+            {
+                $date_from = new \DateTime(
+                  date('Y-m-d',
+                    strtotime(
+                      date('Y-m-d').
+                      " -10 weekdays "
+                    )
+                  )
+                );
+                $date_to = new \DateTime(date('Y-m-d'));
+                
+                $qb->andWhere(
+                      $qb->expr()->eq('_projects_dates.runDate', ':today')
+                      )
+                   /*->andWhere(
+                      $qb->expr()->gte('d.goPrj', ':date_to')
+                      )*/
+                   ->andWhere('_projects_contacts_contact.email = :e')
+                   ->andWhere(
+                          $qb->expr()->orx(
+                            $qb->expr()->gte('_projects_dates.goAct', ':d'),
+                            $qb->expr()->isNull('_projects_dates.goAct')
+                          )
+                        )
+                   ->setParameter('e', $email)
+                   ->setParameter('today', $date_to, \Doctrine\DBAL\Types\Type::DATETIME)
+                   ->setParameter('d', $date_from, \Doctrine\DBAL\Types\Type::DATETIME)
+                ;
+            }
+        );
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(30));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+        
+        return $grid->getGridResponse();
     }
 
     /**
@@ -178,12 +248,60 @@ class StoreInformationController extends Controller
 
         $result = array_count_values($finalResult);
 
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
-        $DataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
+        $source = new Entity('LimeTrailBundle:StoreInformation', 'projects_by_manager', 'limetrail');
+        
+        // Get a grid instance
+        $grid = $this->get('grid');
+        
+        //manipulate query to reutn only the store projects we want
+        $tableAlias = $source->getTableAlias();
+        
+        $source->manipulateQuery(
+            function ($qb) use ($name)
+            {
+                if ($name === 'walmart') {
+                  $date = new \DateTime(date('Y-m-d'));
+                  $past = clone $date;
 
-        return $this->render('LimeTrailBundle:StoreInformation:gridbyclient.html.twig', array(
-            'DataGrid' => $DataGrid, 'identifier' => $alias, 'result' => $result,
-        ));
+                  $qb
+                  ->andWhere(
+                    $qb->expr()->orx(
+                        $qb->expr()->eq('_projects_contacts_jobrole.jobRole', ':dpm'),
+                        $qb->expr()->eq('_projects_contacts_jobrole.jobRole', ':saam')
+                      )
+                    )
+                  ->andWhere('_projects_ProjectStatus.name = :n')
+                  ->andWhere(
+                    $qb->expr()->eq('_projects_dates.runDate', ':date')
+                  )
+                  ->andWhere(
+                    $qb->expr()->orx(
+                     $qb->expr()->gte('_projects_dates.goAct', ':d'),
+                     $qb->expr()->isNull('_projects_dates.goAct')
+                    )
+                  )
+                  ->setParameter('dpm', 'WM Design Project Manager')
+                  ->setParameter('saam', 'WM SAAM')
+                  ->setParameter('n', 'Active')
+                  ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
+                  ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME)
+                  ;
+                }
+            }
+        );
+
+        // Set the source
+        $grid->setSource($source);
+
+        // Set the selector of the number of items per page
+        $grid->setLimits(array(30, 60, 80));
+
+        // Set the default page
+        $grid->setDefaultPage(1);
+
+        return array(
+            'data' => $grid->getGridResponse(), 'result' => $result,
+        );
     }
 
     /**

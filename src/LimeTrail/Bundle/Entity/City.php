@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -14,6 +16,8 @@ use Doctrine\Common\Collections\ArrayCollection;
           @ORM\Index(name="idx", columns={"name"})
         }
       )
+ *
+ * @GRID\Source(columns="id")
  */
 class City extends \Application\GlobalBundle\Entity\BaseCity
 {

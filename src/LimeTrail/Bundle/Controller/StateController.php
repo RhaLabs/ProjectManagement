@@ -36,20 +36,17 @@ class StateController extends Controller
 
     /**
      *
-     * @Route("/stateurl", name="stateurl")
+     * @Route("/stateurl/{id}", name="stateurl")
      * @Method("GET")
      * @Template("LimeTrailBundle:State:stateurl.html.twig")
      */
-    public function stateurlAction(Request $request)
+    public function stateurlAction($id)
     {
-        $storeid = $request->query->get('id');
         $em = $this->getDoctrine()->getManager('limetrail');
-        $stateprovider = $this->get('lime_trail_state.provider');
-        $store = $em->getRepository('LimeTrailBundle:StoreInformation')->find($storeid);
-        $entity = $store->getState();
+        $state = $em->getRepository('LimeTrailBundle:State')->find($id);
 
         return array(
-            'url' => $entity->getUrl(),
+            'url' => $state->getUrl(),
         );
     }
 }

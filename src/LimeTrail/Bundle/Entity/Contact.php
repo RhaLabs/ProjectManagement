@@ -467,6 +467,6 @@ class Contact
     
     public function __toString()
     {
-      return get_class($this);
+      return $this->lastName.', '.$this->firstName;
     }
 }

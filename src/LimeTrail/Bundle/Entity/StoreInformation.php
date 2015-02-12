@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -15,12 +17,18 @@ use Doctrine\Common\Collections\ArrayCollection;
             @ORM\Index(name="idx", columns={"storeNumber"})
         }
     )
+ *
+ * @GRID\Column(id="projectcontacts", title="Contacts")
+ * @GRID\Column(id="projectchanges", title="Changes")
+ * @GRID\Column(id="dates", title="Dates", groups={"project"})
  */
 class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInformation
 {
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="LimeTrail\Bundle\Entity\StoreType", inversedBy="store")
+     *
+     * @GRID\Column(field="storeType.name", title="Store Type", groups={"store_information", "trident", "myProjects", "projects_by_manager", "shells"})
      */
     private $storeType;
     public function addStoreType($storeType)
@@ -33,6 +41,10 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Address", inversedBy="store")
+     *
+     * @GRID\Column(field="address.address", title="Address", size=200, groups={"store_information"})
+     * @GRID\Column(field="address.longitude", title="longitude", groups={"store_information"})
+     * @GRID\Column(field="address.latitude", title="latitude", groups={"store_information"})
      */
     private $address;
     public function addAddress(\LimeTrail\Bundle\Entity\Address $address)
@@ -46,6 +58,8 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="StreetIntersection", inversedBy="store")
+     *
+     * @GRID\Column(field="streetIntersection.name", title="Street Intersection", size=300, groups={"store_information"})
      */
     private $streetIntersection;
     public function addStreetIntersection(\LimeTrail\Bundle\Entity\StreetIntersection $intersection)
@@ -59,6 +73,9 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="City", inversedBy="store")
+     *
+     * @GRID\Column(field="city.name", title="City", size=150, groups={"store_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="city.id", title="CityId", visible=false, groups={"store_information", "trident", "myProjects", "projects_by_manager", "shells"})
      */
     private $city;
     public function addCity(\LimeTrail\Bundle\Entity\City $city)
@@ -72,6 +89,8 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Zip", inversedBy="store")
+     *
+     * @GRID\Column(field="zip.zipcode", title="Zip Code", groups={"store_information"})
      */
     private $zip;
     public function addZip(\LimeTrail\Bundle\Entity\Zip $zipcode)
@@ -85,6 +104,9 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="County", inversedBy="store")
+     *
+     * @GRID\Column(field="county.name", title="County", groups={"store_information", "trident"})
+     * @GRID\Column(field="county.id", title="CountyId", visible=false, groups={"store_information", "trident"})
      */
     private $county;
     public function addCounty(\LimeTrail\Bundle\Entity\County $county)
@@ -98,6 +120,8 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Division", inversedBy="store")
+     *
+     * @GRID\Column(field="division.name", title="Division", groups={"store_information"})
      */
     private $division;
     public function addDivision(\LimeTrail\Bundle\Entity\Division $div)
@@ -111,6 +135,8 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="store")
+     *
+     * @GRID\Column(field="region.name", title="Region", groups={"store_information"})
      */
     private $region;
     public function addRegion(\LimeTrail\Bundle\Entity\Region $region)
@@ -124,6 +150,9 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="State", inversedBy="store")
+     *
+     * @GRID\Column(field="state.abbreviation", title="State", groups={"store_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="state.id", title="StateId", visible=false, groups={"store_information", "trident", "myProjects", "projects_by_manager", "shells"})
      */
     private $state;
     public function addState(\LimeTrail\Bundle\Entity\State $state)
@@ -141,8 +170,103 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
      * @ORM\JoinTable(name="store_projects",
      *      joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
+     *
+     * @GRID\Column(field="projects.id", title="project_id", visible=false)
+     * @GRID\Column(field="projects.Sequence", title="Sequence", groups={"project_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.projectNumber", title="projectNumber", groups={"project_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.canonicalName", title="Common Name", size=250, groups={"project_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.DescriptionOfType.name", title="Description", groups={"project_information"})
+     * @GRID\Column(field="projects.projectPhase", title="project Phase", groups={"project_information"})
+     * @GRID\Column(field="projects.Prototype.name", title="Prototype", groups={"project_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.ProgramCategory.name", title="Program Category", groups={"project_information"})
+     * @GRID\Column(field="projects.ProjectType.name", title="Project Type", groups={"project_information", "trident", "myProjects", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.DevelopmentType.name", title="Development Type", groups={"project_information", "trident", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.ProjectStatus.name", title="Project Status", groups={"project_information", "trident", "projects_by_manager", "shells"})
+     * @GRID\Column(field="projects.confidential", title="confidential", groups={"project_information"})
+     * @GRID\Column(field="projects.combo", title="combo", groups={"project_information"})
+     * @GRID\Column(field="projects.manageSitesDifferent", title="manage Sites Different", groups={"project_information"})
+     * @GRID\Column(field="projects.sap", title="SAP", groups={"project_information", "trident"})
+     * @GRID\Column(field="projects.ProgramYear.year", title="Program Year", groups={"project_information", "trident", "projects_by_manager"})
+     * @GRID\Column(field="projects.protoSize", title="protoSize", groups={"project_information"})
+     * @GRID\Column(field="projects.storeSquareFootage", title="storeSquareFootage", groups={"project_information"})
+     * @GRID\Column(field="projects.increaseSquareFootage", title="increaseSquareFootage", groups={"project_information"})
+     * @GRID\Column(field="projects.prjTotalSquareFootage", title="prjTotalSquareFootage", groups={"project_information"})
+     * @GRID\Column(field="projects.actTotalSquareFootage", title="actTotalSquareFootage", groups={"project_information"})
+     * @GRID\Column(field="projects.cecComm", title="cecComm", groups={"project_information"})
+     * @GRID\Column(field="projects.cOfOComm", title="cOfOComm", groups={"project_information"})
+     * @GRID\Column(field="projects.aorComm", title="aorComm", groups={"project_information"})
+     * @GRID\Column(field="projects.closeoutComm", title="closeoutComm", groups={"project_information"})
+     * @GRID\Column(field="projects.podComm", title="podComm", groups={"project_information"})
+     * @GRID\Column(field="projects.isChanged", visible=false, title="isChanged", groups={"trident", "myProjects", "shells"})
+     *
+     * @GRID\Column(field="projects.aorContact.firstName", title="Aor Contact", groups={"project_information", "trident"})
+     * @GRID\Column(field="projects.aorContact.lastName", title="Aor Contact", groups={"project_information", "trident"})
+     *
+     * @GRID\Column(field="projects.dates.recAct", type="datetime", format="m/d/Y", title="recAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.recPrj", type="datetime", format="m/d/Y", title="recPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.intClosingAct", type="datetime", format="m/d/Y", title="intClosingAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.intClosingPrj", type="datetime", format="m/d/Y", title="intClosingPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.desCivilAct", type="datetime", format="m/d/Y", title="desCivilAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.desCivilPrj", type="datetime", format="m/d/Y", title="desCivilPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.cwaAct", type="datetime", format="m/d/Y", title="cwaAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.cwaPrj", type="datetime", format="m/d/Y", title="cwaPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.pwoAct", type="datetime", format="m/d/Y", title="pwoAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.pwoPrj", type="datetime", format="m/d/Y", title="pwoPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.pwoIdAct", type="datetime", format="m/d/Y", title="pwoIdAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.pwoIdPrj", type="datetime", format="m/d/Y", title="pwoIdPrj", groups={"trident", "shells"})
+     * @GRID\Column(field="projects.dates.otpAct", type="datetime", format="m/d/Y", title="otpAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.otpPrj", type="datetime", format="m/d/Y", title="otpPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.archPermitAct", type="datetime", format="m/d/Y", title="archPermitAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.archPermitPrj", type="datetime", format="m/d/Y", title="archPermitPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.otbAct", type="datetime", format="m/d/Y", title="otbAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.otbPrj", type="datetime", format="m/d/Y", title="otbPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.bidDateAct", type="datetime", format="m/d/Y", title="bidDateAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.bidDatePrj", type="datetime", format="m/d/Y", title="bidDatePrj", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.awardAct", type="datetime", format="m/d/Y", title="awardAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.awardPrj", type="datetime", format="m/d/Y", title="awardPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.constrStartAct", type="datetime", format="m/d/Y", title="constrStartAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.constrStartPrj", type="datetime", format="m/d/Y", title="constrStartPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.possAct", type="datetime", format="m/d/Y", title="possAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.possPrj", type="datetime", format="m/d/Y", title="possPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.goAct", type="datetime", format="m/d/Y", title="goAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.goPrj", type="datetime", format="m/d/Y", title="goPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.runDate", type="datetime", format="m/d/Y", title="Run Date", groups={"trident", "projects_by_manager", "shells"})
+     *
+     * @GRID\Column(field="projects.dates.recActChanged", type="boolean", visible=false, format="m/d/Y", title="recAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.recPrjChanged", type="boolean", visible=false, format="m/d/Y", title="recPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.intClosingActChanged", type="boolean", visible=false, format="m/d/Y", title="intClosingAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.intClosingPrjChanged", type="boolean", visible=false, format="m/d/Y", title="intClosingPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.desCivilActChanged", type="boolean", visible=false, format="m/d/Y", title="desCivilAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.desCivilPrjChanged", type="boolean", visible=false, format="m/d/Y", title="desCivilPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.cwaActChanged", type="boolean", visible=false, format="m/d/Y", title="cwaAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.cwaPrjChanged", type="boolean", visible=false, format="m/d/Y", title="cwaPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.pwoActChanged", type="boolean", visible=false, format="m/d/Y", title="pwoAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.pwoPrjChanged", type="boolean", visible=false, format="m/d/Y", title="pwoPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.pwoIdActChanged", type="boolean", visible=false, format="m/d/Y", title="pwoIdAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.pwoIdPrjChanged", type="boolean", visible=false, format="m/d/Y", title="pwoIdPrj", groups={"trident", "shells"})
+     * @GRID\Column(field="projects.dates.otpActChanged", type="boolean", visible=false, format="m/d/Y", title="otpAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.otpPrjChanged", type="boolean", visible=false, format="m/d/Y", title="otpPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.archPermitActChanged", type="boolean", visible=false, format="m/d/Y", title="archPermitAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.archPermitPrjChanged", type="boolean", visible=false, format="m/d/Y", title="archPermitPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.otbActChanged", type="boolean", visible=false, format="m/d/Y", title="otbAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.otbPrjChanged", type="boolean", visible=false, format="m/d/Y", title="otbPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.bidDateActChanged", type="boolean", visible=false, format="m/d/Y", title="bidDateAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.bidDatePrjChanged", type="boolean", visible=false, format="m/d/Y", title="bidDatePrj", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.awardActChanged", type="boolean", visible=false, format="m/d/Y", title="awardAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.awardPrjChanged", type="boolean", visible=false, format="m/d/Y", title="awardPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.constrStartActChanged", type="boolean", visible=false, format="m/d/Y", title="constrStartAct", groups={"trident"})
+     * @GRID\Column(field="projects.dates.constrStartPrjChanged", type="boolean", visible=false, format="m/d/Y", title="constrStartPrj", groups={"trident"})
+     * @GRID\Column(field="projects.dates.possActChanged", type="boolean", visible=false, format="m/d/Y", title="possAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.possPrjChanged", type="boolean", visible=false, format="m/d/Y", title="possPrj", groups={"trident", "myProjects", "shells"})
+     * @GRID\Column(field="projects.dates.goActChanged", type="boolean", visible=false, format="m/d/Y", title="goAct", groups={"trident", "myProjects"})
+     * @GRID\Column(field="projects.dates.goPrjChanged", type="boolean", visible=false, format="m/d/Y", title="goPrj", groups={"trident", "myProjects", "shells"})
+     *
+     * @GRID\Column(field="projects.contacts.contact.email", visible=false, title="email", groups={"myProjects"})
+     * @GRID\Column(field="projects.contacts.contact.firstName", visible=true, title="First Name", groups={"projects_by_manager"})
+     * @GRID\Column(field="projects.contacts.contact.lastName", visible=true, title="Last Name", groups={"projects_by_manager"})
+     * @GRID\Column(field="projects.contacts.jobrole.jobRole", visible=false, title="jobrole", groups={"projects_by_manager"})
      */
-     private $projects;
+    private $projects;
     public function addProject(\LimeTrail\Bundle\Entity\ProjectInformation $project)
     {
         $this->projects[] = $project;

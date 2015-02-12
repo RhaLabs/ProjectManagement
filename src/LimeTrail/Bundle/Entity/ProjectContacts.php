@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -17,6 +19,8 @@ class ProjectContacts extends \Application\GlobalBundle\Entity\BaseProjectContac
     /**
      * @var string
      * @ORM\ManyToOne(targetEntity="ProjectInformation", inversedBy="contacts")
+     *
+     * @GRID\Column(field="project.id", title="project_id")
      */
     private $project;
     public function addProject(\LimeTrail\Bundle\Entity\ProjectInformation $project)
@@ -29,6 +33,9 @@ class ProjectContacts extends \Application\GlobalBundle\Entity\BaseProjectContac
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="JobRole")
+     *
+     * @GRID\Column(field="jobrole.jobRole", title="Job Role")
+     * @GRID\Column(field="jobrole.id", visible=false)
      */
     private $jobrole;
     public function addJobRole(\LimeTrail\Bundle\Entity\JobRole $jobrole)
@@ -41,6 +48,15 @@ class ProjectContacts extends \Application\GlobalBundle\Entity\BaseProjectContac
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Contact", inversedBy="projects")
+     *
+     * @GRID\Column(field="contact.firstName", title="First Name")
+     * @GRID\Column(field="contact.middleName", title="Middle Name")
+     * @GRID\Column(field="contact.lastName", title="Last Name")
+     * @GRID\Column(field="contact.jobTitle", title="Job Title")
+     * @GRID\Column(field="contact.directPhone", title="Direct Phone")
+     * @GRID\Column(field="contact.mobilePhone", title="Mobile Phone")
+     * @GRID\Column(field="contact.email", title="Email")
+     * @GRID\Column(field="contact.id", visible=false)
      */
     private $contact;
     public function addContact(\LimeTrail\Bundle\Entity\Contact $contact)

@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -57,6 +59,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     
     /**
      * @ORM\ManyToOne(targetEntity="ProjectType", inversedBy="project")
+     *
+     * @GRID\Column(field="ProjectType.name", title="Project Type")
      */
     private $ProjectType;
     public function addProjectType(\LimeTrail\Bundle\Entity\ProjectType $Type)
@@ -70,6 +74,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     /**
      * @var string
      * @ORM\ManyToOne(targetEntity="DevelopmentType", inversedBy="project")
+     *
+     * @GRID\Column(field="DevelopmentType.name", title="Development Type")
      */
     private $DevelopmentType;
     public function addDevelopmentType(\LimeTrail\Bundle\Entity\DevelopmentType $Type)
@@ -83,6 +89,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     /**
      * @var string
      * @ORM\ManyToOne(targetEntity="DescriptionOfType", inversedBy="project")
+     *
+     * @GRID\Column(field="DescriptionOfType.name", title="Description Type")
      */
     private $DescriptionOfType;
     public function addDescriptionOfType(\LimeTrail\Bundle\Entity\DescriptionOfType $Type)
@@ -97,6 +105,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
      * @var integer
      * bi-directional - Owning Side
      * @ORM\ManyToOne(targetEntity="ProgramYear", inversedBy="project")
+     *
+     * @GRID\Column(field="ProgramYear.year", title="Program Year")
      */
     private $ProgramYear;
     public function addProgramYear(\LimeTrail\Bundle\Entity\ProgramYear $Year)
@@ -110,6 +120,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="ProgramCategory", inversedBy="project")
+     *
+     * @GRID\Column(field="ProgramCategory.name", title="Program Category")
      */
     private $ProgramCategory;
     public function addProgramCategory(\LimeTrail\Bundle\Entity\ProgramCategory $category)
@@ -123,6 +135,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Prototype", inversedBy="project")
+     *
+     * @GRID\Column(field="Prototype.name", title="Prototype")
      */
     private $Prototype;
     public function addPrototype(\LimeTrail\Bundle\Entity\Prototype $proto)
@@ -136,6 +150,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="ProjectStatus", inversedBy="project")
+     *
+     * @GRID\Column(field="ProjectStatus.name", title="Project Status")
      */
     private $ProjectStatus;
     public function addProjectStatus(\LimeTrail\Bundle\Entity\ProjectStatus $status)
@@ -177,6 +193,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Contact", inversedBy="aorContact")
+     *
+     * @GRID\Column(field="aorContact.firstName", title="Aor Contact")
      */
     private $aorContact;
 
