@@ -43,6 +43,7 @@
 *.~
 *.orig
 *~
+*.tmp
 
 # old mercurial repository
 /.hg/
