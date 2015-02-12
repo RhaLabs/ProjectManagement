@@ -2,6 +2,8 @@
 
 namespace LimeTrail\Bundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,7 +11,6 @@ use Application\GlobalBundle\Entity\Tenant as AbstractTenant;
 
 /**
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\TenantRepository")
  * @ORM\Table(name="tenant", indexes=
         {
           @ORM\Index(name="tenant_idx", columns={"tenant"}),
@@ -22,6 +23,8 @@ class Tenant extends AbstractTenant
 {
     /**
      * @ORM\ManyToMany(targetEntity="ProjectInformation", mappedBy="tenants")
+     *
+     * @GRID\Column(field="project.id", title="project_id", visible=false)
      */
     private $project;
     

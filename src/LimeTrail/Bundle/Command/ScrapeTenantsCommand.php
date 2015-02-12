@@ -65,14 +65,14 @@ class ScrapeTenantsCommand extends ContainerAwareCommand
           foreach($storeProjects AS $project) {
             /*
              * Inorder to get tenants for a particular project we need to do a GET request to
-             * curl https://wmt.quickbase.com/db/bgh5rjx8u
+             * curl https://wmt.quickbase.com/db/bgh5rjya5
              * where the query string should look like this:
              *  a:q
              *  qid:1
-             *  query:{'56'.EX.'6209.001'}
+             *  query:{'59'.EX.'6209.001'}
              *                    ^store number and sequence
              */
-            $format = "{'56'.EX.'%d.%03d'}";
+            $format = "{'59'.EX.'%d.%03d'}";
             
             $sequence = $project->getSequence();
             
@@ -86,7 +86,7 @@ class ScrapeTenantsCommand extends ContainerAwareCommand
             
             $escapedQuery = http_build_query($queryString);
             
-            $url = "https://wmt.quickbase.com/db/bgh5rjx8u?".$escapedQuery;
+            $url = "https://wmt.quickbase.com/db/bgh5rjya5?".$escapedQuery;
             
             $tableHTML = $quickbase->GetTable($url);
             // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
@@ -124,53 +124,48 @@ class ScrapeTenantsCommand extends ContainerAwareCommand
        $provider = $this->getContainer()->get('lime_trail_store.provider');
   
        foreach ($result as $entry) {
-          $change = $this->GetTenants($entry['CI #'], $quickbase);
-
-          $projectChange = $provider->findProjectChangesByProjectAndChange($project, $change);
+          $tenants = $project->getTenants();
           
-          if (empty($projectChange)) {
-            //create a new project change
-            //echo "creating a new ProjectChangeInitiation\n";
-            $projectChange = new ProjectChangeInitiation();
-            
-            $projectChange->addProject($project)
-                          ->addChange($change)
-                          ->setDateAssigned(new \DateTime(date('Y-m-d')));
-            
-            $this->em->persist($project);
-            $this->em->persist($change);
-            
-            $this->UpdateAndPersistProjectChange($entry, $projectChange);
-          } else {
-            //update existing project change
-            foreach( $projectChange AS $theChange) {
-              $this->UpdateAndPersistProjectChange($entry, $theChange);
-            }
+          $tenant = $this->findTenant($tenants, $entry['Tenant Firm']);
+          
+          if (!$tenant) {
+            $tenant = new \LimeTrail\Bundle\Entity\Tenant();
+
+            $project->setTenant($tenant);
           }
+          
+          $tenant->setTenant($entry['Tenant Firm'])
+                   ->setType($entry['Tenant / Space Type (SIC)'])
+                   ->setComment($entry['Lease Comments'])
+                   ->setDate($this->TryConvertDate($entry['Lease Status Last
+Change Datestamp']));
+
+          $this->em->persist($tenant);
        }
+       
+       $this->em->persist($project);
     }
     
-    private function UpdateAndPersistProjectChange($data, $projectChange)
+    protected function TryConvertDate ($dateString)
     {
-            $tenant = $data['Tenant or Concept'];
-            $tenantType = $data['Tenant Type'];
-            
-            if (stripos($decline, 'accept') !== false ) {
-              $projectChange->setAccepted(true)
-                            ->setDrawingChangeNumber($drawingChangeNumber)
-                            ->setDrawingChange($drawingChange);
-
-              $date = $this->TryConvertDate($implementDate);
-              
-              if($date) {
-                $projectChange->setDateImplemented($date);
-              }
-                            
-            } elseif (stripos($decline, 'decline') !== false) {
-              $projectChange->setDeclined(true);
+      if (preg_match('/(?:(?P<month>\d{1,2})-(?P<day>\d{1,2})-(?P<year>\d{4}))/', $dateString, $matches) === 1) {
+            if (checkdate($matches["month"], $matches["day"], $matches["year"])) {
+              return new \DateTime($matches["month"]."/".$matches["day"]."/".$matches["year"]);
             }
-
-            $this->em->persist($projectChange);
+      }
+      
+      return null;
+    }
+    
+    protected function findTenant ($tenants, $name)
+    {
+        foreach ($tenants AS $tenant) {
+            if ( $name == $tenant->getTenant() ) {
+                return $tenant;
+            }
+        }
+        
+        return null;
     }
 
 }

@@ -20,6 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @GRID\Column(id="projectcontacts", title="Contacts")
  * @GRID\Column(id="projectchanges", title="Changes")
+ * @GRID\Column(id="tenants", title="Tenants")
  * @GRID\Column(id="dates", title="Dates", groups={"project"})
  */
 class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInformation

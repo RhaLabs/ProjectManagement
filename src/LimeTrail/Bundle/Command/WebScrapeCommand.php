@@ -748,6 +748,11 @@ class WebScrapeCommand extends ContainerAwareCommand
     $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
     
     $returnCode = $changesCommand->run($input, $output);
+    
+    $tenantCommand = $this->getApplication()->find('limetrail:scrapetenants');
+    
+    // using the same input as previous
+    $returnCode = $tenantCommand->run($input, $output);
     }
 
     private function ProcessData($result)

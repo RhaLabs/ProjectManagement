@@ -16,6 +16,10 @@
     <a href="{{ path('limetrail_contacts_get', {'id': row.field('projects.id')}) }}">Contacts</a>
 {% endblock grid_column_id_projectcontacts_cell %}
 
+{% block grid_column_id_tenants_cell %}
+    <a href="{{ path('limetrail_tenants_get', {'id': row.field('projects.id')}) }}">Tenants</a>
+{% endblock grid_column_id_tenants_cell %}
+
 {% block grid_column_id_projectchanges_cell %}
     <a href="{{ path('limetrail_project_change_get', {'id': row.field('projects.id')}) }}">CI Changes</a>
 {% endblock grid_column_id_projectchanges_cell %}

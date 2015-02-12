@@ -2,6 +2,8 @@
 
 namespace Application\GlobalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +69,8 @@ class Tenant
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @GRID\Column(field="date", title="Date", type="datetime", format="m/d/Y")
      */
     protected $date;
 
@@ -87,6 +91,8 @@ class Tenant
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @GRID\Column(field="id", visible=false)
      */
     protected $id;
 
