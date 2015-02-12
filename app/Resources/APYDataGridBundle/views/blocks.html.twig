@@ -14,10 +14,10 @@
         {% if grid.isTitleSectionVisible %}
             {{ grid_titles(grid) }}
         {% endif %}
+        </thead>
         {% if grid.isFilterSectionVisible %}
             {{ grid_filters(grid) }}
         {% endif %}
-        </thead>
         {{ grid_rows(grid) }}
         </table>
         </div>
@@ -97,7 +97,7 @@
     <tr class="grid-row-filters">
     {% for column in grid.columns %}
         {% if column.visible(grid.isReadyForExport) %}
-        <th class="{% if column.class %}{{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}"{% if(column.size > -1) %} style="width:{{ column.size }}px;"{% endif %}>{% if column.filterable %}{{ grid_filter(column, grid)|raw }}{% endif %}</th>
+        <td class="{% if column.class %}{{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}"{% if(column.size > -1) %} style="width:{{ column.size }}px;"{% endif %}>{% if column.filterable %}{{ grid_filter(column, grid)|raw }}{% endif %}</th>
         {% endif %}
     {% endfor %}
     </tr>
