@@ -89,6 +89,16 @@ class ProjectDatesController extends Controller
 
         // Set the source
         $grid->setSource($source);
+        
+        $grid->setColumnsOrder(
+                array(
+                    'storeNumber',
+                    'city.name',
+                    'state.abbreviation',
+                    'projects.projectNumber',
+                ),
+                true
+            );
 
         // Set the selector of the number of items per page
         $grid->setLimits(array(30,60,80,120));
