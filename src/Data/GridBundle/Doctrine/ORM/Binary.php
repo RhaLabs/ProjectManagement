@@ -10,21 +10,20 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
-
 namespace Data\GridBundle\Doctrine\ORM;
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode,
-    Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Lexer;
 
 /**
  * "BINARY" "(" stringPrimary ")"
  *
- * The BINARY operator casts the string following it to a binary string. 
- * This is an easy way to force a column comparison to be done byte by byte 
- * rather than character by character. This causes the comparison to be case 
- * sensitive even if the column is not defined as BINARY or BLOB. 
+ * The BINARY operator casts the string following it to a binary string.
+ * This is an easy way to force a column comparison to be done byte by byte
+ * rather than character by character. This causes the comparison to be case
+ * sensitive even if the column is not defined as BINARY or BLOB.
  * BINARY also causes trailing spaces to be significant.
- * 
+ *
  * @category DoctrineExtensions
  * @package  DoctrineExtensions\Query\Mysql
  * @author   Sarjono Mukti Aji <me@simukti.net>
@@ -33,7 +32,7 @@ use Doctrine\ORM\Query\AST\Functions\FunctionNode,
 class Binary extends FunctionNode
 {
     private $stringPrimary;
-	
+
     /**
      * @override
      */
@@ -41,12 +40,12 @@ class Binary extends FunctionNode
     {
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
-        
+
         $this->stringPrimary = $parser->StringPrimary();
-        
+
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
-	
+
     /**
      * @override
      */

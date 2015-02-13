@@ -42,7 +42,7 @@ class ProjectChangeBuilder
         $dataGrid = $this->factory->createDataGrid(self::IDENTIFIER);
 
         $query = 'pci.id, c.number as CiNumber, c.title as CiTitle,
-          c.releaseDate, 
+          c.releaseDate,
           pci.accepted, pci.dateImplemented, pci.dateAssigned,
           pci.drawingChange, pci.drawingChangeNumber, pci';
 

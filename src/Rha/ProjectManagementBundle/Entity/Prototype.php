@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Prototype
  * @ORM\Entity
  * @ORM\Table(name="prototype", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class Prototype extends \Application\GlobalBundle\Entity\BasePrototype
 {

@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -12,51 +11,51 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\ProjectinformationRepository")
  * @ORM\Table(name="project_information", indexes=
-        {
-          @ORM\Index(name="Seq_idx", columns={"Sequence"})
-        }
-      )
+ {
+ @ORM\Index(name="Seq_idx", columns={"Sequence"})
+ }
+ )
  */
 class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInformation
 {
     /**
      * @ORM\ManyToMany(targetEntity="Tenant", inversedBy="project")
      * @ORM\JoinTable(name="projects_tenants",
-          joinColumns={
-            @ORM\JoinColumn(name="project_id", referencedColumnName="id")},
-          inverseJoinColumns={
-            @ORM\JoinColumn(name="tenant_id", referencedColumnName="id")}
-        )
-      */
+     joinColumns={
+     @ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     inverseJoinColumns={
+     @ORM\JoinColumn(name="tenant_id", referencedColumnName="id")}
+     )
+     */
     protected $tenants;
-    
+
     public function setTenant(\LimeTrail\Bundle\Entity\Tenant $tenant)
     {
         $this->tenants->add($tenant);
-        
+
         $tenant->addProject($this);
-        
+
         return $this;
     }
-    
+
     public function setTenants($tenants)
     {
         if (is_array($tenants)) {
-            foreach ($tenants AS $tenant) {
+            foreach ($tenants as $tenant) {
                 $this->setTenant($tenant);
             }
-            
+
             return $this;
-         }
-         
-         return $this->setTenants($tenants);
+        }
+
+        return $this->setTenants($tenants);
     }
-    
+
     public function getTenants()
     {
         return $this->tenants;
     }
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="ProjectType", inversedBy="project")
      *
@@ -103,7 +102,7 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
 
     /**
      * @var integer
-     * bi-directional - Owning Side
+     *              bi-directional - Owning Side
      * @ORM\ManyToOne(targetEntity="ProgramYear", inversedBy="project")
      *
      * @GRID\Column(field="ProgramYear.year", title="Program Year")
@@ -166,11 +165,11 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
      * @var integer
      * @ORM\ManyToMany(targetEntity="Dates")
      * @ORM\JoinTable(name="projects_trident_dates",
-               joinColumns={@ORM\JoinColumn(name="dates",
-                    referencedColumnName="id")},
-               inverseJoinColumns={@ORM\JoinColumn(name="Trident_id",
-                    referencedColumnName="id")}
-            )
+     joinColumns={@ORM\JoinColumn(name="dates",
+     referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="Trident_id",
+     referencedColumnName="id")}
+     )
      */
     private $dates;
 
@@ -222,8 +221,8 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
         $this->dates = new ArrayCollection();
       //$this->dateOverride = new ArrayCollection();
       $this->contacts = new ArrayCollection();
-      $this->changes = new ArrayCollection();
-      $this->tenants = new ArrayCollection();
+        $this->changes = new ArrayCollection();
+        $this->tenants = new ArrayCollection();
 
         $this->isChanged = null;
     }
@@ -430,7 +429,7 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
         return $this->dateOverride;
     }
 
-        /**
+    /**
      * Add dates
      *
      * @param  \LimeTrail\Bundle\Entity\Dates $dates
@@ -529,9 +528,9 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
 
         return $this;
     }
-    
+
     public function __toString()
     {
-      return get_class($this);
+        return get_class($this);
     }
 }

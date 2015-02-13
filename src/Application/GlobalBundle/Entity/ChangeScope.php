@@ -27,16 +27,16 @@ class ChangeScope
     {
         return $this->name;
     }
-    
+
     public function hasDate()
     {
-      if (empty($this->date)) {
-        return false;
-      } else {
-        return true;
-      }
-    }   
-    
+        if (empty($this->date)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=true, options={"default":null})
@@ -53,7 +53,7 @@ class ChangeScope
     public function getDate()
     {
         return $this->date;
-    } 
+    }
 
     /**
      * @var integer
@@ -66,7 +66,7 @@ class ChangeScope
     public function __construct()
     {
     }
-    
+
     public function getId()
     {
         return $this->id;

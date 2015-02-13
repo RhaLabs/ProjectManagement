@@ -10,11 +10,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\StateRepository")
  * @ORM\Table(name="state", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"}),
-          @ORM\Index(name="abbrev_idx", columns={"abbreviation"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"}),
+ @ORM\Index(name="abbrev_idx", columns={"abbreviation"})
+ }
+ )
  */
 class State extends \Application\GlobalBundle\Entity\BaseState
 {
@@ -38,11 +38,11 @@ class State extends \Application\GlobalBundle\Entity\BaseState
      * @var integer
      * @ORM\ManyToMany(targetEntity="County", inversedBy="state")
      * @ORM\JoinTable(name="state_counties",
-               joinColumns={@ORM\JoinColumn(name="state_id",
-                    referencedColumnName="id")},
-               inverseJoinColumns={@ORM\JoinColumn(name="county_id",
-                    referencedColumnName="id",
-                    unique=true)})
+     joinColumns={@ORM\JoinColumn(name="state_id",
+     referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="county_id",
+     referencedColumnName="id",
+     unique=true)})
      */
     private $counties;
     public function addCounty(\LimeTrail\Bundle\Entity\County $c)
@@ -63,11 +63,11 @@ class State extends \Application\GlobalBundle\Entity\BaseState
      * @var integer
      * @ORM\ManyToMany(targetEntity="City", inversedBy="state")
      * @ORM\JoinTable(name="state_cities",
-               joinColumns={@ORM\JoinColumn(name="state_id",
-                    referencedColumnName="id")},
-               inverseJoinColumns={@ORM\JoinColumn(name="city_id",
-                    referencedColumnName="id",
-                    unique=true)})
+     joinColumns={@ORM\JoinColumn(name="state_id",
+     referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="city_id",
+     referencedColumnName="id",
+     unique=true)})
      */
     private $cities;
     public function addCity(\LimeTrail\Bundle\Entity\City $c)

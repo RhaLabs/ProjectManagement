@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * StoreType
  * @ORM\Entity
  * @ORM\Table(name="store_type", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class StoreType extends \Application\GlobalBundle\Entity\BaseStoreType
 {

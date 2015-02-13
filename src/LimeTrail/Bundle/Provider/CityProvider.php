@@ -12,12 +12,12 @@ class CityProvider
 
     protected $provider;
 
-  /**
-   * Construct
-   *
-   * @param ContainerInterface $container
-   * @param array $dataGridIds
-   */
+   /**
+    * Construct
+    *
+    * @param ContainerInterface $container
+    * @param array $dataGridIds
+    */
    public function __construct(EntityProvider $provider, EntityManager $em)
    {
        $this->provider = $provider;

@@ -11,19 +11,19 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
- 
+
 // -------------------------------------------------
 // Complete support of GROUP_CONCAT in Doctrine2
 // -------------------------------------------------
 // Original Article: http://habrahabr.ru/post/181666/
-// Automated translation to English: http://sysmagazine.com/posts/181666/ 
+// Automated translation to English: http://sysmagazine.com/posts/181666/
 // Original github commit: https://github.com/denisvmedia/DoctrineExtensions/blob/d1caf21cd7c71cc557e60c26e9bf25323a194dd1/lib/DoctrineExtensions/Query/Mysql/GroupConcat.php
 
 
 namespace Data\GridBundle\Doctrine\ORM;
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode,
-    Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Lexer;
 
 /**
  * Full support for:
@@ -80,7 +80,7 @@ class GroupConcat extends FunctionNode
 
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        $result = 'GROUP_CONCAT(' . ($this->isDistinct ? 'DISTINCT ' : '');
+        $result = 'GROUP_CONCAT('.($this->isDistinct ? 'DISTINCT ' : '');
 
         $fields = array();
         foreach ($this->pathExp as $pathExp) {
@@ -90,16 +90,15 @@ class GroupConcat extends FunctionNode
         $result .= sprintf('%s', implode(', ', $fields));
 
         if ($this->orderBy) {
-            $result .= ' ' . $sqlWalker->walkOrderByClause($this->orderBy);
+            $result .= ' '.$sqlWalker->walkOrderByClause($this->orderBy);
         }
 
         if ($this->separator) {
-            $result .= ' SEPARATOR ' . $sqlWalker->walkStringPrimary($this->separator);
+            $result .= ' SEPARATOR '.$sqlWalker->walkStringPrimary($this->separator);
         }
 
         $result .= ')';
 
         return $result;
     }
-
 }

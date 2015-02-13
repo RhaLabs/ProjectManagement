@@ -35,7 +35,7 @@ class Month extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return "MONTH(" . $sqlWalker->walkArithmeticPrimary($this->date) . ")";
+        return "MONTH(".$sqlWalker->walkArithmeticPrimary($this->date).")";
     }
 
     /**

@@ -26,11 +26,11 @@ class BaseProjectType
      */
     protected $id;
 
-     /**
+    /**
      */
     protected $slug;
 
-     /**
+    /**
      * Set slug. calls slugify() first.
      *
      * @param string $slug

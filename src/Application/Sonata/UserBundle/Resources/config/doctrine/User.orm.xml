@@ -9,22 +9,22 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-    
+
         <field name="encoderName" type="string" length="25">
             <options>
                 <option name="default">legacy</option>
             </options>
         </field>
-        
+
         <field name="emailAuthEnabled" type="boolean" nullable="true">
             <options>
                 <option name="default">1</option>
             </options>
         </field>
-        
+
         <field name="emailAuthCode" type="string" length="10" nullable="true">
         </field>
-        
+
         <field name="trustedComputer" type="json_array" nullable="true">
         </field>
 

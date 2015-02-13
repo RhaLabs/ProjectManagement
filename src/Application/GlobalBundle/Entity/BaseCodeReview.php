@@ -17,13 +17,13 @@ class BaseCodeReview
     protected $number;
 
     /**
-    * @ORM\Column(type="string", length=255)
-    */
+     * @ORM\Column(type="string", length=255)
+     */
     protected $SiteZoning;
 
     /**
-    * @ORM\Column(type="string", length=255)
-    */
+     * @ORM\Column(type="string", length=255)
+     */
     protected $SiteReZoning;
 
     /**

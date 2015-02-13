@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -12,10 +11,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\CityRepository")
  * @ORM\Table(name="city", indexes=
-        {
-          @ORM\Index(name="idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="idx", columns={"name"})
+ }
+ )
  *
  * @GRID\Source(columns="id")
  */
@@ -47,10 +46,10 @@ class City extends \Application\GlobalBundle\Entity\BaseCity
      * @var integer
      * @ORM\ManyToMany(targetEntity="County", inversedBy="cities")
      * @ORM\JoinTable(name="cities_counties",
-               joinColumns={@ORM\JoinColumn(name="city_id",
-                    referencedColumnName="id")},
-               inverseJoinColumns={@ORM\JoinColumn(name="county_id",
-                    referencedColumnName="id")})
+     joinColumns={@ORM\JoinColumn(name="city_id",
+     referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="county_id",
+     referencedColumnName="id")})
      */
     private $counties;
     public function addCounty(\LimeTrail\Bundle\Entity\County $c)

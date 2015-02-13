@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\ProductionRepository")
  * @ORM\Table(name="production", indexes=
-        {
-          @ORM\Index(name="date_idx", columns={"createDate"})
-        }
-      )
+ {
+ @ORM\Index(name="date_idx", columns={"createDate"})
+ }
+ )
  */
 class Production extends \Application\GlobalBundle\Entity\BaseEntity
 {

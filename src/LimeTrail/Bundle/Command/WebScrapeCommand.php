@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
 use LimeTrail\Bundle\Command\QuickBase\QuickBaseWeb;
 use LimeTrail\Bundle\Command\QuickBase\CountyWebApi;
@@ -703,11 +701,11 @@ class WebScrapeCommand extends ContainerAwareCommand
         $dbhost = $this->getContainer()->getParameter('database_host');
 
         $dbuser = $this->getContainer()->getParameter('database_user');
-        
+
         $dbpass = $this->getContainer()->getParameter('database_password');
 
     //quickbase web
-    $quickbase = new QuickBaseWeb($username, null, 'wmt',$dbpass, $dbhost, $dbuser);
+    $quickbase = new QuickBaseWeb($username, null, 'wmt', $dbpass, $dbhost, $dbuser);
 
     // first pass - get cookies
     $result = $quickbase->Login();
@@ -730,27 +728,27 @@ class WebScrapeCommand extends ContainerAwareCommand
     // $result = #quickbase->ParseHTML($storeRevisionsTable);
     //$result = $quickbase->ParseHTML(file_get_contents('qb-'.urlencode('https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&qrppg=1000').'.html'));
     //$this->ProcessData ($result);
-    
+
     $emailerCommand = $this->getApplication()->find('limetrail:emailer');
-    
-    $arguments = array('');
-    $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
-    
-    $returnCode = $emailerCommand->run($input, $output);
-    
-    $changesCommand = $this->getApplication()->find('limetrail:scrapechanges');
-    
-    $arguments = array(
+
+        $arguments = array('');
+        $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
+
+        $returnCode = $emailerCommand->run($input, $output);
+
+        $changesCommand = $this->getApplication()->find('limetrail:scrapechanges');
+
+        $arguments = array(
                   '',
                   '--user' => $this->getContainer()->getParameter('qb_user'),
                   '--login-pass' => $this->getContainer()->getParameter('qb_pass'),
                  );
-    $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
-    
-    $returnCode = $changesCommand->run($input, $output);
-    
-    $tenantCommand = $this->getApplication()->find('limetrail:scrapetenants');
-    
+        $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
+
+        $returnCode = $changesCommand->run($input, $output);
+
+        $tenantCommand = $this->getApplication()->find('limetrail:scrapetenants');
+
     // using the same input as previous
     $returnCode = $tenantCommand->run($input, $output);
     }
@@ -772,7 +770,7 @@ class WebScrapeCommand extends ContainerAwareCommand
             } else {
                 $this->createNewStore($entry);
             }
-            
+
             try {
                 $this->em->flush();
             } catch (\Symfony\Component\Debug\Exception\ContextErrorException $e) {
@@ -790,19 +788,19 @@ class WebScrapeCommand extends ContainerAwareCommand
 
         //dedup the missingPeople
         $people = array();
-    
-            foreach ($this->missingPeople as $key => $value) {
-                $people[$value] = true;
-            }
-    
-            $people = array_keys($people);
-    
-            print "The following names were found in the Walmart Dates database but not in the RHA contact database:\n";
-    
-            reset($people);
-    
-            while (list($key, $val) = each($people)) {
-                print "  $val \n";
-            }
+
+        foreach ($this->missingPeople as $key => $value) {
+            $people[$value] = true;
+        }
+
+        $people = array_keys($people);
+
+        print "The following names were found in the Walmart Dates database but not in the RHA contact database:\n";
+
+        reset($people);
+
+        while (list($key, $val) = each($people)) {
+            print "  $val \n";
+        }
     }
 }

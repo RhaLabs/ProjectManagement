@@ -17,12 +17,12 @@ class EntityProvider
    */
   private $container;
 
-  /**
-   * Construct
-   *
-   * @param ContainerInterface $container
-   * @param array $dataGridIds
-   */
+   /**
+    * Construct
+    *
+    * @param ContainerInterface $container
+    * @param array $dataGridIds
+    */
    public function __construct(EntityManager $em)
    {
        $this->em = $em;

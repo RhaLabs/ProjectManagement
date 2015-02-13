@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * StreetIntersection
  * @ORM\Entity
  * @ORM\Table(name="street_intersection", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class StreetIntersection extends \Application\GlobalBundle\Entity\BaseStreetIntersection
 {

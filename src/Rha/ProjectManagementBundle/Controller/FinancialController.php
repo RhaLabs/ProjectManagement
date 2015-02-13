@@ -10,10 +10,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Rha\ProjectManagementBundle\Entity\ProjectCriteria;
 use Rha\ProjectManagementBundle\Form\Type\ProjectCriteriaType;
 
- /**
-  * @Route("/financial")
-  * @Template()
-  */
+/**
+ * @Route("/financial")
+ * @Template()
+ */
 class FinancialController extends Controller
 {
     /**
@@ -77,11 +77,11 @@ class FinancialController extends Controller
         );
     }
 
-   /**
-    * Creates a form to create an entity.
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+    /**
+     * Creates a form to create an entity.
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(ProjectCriteria $entity)
     {
         $em = $this->getDoctrine()->getManager('rha');

@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ProgramYear
  * @ORM\Entity
  * @ORM\Table(name="program_year", indexes=
-        {
-          @ORM\Index(name="py_idx", columns={"year"})
-        }
-      )
+ {
+ @ORM\Index(name="py_idx", columns={"year"})
+ }
+ )
  */
 class ProgramYear extends \Application\GlobalBundle\Entity\BaseProgramYear
 {

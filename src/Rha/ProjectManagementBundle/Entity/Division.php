@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Division
  * @ORM\Entity
  * @ORM\Table(name="division", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class Division extends \Application\GlobalBundle\Entity\BaseDivision
 {

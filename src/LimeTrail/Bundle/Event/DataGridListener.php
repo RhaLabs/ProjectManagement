@@ -51,7 +51,7 @@ class DataGridListener
               $qb->andWhere('p.id = :pid')->setParameter('pid', $id);
               $event->setQueryBuilder($qb);
             break;
-            
+
             case ProjectChangeBuilder::IDENTIFIER:
               $id = $this->request->getSession()->get('lime_trail_project_change/id');
               //$this->request->getSession()->remove('contactId');
@@ -66,7 +66,7 @@ class DataGridListener
                       ch.id = c.id) AS Scope"
               );*/
               $qb->andWhere('p.id = :pid')->setParameter('pid', $id);
-              
+
               $event->setQueryBuilder($qb);
             break;
 

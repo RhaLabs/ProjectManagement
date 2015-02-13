@@ -25,12 +25,12 @@ class StoreProvider
 
     protected $provider;
 
-  /**
-   * Construct
-   *
-   * @param ContainerInterface $container
-   * @param array $dataGridIds
-   */
+   /**
+    * Construct
+    *
+    * @param ContainerInterface $container
+    * @param array $dataGridIds
+    */
    public function __construct(EntityProvider $provider, EntityManager $em)
    {
        $this->provider = $provider;
@@ -49,7 +49,7 @@ class StoreProvider
 
         return $t;
     }
-    
+
     public function findStoreByNumber($number)
     {
         $q = $this->em->getRepository('LimeTrailBundle:StoreInformation');
@@ -57,23 +57,23 @@ class StoreProvider
         $t = $q->findOneBy(array('storeNumber' => $number));
 
         if (!$t) {
-            return null;
+            return;
         }
 
         return $t;
     }
-    
+
     public function findProjectChangesByProjectAndChange(\LimeTrail\Bundle\Entity\ProjectInformation $project, \LimeTrail\Bundle\Entity\ChangeInitiation $change)
     {
-      $q = $this->em->getRepository('LimeTrailBundle:ProjectChangeInitiation');
-      
-      $t = $q->findByProjectIdAndChangeId($project->getId(), $change->getId());
-      
-      if (!$t) {
-        return;
-      }
-      
-      return $t;
+        $q = $this->em->getRepository('LimeTrailBundle:ProjectChangeInitiation');
+
+        $t = $q->findByProjectIdAndChangeId($project->getId(), $change->getId());
+
+        if (!$t) {
+            return;
+        }
+
+        return $t;
     }
 
     public function adjustDateForWeekends($date)
@@ -99,7 +99,7 @@ class StoreProvider
 
         return $t;
     }
-    
+
     public function findChangesByProjectId($projectId)
     {
         $q = $this->em->getRepository('LimeTrailBundle:ProjectInformation');
@@ -217,25 +217,25 @@ class StoreProvider
 
     return $result;
     }
-    
-    public function findFirstResultIn($array,$field, $name)
+
+    public function findFirstResultIn($array, $field, $name)
     {
         if (!$array or empty($array)) {
             return;
         }
-        
-        if ( !($array instanceof ArrayCollection) and is_array($array) ) {
-          $array = new ArrayCollection($array);
+
+        if (!($array instanceof ArrayCollection) and is_array($array)) {
+            $array = new ArrayCollection($array);
         }
 
         $criteria = Criteria::create()->where(Criteria::expr()->eq($field, $name))
                                       ->orderBy(array($field => Criteria::ASC))
                                       ->setFirstResult(0);
-            $result = $array->matching($criteria);//var_dump($result);
+        $result = $array->matching($criteria);//var_dump($result);
 
         return $result->first();
     }
-    
+
   // @var if $project is null, create a new instance otherwise update. $entry is an array containing values to set
   private function createOrUpdateProject($project, $entry)
   {

@@ -11,15 +11,14 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
-
 namespace Data\GridBundle\Doctrine\ORM;
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode,
-    Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Lexer;
 
 /**
  * "CHAR_LENGTH" "(" SimpleArithmeticExpression ")"
- * 
+ *
  * @category DoctrineExtensions
  * @package  DoctrineExtensions\Query\Mysql
  * @author   Metod <metod@simpel.si>
@@ -28,7 +27,7 @@ use Doctrine\ORM\Query\AST\Functions\FunctionNode,
 class CharLength extends FunctionNode
 {
     private $expr;
-	
+
     /**
      * @override
      */
@@ -36,12 +35,12 @@ class CharLength extends FunctionNode
     {
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
-        
+
         $this->expr1 = $parser->ArithmeticExpression();
-        
+
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
-	
+
     /**
      * @override
      */

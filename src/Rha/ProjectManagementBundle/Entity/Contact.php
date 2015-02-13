@@ -10,22 +10,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Contacts
  * @ORM\Entity
  * @ORM\Table(name="contacts",
-    indexes={
-        @ORM\Index(name="firsname_idx", columns={"firstName"}),
-        @ORM\Index(name="lastname_idx", columns={"lastName"}),
-        @ORM\Index(name="email_idx", columns={"email"})
-      },
-    uniqueConstraints={
-      @ORM\UniqueConstraint(name="unique_idx",
-        columns=
-          {
-            "email",
-            "firstName",
-            "lastName"
-          }
-        )
-      }
-    )
+ indexes={
+ @ORM\Index(name="firsname_idx", columns={"firstName"}),
+ @ORM\Index(name="lastname_idx", columns={"lastName"}),
+ @ORM\Index(name="email_idx", columns={"email"})
+ },
+ uniqueConstraints={
+ @ORM\UniqueConstraint(name="unique_idx",
+ columns=
+ {
+ "email",
+ "firstName",
+ "lastName"
+ }
+ )
+ }
+ )
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\ContactRepository")
  */
 class Contact
@@ -93,9 +93,9 @@ class Contact
      * @var string
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Regex(
-            pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
-            message="Phone number must be in the format: (xxx) xxx-xxxx"
-       )
+     pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
+     message="Phone number must be in the format: (xxx) xxx-xxxx"
+     )
      */
     private $directPhone;
 
@@ -103,9 +103,9 @@ class Contact
      * @var string
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Regex(
-            pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
-            message="Phone number must be in the format: (xxx) xxx-xxxx"
-       )
+     pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
+     message="Phone number must be in the format: (xxx) xxx-xxxx"
+     )
      */
     private $mobilePhone;
 
@@ -126,9 +126,9 @@ class Contact
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
      * @Assert\Regex(
-            pattern="~^#[A-Fa-f0-9]{6}$~",
-            message="Must be a valid color hex value"
-       )
+     pattern="~^#[A-Fa-f0-9]{6}$~",
+     message="Must be a valid color hex value"
+     )
      */
     private $chartColor;
 

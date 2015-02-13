@@ -10,11 +10,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\Address")
  * @ORM\Table(name="address", indexes=
-        {
-          @ORM\Index(name="suite_idx", columns={"suite"}),
-          @ORM\Index(name="address_idx", columns={"address"})
-        }
-      )
+ {
+ @ORM\Index(name="suite_idx", columns={"suite"}),
+ @ORM\Index(name="address_idx", columns={"address"})
+ }
+ )
  */
 class Address extends \Application\GlobalBundle\Entity\BaseAddress
 {

@@ -39,9 +39,9 @@ class BaseContact
      * @var string
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Regex(
-            pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
-            message="Phone number must be in the format: (xxx) xxx-xxxx"
-       )
+     pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
+     message="Phone number must be in the format: (xxx) xxx-xxxx"
+     )
      */
     protected $directPhone;
 
@@ -49,9 +49,9 @@ class BaseContact
      * @var string
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Regex(
-            pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
-            message="Phone number must be in the format: (xxx) xxx-xxxx"
-       )
+     pattern="~\(\d{3}\)\s\d{3}-\d{4}$~",
+     message="Phone number must be in the format: (xxx) xxx-xxxx"
+     )
      */
     protected $mobilePhone;
 
@@ -72,9 +72,9 @@ class BaseContact
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
      * @Assert\Regex(
-            pattern="~^#[A-Fa-f0-9]{6}$~",
-            message="Must be a valid color hex value"
-       )
+     pattern="~^#[A-Fa-f0-9]{6}$~",
+     message="Must be a valid color hex value"
+     )
      */
     protected $chartColor;
 

@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,19 +30,18 @@ class ProjectDatesController extends Controller
     public function aggregateDatesAction()
     {
         $source = new Entity('LimeTrailBundle:StoreInformation', 'trident', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
-        
+
         //manipulate query to reutn only the store projects we want
         $tableAlias = $source->getTableAlias();
-        
+
         $source->manipulateQuery(
-            function ($qb) use ($tableAlias)
-            {
+            function ($qb) use ($tableAlias) {
                 $date = new \DateTime(date('Y-m-d'));
                 $past = clone $date;
-                
+
                 $qb->andWhere(
                     $qb->expr()->eq('_projects_dates.runDate', ':date')
                 )
@@ -57,13 +55,13 @@ class ProjectDatesController extends Controller
                 ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
                 ->setParameter('n', 'Active')
                 ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME);
-                
+
             }
         );
 
         // Set the source
         $grid->setSource($source);
-        
+
         $grid->setColumnsOrder(
                 array(
                     'storeNumber',
@@ -75,11 +73,11 @@ class ProjectDatesController extends Controller
             );
 
         // Set the selector of the number of items per page
-        $grid->setLimits(array(30,60,80,120));
+        $grid->setLimits(array(30, 60, 80, 120));
 
         // Set the default page
         $grid->setDefaultPage(1);
-        
+
         return $grid->getGridResponse();
     }
 

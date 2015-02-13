@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * JobRoles
  * @ORM\Entity
  * @ORM\Table(name="job_role", indexes=
-        {
-          @ORM\Index(name="jobrole_idx", columns={"jobRole"})
-        }
-      )
+ {
+ @ORM\Index(name="jobrole_idx", columns={"jobRole"})
+ }
+ )
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\JobRoleRepository")
  */
 class JobRole

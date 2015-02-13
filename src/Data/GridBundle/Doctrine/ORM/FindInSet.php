@@ -10,7 +10,6 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
-
 namespace Data\GridBundle\Doctrine\ORM;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
@@ -33,9 +32,9 @@ class FindInSet extends FunctionNode
 
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'FIND_IN_SET(' .
-            $this->needle->dispatch($sqlWalker) . ', ' .
-            $this->haystack->dispatch($sqlWalker) .
+        return 'FIND_IN_SET('.
+            $this->needle->dispatch($sqlWalker).', '.
+            $this->haystack->dispatch($sqlWalker).
         ')';
     }
 }

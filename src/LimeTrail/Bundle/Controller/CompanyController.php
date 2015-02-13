@@ -106,14 +106,14 @@ class CompanyController extends Controller
         return  array('data' => $entities);
     }
 
-    /**
-     *
-     * Retrieves contacts for a store
-     *
-     * @Route("/company/{id}", name="limetrail_company_get")
-     * @Method("GET")
-     * @Template()
-     */
+        /**
+         *
+         * Retrieves contacts for a store
+         *
+         * @Route("/company/{id}", name="limetrail_company_get")
+         * @Method("GET")
+         * @Template()
+         */
         public function projectAction($id)
         {
             $em = $this->getDoctrine()->getManager('limetrail');

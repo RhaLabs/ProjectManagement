@@ -26,12 +26,12 @@ class GridModelProvider
    */
   private $colNames;
 
-  /**
-   * Construct
-   *
-   * @param ContainerInterface $container
-   * @param array $dataGridIds
-   */
+   /**
+    * Construct
+    *
+    * @param ContainerInterface $container
+    * @param array $dataGridIds
+    */
    public function __construct(TranslatorInterface $translator, RouterInterface $router)
    {
        $this->translator = $translator;
@@ -351,7 +351,7 @@ class GridModelProvider
                       )
                      );
             }
-            
+
             if (stripos($prettyname, 'Ci Number') !== false) {
                 $m = array_merge($m, array('formatter' => 'RESTfulLink',
                       'formatoptions' => array('url' => '../../change/get/'),

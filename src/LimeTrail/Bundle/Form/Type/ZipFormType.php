@@ -16,7 +16,7 @@ class ZipFormType extends AbstractType
     {
         $this->om = $om;
     }
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */

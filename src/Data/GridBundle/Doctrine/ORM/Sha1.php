@@ -34,8 +34,8 @@ class Sha1 extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'SHA1(' .
-            $sqlWalker->walkStringPrimary($this->stringPrimary) .
+        return 'SHA1('.
+            $sqlWalker->walkStringPrimary($this->stringPrimary).
         ')';
     }
 

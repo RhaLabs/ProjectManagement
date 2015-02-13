@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ProjectStatus
  * @ORM\Entity
  * @ORM\Table(name="project_status", indexes=
-      {
-        @ORM\Index(name="name_idx", columns={"name"})
-      }
-    )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class ProjectStatus extends \Application\GlobalBundle\Entity\BaseProjectStatus
 {

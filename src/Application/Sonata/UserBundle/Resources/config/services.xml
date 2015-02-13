@@ -24,7 +24,7 @@
         <service id="lime.invitation.form.data_transformer" class="Application\Sonata\UserBundle\Form\DataTransformer\InvitationToCodeTransformer">
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
-        
+
         <service id="application_sonata_user.forcepasswordchange" class="%application_sonata_user.forcepasswordchange.class%">
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.authorization_checker" />
@@ -32,13 +32,13 @@
             <argument type="service" id="router" />
             <tag name="kernel.event_listener" event="kernel.request" method="onCheckStatus" priority="1" />
         </service>
-        
+
         <service id="application_sonata_user.passwordchange" class="%application_sonata_user.passwordchangelistener.class%">
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="fos_user.user_manager" />
             <tag name="kernel.event_subscriber" />
         </service>
-    
+
         <service id="legacy_encoder" class="%application_sonata_user.legacyencoder.class%">
             <tag name="legacy_encoder" />
         </service>

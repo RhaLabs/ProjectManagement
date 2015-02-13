@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -12,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\ProjectContactsRepository")
  * @ORM\Table(name="project_contacts"
-      )
+ )
  */
 class ProjectContacts extends \Application\GlobalBundle\Entity\BaseProjectContacts
 {
@@ -142,9 +141,9 @@ class ProjectContacts extends \Application\GlobalBundle\Entity\BaseProjectContac
 
         return $this;
     }
-    
+
     public function __toString()
     {
-      return get_class($this);
+        return get_class($this);
     }
 }

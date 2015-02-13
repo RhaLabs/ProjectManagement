@@ -3,8 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -132,12 +130,12 @@ class CityController extends Controller
     }
 
     /**
-    * Creates a form to create a City entity.
-    *
-    * @param City $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a City entity.
+     *
+     * @param City $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(City $entity)
     {
         $form = $this->createForm(new CityType(), $entity, array(
@@ -221,12 +219,12 @@ class CityController extends Controller
     }
 
     /**
-    * Creates a form to edit a City entity.
-    *
-    * @param City $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a City entity.
+     *
+     * @param City $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(City $entity)
     {
         $form = $this->createForm(new CityType(), $entity, array(
@@ -377,7 +375,7 @@ class CityController extends Controller
             return;
         }
 
-    $criteria = Criteria::create()->where(Criteria::expr()->eq("name", $name))
+        $criteria = Criteria::create()->where(Criteria::expr()->eq("name", $name))
                                   ->orderBy(array("name" => Criteria::ASC))
                                   ->setFirstResult(0);
         $result = $array->matching($criteria);//var_dump($result);

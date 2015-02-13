@@ -11,11 +11,10 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
-
 namespace Data\GridBundle\Doctrine\ORM;
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode,
-    Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Lexer;
 
 /**
  * Usage: CONCAT_WS(SEPARATOR, STR1, STR2, ... [ NOTEMPTY ])
@@ -25,8 +24,8 @@ use Doctrine\ORM\Query\AST\Functions\FunctionNode,
  * The separator is added between the strings to be concatenated. The separator
  * can be a string, as can the rest of the arguments. If the separator is NULL,
  * the result is NULL.
- * 
- * The function is able to skip empty strings and zero valued integers by 
+ *
+ * The function is able to skip empty strings and zero valued integers by
  * passing the parameter NOTEMPTY. This removes the need to wrap expressions
  * in NULLIF statements when wanting to avoid empty values between separators.
  *
@@ -52,8 +51,7 @@ class ConcatWs extends FunctionNode
         $lexer = $parser->getLexer();
 
         while (count($this->values) < 3
-                || $lexer->lookahead['type'] == Lexer::T_COMMA)
-        {
+                || $lexer->lookahead['type'] == Lexer::T_COMMA) {
             $parser->match(Lexer::T_COMMA);
             $peek = $lexer->glimpse();
 
@@ -62,15 +60,13 @@ class ConcatWs extends FunctionNode
                     : $parser->ArithmeticExpression();
         }
 
-        while ($lexer->lookahead['type'] == Lexer::T_IDENTIFIER)
-        {
-            switch (strtolower($lexer->lookahead['value']))
-            {
+        while ($lexer->lookahead['type'] == Lexer::T_IDENTIFIER) {
+            switch (strtolower($lexer->lookahead['value'])) {
                 case 'notempty':
                     $parser->match(Lexer::T_IDENTIFIER);
                     $this->notEmpty = true;
                 break;
-                
+
                 default: // Identifier not recognized (causes exception).
                     $parser->match(Lexer::T_CLOSE_PARENTHESIS);
                 break;
@@ -86,18 +82,15 @@ class ConcatWs extends FunctionNode
         $queryBuilder = array('CONCAT_WS(');
 
         // Iterate over the captured expressions and add them to the query.
-        for ($i = 0; $i < count($this->values); $i++)
-        {
-            if ($i > 0)
-            {
+        for ($i = 0; $i < count($this->values); $i++) {
+            if ($i > 0) {
                 $queryBuilder[] = ', ';
             }
 
             // Dispatch the walker on the current node.
             $nodeSql = $sqlWalker->walkArithmeticPrimary($this->values[$i]);
 
-            if ($this->notEmpty)
-            {
+            if ($this->notEmpty) {
                 // Exclude empty strings from the concatenation.
                 $nodeSql = sprintf("NULLIF(%s, '')", $nodeSql);
             }

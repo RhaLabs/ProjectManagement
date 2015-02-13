@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -74,18 +73,17 @@ class ProjectInformationController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager('limetrail');
-        
+
         $source = new Entity('LimeTrailBundle:StoreInformation', 'project_information', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
-        
+
         //manipulate query to reutn only the store projects we want
         $tableAlias = $source->getTableAlias();
-        
+
         $source->manipulateQuery(
-            function ($query) use ($tableAlias, $id)
-            {
+            function ($query) use ($tableAlias, $id) {
                 $query->andWhere("$tableAlias.storeNumber = :num")
                       ->setParameter(':num', $id);
             }
@@ -99,7 +97,7 @@ class ProjectInformationController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
-        
+
         return $grid->getGridResponse();
     }
 

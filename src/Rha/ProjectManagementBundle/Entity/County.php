@@ -10,10 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\CountyRepository")
  * @ORM\Table(name="county", indexes=
-        {
-          @ORM\Index(name="idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="idx", columns={"name"})
+ }
+ )
  */
 class County extends \Application\GlobalBundle\Entity\BaseCounty
 {

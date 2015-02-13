@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ProgramCategory
  * @ORM\Entity
  * @ORM\Table(name="program_category", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class ProgramCategory extends \Application\GlobalBundle\Entity\BaseProgramCategory
 {

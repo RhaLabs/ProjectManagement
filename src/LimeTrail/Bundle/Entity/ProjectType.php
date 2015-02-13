@@ -10,10 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ProjectType
  * @ORM\Entity
  * @ORM\Table(name="project_type", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class ProjectType extends Base
 {
@@ -69,9 +69,9 @@ class ProjectType extends Base
 
         return $this;
     }
-    
+
     public function __toString()
     {
-      return get_class($this);
+        return get_class($this);
     }
 }

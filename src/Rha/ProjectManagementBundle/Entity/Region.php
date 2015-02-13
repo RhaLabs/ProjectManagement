@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Region
  * @ORM\Entity
  * @ORM\Table(name="region", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class Region extends \Application\GlobalBundle\Entity\BaseRegion
 {

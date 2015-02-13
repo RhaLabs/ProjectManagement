@@ -10,11 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Company
  * @ORM\Entity
  * @ORM\Table(name="company", indexes=
-      {
-        @ORM\Index(name="idx", columns={"name"}),
-        @ORM\Index(name="category_idx", columns={"category"})
-      }
-    )
+ {
+ @ORM\Index(name="idx", columns={"name"}),
+ @ORM\Index(name="category_idx", columns={"category"})
+ }
+ )
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\CompanyRepository")
  */
 class Company
@@ -28,9 +28,9 @@ class Company
 
     /** @ORM\ManyToMany(targetEntity="Office", inversedBy="company")
      * @ORM\JoinTable(name="company_offices",
-        joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-        inverseJoinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id", unique=true)}
-        )
+     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="office_id", referencedColumnName="id", unique=true)}
+     )
      */
     private $offices;
 

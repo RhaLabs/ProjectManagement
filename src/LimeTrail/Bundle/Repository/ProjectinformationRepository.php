@@ -43,14 +43,14 @@ class ProjectinformationRepository extends EntityRepository
 
         return $q->getSingleResult();
     }
-    
+
     public function findProjectsByDate($rundate)
     {
-       $q = $this->getEntityManager()->createQuery(
+        $q = $this->getEntityManager()->createQuery(
         'SELECT si, p FROM LimeTrailBundle:StoreInformation si
          JOIN si.projects p
          JOIN p.dates d
-         WHERE 
+         WHERE
            d.runDate = :date
            AND d.pwoAct < :date
            AND (
@@ -59,13 +59,13 @@ class ProjectinformationRepository extends EntityRepository
            )'
         )
         ->setParameter('date', $rundate, \Doctrine\DBAL\Types\Type::DATETIME);
-        
-      return $q->getResult();
+
+        return $q->getResult();
     }
-    
+
     public function findChangesByProjectId($projectId)
     {
-      $q = $this->getEntityManager()->createQuery(
+        $q = $this->getEntityManager()->createQuery(
         'SELECT p, pc, c FROM LimeTrailBundle:ProjectInformation p
           JOIN p.changes pc
           JOIN pc.change c
@@ -73,7 +73,7 @@ class ProjectinformationRepository extends EntityRepository
             p.id = :pid'
       )
       ->setParameter('pid', $projectId);
-      
-      return $q->getResult();
+
+        return $q->getResult();
     }
 }

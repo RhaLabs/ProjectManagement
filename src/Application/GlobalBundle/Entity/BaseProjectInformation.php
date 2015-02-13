@@ -88,7 +88,7 @@ class BaseProjectInformation
      */
     protected $actTotalSquareFootage;
 
-        /**
+    /**
      * @var string
      * @ORM\Column(type="string", length=75, nullable=true)
      */

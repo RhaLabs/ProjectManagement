@@ -9,8 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use LimeTrail\Bundle\Entity\StoreInformation;
-use LimeTrail\Bundle\Entity\ProjectInformation;
-use LimeTrail\Bundle\Form\StoreInformationType;
 use LimeTrail\Bundle\Form\Data\StoreProjectData;
 use LimeTrail\Bundle\Model\StoreProjectModel;
 
@@ -21,7 +19,7 @@ use LimeTrail\Bundle\Model\StoreProjectModel;
  */
 class StoreCrudController extends Controller
 {
-    
+
     /**
      * A really basic form to quickly add projects.
      * this needs to be removed and replaced with a Symfony form
@@ -33,9 +31,9 @@ class StoreCrudController extends Controller
     public function newformAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager('limetrail');
-        
+
         $formData = new StoreProjectData();
-        
+
         $builder = $this->createFormBuilder($formData);
         $builder->add('storeNumber', 'integer')
                 ->add('sequenceNumber', 'integer')
@@ -55,22 +53,22 @@ class StoreCrudController extends Controller
                     'class' => 'LimeTrailBundle:ProjectType',
                     'property' => 'name',
                 ))
-                ->add('projectPhase','integer')
-                ->add('confidential', 'choice', 
+                ->add('projectPhase', 'integer')
+                ->add('confidential', 'choice',
                     array(
                         'choice_list' => new ChoiceList(array(true, false), array('Yes', 'No')),
                         'multiple'  => false,
                         'expanded'  => true,
                     )
                 )
-                ->add('combo', 'choice', 
+                ->add('combo', 'choice',
                     array(
                         'choice_list' => new ChoiceList(array(true, false), array('Yes', 'No')),
                         'multiple'  => false,
                         'expanded'  => true,
                     )
                 )
-                ->add('manageSitesDifferently', 'choice', 
+                ->add('manageSitesDifferently', 'choice',
                     array(
                         'choice_list' => new ChoiceList(array(true, false), array('Yes', 'No')),
                         'multiple'  => false,
@@ -78,34 +76,33 @@ class StoreCrudController extends Controller
                     )
                 )
                 ->add('sap', 'text')
-                ->add('storeSquareFootage','integer')
-                ->add('increaseSquareFootage','integer')
-                ->add('prjTotalSquareFootage','integer')
-                ->add('actTotalSquareFootage','integer')
+                ->add('storeSquareFootage', 'integer')
+                ->add('increaseSquareFootage', 'integer')
+                ->add('prjTotalSquareFootage', 'integer')
+                ->add('actTotalSquareFootage', 'integer')
                 ->add('save', 'submit', array('label' => 'Create Store'));
 
         $form = $builder->getForm();
-                
-        
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $formData = $form->getData();
             $formData->user = $this->get('security.token_storage')->getToken()->getUser()->getUserName();
-            
+
             $storeModel = new StoreProjectModel($formData, $this->get('lime_trail_store.provider'));
-            
+
             $storeModel->ProcessFormData();
-            
+
             $entityArray = $storeModel->getEntityResult();
-            
-            foreach ( $entityArray AS $entity) {
+
+            foreach ($entityArray as $entity) {
                 $em->persist($entity);
             }
             $em->flush();
-            
+
             $store = $entityArray['store'];
-            
+
             $request->getSession()->getFlashBag()->add(
                 'notice',
                 'Your changes were saved!'
@@ -119,5 +116,4 @@ class StoreCrudController extends Controller
             'form'   => $form->createView(),
         );
     }
-
 }

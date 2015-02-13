@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,22 +46,22 @@ class ContactController extends Controller
     public function indexAction()
     {
         $source = new Entity('LimeTrailBundle:Contact', 'allContacts', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
 
         // Set the source
         $grid->setSource($source);
-           
+
         // Set the selector of the number of items per page
-        $grid->setLimits(array(10,20,30,40));
-    
+        $grid->setLimits(array(10, 20, 30, 40));
+
         // Set the default page
         $grid->setDefaultPage(1);
-            
+
         return $grid->getGridResponse();
     }
-    
+
     /**
      * Creates a new Contact entity.
      *
@@ -96,12 +95,12 @@ class ContactController extends Controller
     }
 
     /**
-    * Creates a form to create a Contact entity.
-    *
-    * @param Contact $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Contact entity.
+     *
+     * @param Contact $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Contact $entity)
     {
         $form = $this->createForm(new ContactType(), $entity, array(
@@ -186,12 +185,12 @@ class ContactController extends Controller
     }
 
     /**
-    * Creates a form to edit a Contact entity.
-    *
-    * @param Contact $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Contact entity.
+     *
+     * @param Contact $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Contact $entity)
     {
         $form = $this->createForm(new ContactType(), $entity, array(

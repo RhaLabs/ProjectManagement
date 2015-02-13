@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="omniclass_elements"
-      )
+ )
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\OmniclassElementRepository")
  */
 class OmniclassElement

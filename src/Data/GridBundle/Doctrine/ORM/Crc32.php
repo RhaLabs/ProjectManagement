@@ -34,8 +34,8 @@ class Crc32 extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'CRC32(' .
-            $sqlWalker->walkStringPrimary($this->stringPrimary) .
+        return 'CRC32('.
+            $sqlWalker->walkStringPrimary($this->stringPrimary).
         ')';
     }
 

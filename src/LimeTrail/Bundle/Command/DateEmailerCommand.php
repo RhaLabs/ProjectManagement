@@ -16,10 +16,10 @@ class DateEmailerCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->emailEntitlementShells();
-        
+
         $this->emailFinalShells();
     }
-    
+
     private function emailEntitlementShells()
     {
         $em = $this->getContainer()->get('doctrine')->getManager('limetrail');
@@ -57,11 +57,11 @@ class DateEmailerCommand extends ContainerAwareCommand
         ;
 
         $result = $query->getArrayResult();
-  
-        if(!empty($result)) {
-          $em = $this->getContainer()->get('doctrine')->getManager();
-          
-          $query = $em->createQuery(
+
+        if (!empty($result)) {
+            $em = $this->getContainer()->get('doctrine')->getManager();
+
+            $query = $em->createQuery(
             'SELECT u.email
              FROM Application\Sonata\UserBundle\Entity\User u
              JOIN u.groups g
@@ -69,12 +69,12 @@ class DateEmailerCommand extends ContainerAwareCommand
               g.name = :group'
           )
           ->setParameter(':group', 'Entitlement');
-          
-          $emails = $query->getArrayResult();
-          
-          $body = 'I found some stores which should have PWO shells completed for them.  You might want to double check.';
-  
-          $message = \Swift_Message::newInstance()
+
+            $emails = $query->getArrayResult();
+
+            $body = 'I found some stores which should have PWO shells completed for them.  You might want to double check.';
+
+            $message = \Swift_Message::newInstance()
             ->setSubject('Stores with approaching PWO shells due')
             ->setFrom(array('noreply@rhaaia.com' => 'RHA Web Robot'))
             ->setTo($this->array_flatten($emails))
@@ -87,7 +87,7 @@ class DateEmailerCommand extends ContainerAwareCommand
                 )
               ), 'text/html'
             );
-          $message->addPart($this->getContainer()->get('templating')->render(
+            $message->addPart($this->getContainer()->get('templating')->render(
                 'LimeTrailBundle:Email:shelldue.email.txt.twig',
                 array(
                   'result' => $result,
@@ -95,11 +95,11 @@ class DateEmailerCommand extends ContainerAwareCommand
                 )
               ), 'text/plain'
             );
-  
-          $this->getContainer()->get('mailer')->send($message);
+
+            $this->getContainer()->get('mailer')->send($message);
         }
     }
-    
+
     private function emailFinalShells()
     {
         $em = $this->getContainer()->get('doctrine')->getManager('limetrail');
@@ -113,7 +113,7 @@ class DateEmailerCommand extends ContainerAwareCommand
         $days->add(new \DateInterval('P140D'));
 
         $query = $em->createQuery(
-          'SELECT 
+          'SELECT
               u.email, u.id
             FROM LimeTrail\Bundle\Entity\ProjectInformation pi
             INNER JOIN pi.contacts pc
@@ -129,12 +129,11 @@ class DateEmailerCommand extends ContainerAwareCommand
             )
           )
         ;
-        
+
         $emails = $query->getArrayResult();
-        
-        foreach( $emails AS $email) {
-        
-          $query = $em->createQuery(
+
+        foreach ($emails as $email) {
+            $query = $em->createQuery(
           'SELECT CONCAT(CONCAT(si.storeNumber, \'-\'), pi.Sequence) AS number,
               pi.id,
               pi.canonicalName,
@@ -161,13 +160,13 @@ class DateEmailerCommand extends ContainerAwareCommand
           ->setParameter(':thefuture', $theFuture, \Doctrine\DBAL\Types\Type::DATETIME)
           ->setParameter(':days', $days, \Doctrine\DBAL\Types\Type::DATETIME)
           ;
-  
-          $result = $query->getArrayResult();
-    
-          if(!empty($result)) {
-            $body = 'I found some stores which should have Final shells completed for them.  You might want to double check.';
-    
-            $message = \Swift_Message::newInstance()
+
+            $result = $query->getArrayResult();
+
+            if (!empty($result)) {
+                $body = 'I found some stores which should have Final shells completed for them.  You might want to double check.';
+
+                $message = \Swift_Message::newInstance()
               ->setSubject('Stores with approaching final shells due')
               ->setFrom(array('noreply@rhaaia.com' => 'RHA Web Robot'))
               ->setTo($email['email'])
@@ -180,7 +179,7 @@ class DateEmailerCommand extends ContainerAwareCommand
                   )
                 ), 'text/html'
               );
-            $message->addPart($this->getContainer()->get('templating')->render(
+                $message->addPart($this->getContainer()->get('templating')->render(
                   'LimeTrailBundle:Email:shelldue.email.txt.twig',
                   array(
                     'result' => $result,
@@ -188,24 +187,24 @@ class DateEmailerCommand extends ContainerAwareCommand
                   )
                 ), 'text/plain'
               );
-    
-            $this->getContainer()->get('mailer')->send($message);
-          }
+
+                $this->getContainer()->get('mailer')->send($message);
+            }
         }
     }
-    
+
     private function array_flatten($array, $preserveKeys = 1, $newArray = array())
     {
-      foreach ($array AS $key => $value) {
-        if (is_array($value)) {
-          $newArray = $this->array_flatten($value, $preserveKeys, $newArray);
-        } elseif ($preserveKeys + is_string($key) > 1) {
-          $newArray[] = $value;
-        } else {
-          $newArray[] = $value;
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $newArray = $this->array_flatten($value, $preserveKeys, $newArray);
+            } elseif ($preserveKeys + is_string($key) > 1) {
+                $newArray[] = $value;
+            } else {
+                $newArray[] = $value;
+            }
         }
-      }
-      
-      return $newArray;
+
+        return $newArray;
     }
 }

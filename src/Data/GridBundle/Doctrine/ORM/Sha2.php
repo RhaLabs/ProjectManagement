@@ -36,10 +36,10 @@ class Sha2 extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'SHA2(' .
-            $sqlWalker->walkStringPrimary($this->stringPrimary) .
-            ',' .
-            $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression) .
+        return 'SHA2('.
+            $sqlWalker->walkStringPrimary($this->stringPrimary).
+            ','.
+            $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression).
         ')';
     }
 

@@ -10,10 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\OfficeRepository")
  * @ORM\Table(name="offices", indexes=
-      {
-        @ORM\Index(name="phone_idx", columns={"mainPhone"})
-      }
-    )
+ {
+ @ORM\Index(name="phone_idx", columns={"mainPhone"})
+ }
+ )
  */
 class Office extends \Application\GlobalBundle\Entity\BaseOffice
 {

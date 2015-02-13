@@ -43,13 +43,13 @@
     {% block menu %}
         {{ mopa_bootstrap_menu('LimeTrailBundle:Builder:createMainMenu', {'automenu': 'navbar', 'pull-right': true}) }}
      {#   {{ mopa_bootstrap_menu('exampledropdown', {'automenu': 'navbar', 'pull-right': true}) }}#}
-    {% endblock %} 
+    {% endblock %}
 {% endembed %}
 {% endblock navbar %}
 
 {% block body %}
 {{ parent() }}
-    
+
 {% endblock body%}
 
 {% block content_row %}
@@ -82,9 +82,9 @@
 
 {% block foot_script %}
 {{ parent() }}
-    
+
     {% javascripts
-      
+
       '@ApplicationGlobalBundle/Resources/public/js/offcanvas.js'
     %}
       <script src="{{ asset_url }}"></script>

@@ -63,7 +63,7 @@ class ChangeInitiation
     {
         return $this->comment;
     }
-    
+
     /**
      * @var string
      * @ORM\Column(type="datetime")

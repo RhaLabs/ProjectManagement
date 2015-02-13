@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Application\GlobalBundle\Entity\ProjectChangeInitiation as AbstractChange;
@@ -12,13 +11,13 @@ use Application\GlobalBundle\Entity\ProjectChangeInitiation as AbstractChange;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\ProjectChangeRepository")
  * @ORM\Table(name="project_change_initiation", indexes=
-        {
-          @ORM\Index(name="accepted_idx", columns={"accepted"}),
-          @ORM\Index(name="dateImplemented_idx", columns={"dateImplemented"}),
-          @ORM\Index(name="dateAssigned_idx", columns={"dateAssigned"}),
-          @ORM\Index(name="drawingChange_idx", columns={"drawingChange"})
-        },
-      )
+ {
+ @ORM\Index(name="accepted_idx", columns={"accepted"}),
+ @ORM\Index(name="dateImplemented_idx", columns={"dateImplemented"}),
+ @ORM\Index(name="dateAssigned_idx", columns={"dateAssigned"}),
+ @ORM\Index(name="drawingChange_idx", columns={"drawingChange"})
+ },
+ )
  *
  */
 class ProjectChangeInitiation extends AbstractChange
@@ -84,12 +83,12 @@ class ProjectChangeInitiation extends AbstractChange
 
     public function __construct()
     {
-      $this->project = new ArrayCollection();
-      $this->change = new ArrayCollection();
+        $this->project = new ArrayCollection();
+        $this->change = new ArrayCollection();
     }
-    
+
     public function __toString()
     {
-      return get_class($this);
+        return get_class($this);
     }
 }

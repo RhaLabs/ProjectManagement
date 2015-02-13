@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * PlanTypes
  * @ORM\MappedSuperclass
  * @ORM\Table(name="plan_types", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class BasePlanTypes
 {

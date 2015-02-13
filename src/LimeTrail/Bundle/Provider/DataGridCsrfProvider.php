@@ -16,12 +16,12 @@ class DataGridCsrfProvider
 
     protected $csrfProvider;
 
-  /**
-   * Construct
-   *
-   * @param ContainerInterface $container
-   * @param array $dataGridIds
-   */
+   /**
+    * Construct
+    *
+    * @param ContainerInterface $container
+    * @param array $dataGridIds
+    */
    public function __construct(RequestStack $requestStack)
    {
        $this->requestStack = $requestStack;

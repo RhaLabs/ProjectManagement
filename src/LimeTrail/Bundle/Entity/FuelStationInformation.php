@@ -86,14 +86,14 @@ class FuelStationInformation
         return $this->Prototype;
     }
 
-    /**
-     * @var integer
-     * uni-directional - Owning Side
-     * @ORM\ManyToMany(targetEntity="ProjectInformation")
-     * @ORM\JoinTable(name="store_fuel_projects",
-     *      joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
-     */
+     /**
+      * @var integer
+      * uni-directional - Owning Side
+      * @ORM\ManyToMany(targetEntity="ProjectInformation")
+      * @ORM\JoinTable(name="store_fuel_projects",
+      *      joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
+      *      inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
+      */
      private $projects;
 
     public function addProject(\LimeTrail\Bundle\Entity\ProjectInformation $project)

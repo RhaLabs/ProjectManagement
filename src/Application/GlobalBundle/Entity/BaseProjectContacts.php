@@ -20,7 +20,7 @@ class BaseProjectContacts
      */
     protected $user;
 
-   /**
+    /**
      * @var integer
      * @ORM\Id
      * @ORM\Column(type="integer")

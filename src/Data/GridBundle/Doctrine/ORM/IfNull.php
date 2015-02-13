@@ -11,19 +11,18 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
-
 namespace Data\GridBundle\Doctrine\ORM;
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode,
-    Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Lexer;
 
 /**
  * Usage: IFNULL(expr1, expr2)
- * 
+ *
  * If expr1 is not NULL, IFNULL() returns expr1; otherwise it returns expr2.
  * IFNULL() returns a numeric or string value, depending on the context in
  * which it is used.
- * 
+ *
  * @author  Andrew Mackrodt <andrew@ajmm.org>
  * @version 2011.06.12
  */
@@ -45,7 +44,7 @@ class IfNull extends FunctionNode
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
         return 'IFNULL('
-            .$sqlWalker->walkArithmeticPrimary($this->expr1). ', '
+            .$sqlWalker->walkArithmeticPrimary($this->expr1).', '
             .$sqlWalker->walkArithmeticPrimary($this->expr2).')';
     }
 }

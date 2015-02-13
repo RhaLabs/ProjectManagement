@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -12,11 +11,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="LimeTrail\Bundle\Repository\StoreInformationRepository")
  * @ORM\Table(name="store_information",
-    indexes=
-        {
-            @ORM\Index(name="idx", columns={"storeNumber"})
-        }
-    )
+ indexes=
+ {
+ @ORM\Index(name="idx", columns={"storeNumber"})
+ }
+ )
  *
  * @GRID\Column(id="projectcontacts", title="Contacts")
  * @GRID\Column(id="projectchanges", title="Changes")
@@ -166,11 +165,11 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
 
     /**
      * @var integer
-     * uni-directional - Owning Side
+     *              uni-directional - Owning Side
      * @ORM\ManyToMany(targetEntity="ProjectInformation")
      * @ORM\JoinTable(name="store_projects",
-     *      joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
+     *              joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
+     *              inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
      *
      * @GRID\Column(field="projects.id", title="project_id", visible=false)
      * @GRID\Column(field="projects.Sequence", title="Sequence", groups={"project_information", "trident", "myProjects", "projects_by_manager", "shells"})

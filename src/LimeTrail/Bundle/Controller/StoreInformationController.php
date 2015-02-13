@@ -3,8 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-
-use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,9 +24,9 @@ class StoreInformationController extends Controller
      * @Template()
      */
     public function indexAction()
-    {        
+    {
         $source = new Entity('LimeTrailBundle:StoreInformation', 'store_information', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
 
@@ -40,7 +38,7 @@ class StoreInformationController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
-        
+
         return $grid->getGridResponse();
     }
     /**
@@ -83,18 +81,17 @@ class StoreInformationController extends Controller
         $user = $securityContext->getToken()->getUser();
 
         $email = $user->getEmailCanonical();
-        
+
         $source = new Entity('LimeTrailBundle:StoreInformation', 'myProjects', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
-        
+
         //manipulate query to reutn only the store projects we want
         $tableAlias = $source->getTableAlias();
-        
+
         $source->manipulateQuery(
-            function ($qb) use ($tableAlias, $email)
-            {
+            function ($qb) use ($tableAlias, $email) {
                 $date_from = new \DateTime(
                   date('Y-m-d',
                     strtotime(
@@ -104,7 +101,7 @@ class StoreInformationController extends Controller
                   )
                 );
                 $date_to = new \DateTime(date('Y-m-d'));
-                
+
                 $qb->andWhere(
                       $qb->expr()->eq('_projects_dates.runDate', ':today')
                       )
@@ -133,7 +130,7 @@ class StoreInformationController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
-        
+
         return $grid->getGridResponse();
     }
 
@@ -209,21 +206,20 @@ class StoreInformationController extends Controller
         $result = array_count_values($finalResult);
 
         $source = new Entity('LimeTrailBundle:StoreInformation', 'projects_by_manager', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
-        
+
         //manipulate query to reutn only the store projects we want
         $tableAlias = $source->getTableAlias();
-        
-        $source->manipulateQuery(
-            function ($qb) use ($name)
-            {
-                if ($name === 'walmart') {
-                  $date = new \DateTime(date('Y-m-d'));
-                  $past = clone $date;
 
-                  $qb
+        $source->manipulateQuery(
+            function ($qb) use ($name) {
+                if ($name === 'walmart') {
+                    $date = new \DateTime(date('Y-m-d'));
+                    $past = clone $date;
+
+                    $qb
                   ->andWhere(
                     $qb->expr()->orx(
                         $qb->expr()->eq('_projects_contacts_jobrole.jobRole', ':dpm'),

@@ -190,11 +190,11 @@ class ContactCommand extends ContainerAwareCommand
 
         $rowcount = 0;
 
-        if (($handle = fopen($file, "r")) !== FALSE) {
+        if (($handle = fopen($file, "r")) !== false) {
             $max_line_length = defined('MAX_LINE_LENGTH') ? MAX_LINE_LENGTH : 0;
             $header = fgetcsv($handle, $max_line_length);
             $header_colcount = count($header);
-            while (($row = fgetcsv($handle, $max_line_length)) !== FALSE) {
+            while (($row = fgetcsv($handle, $max_line_length)) !== false) {
                 $row_colcount = count($row);
                 if ($row_colcount == $header_colcount) {
                     $entry = array_combine($header, $row);

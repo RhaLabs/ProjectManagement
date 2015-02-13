@@ -3,16 +3,15 @@
 namespace Rha\ProjectManagementBundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
- /**
-  * @Route("/manage")
-  * @Template()
-  */
+/**
+ * @Route("/manage")
+ * @Template()
+ */
 class ManageProjectController extends Controller
 {
     /**
@@ -22,20 +21,19 @@ class ManageProjectController extends Controller
     public function ProjectAssignmentsAction(Request $request)
     {
         $source = new Entity('LimeTrailBundle:StoreInformation', 'projects_by_manager', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
-        
+
         //manipulate query to reutn only the store projects we want
         $tableAlias = $source->getTableAlias();
-        
+
         $source->manipulateQuery(
-            function ($qb) use ($tableAlias)
-            {
+            function ($qb) use ($tableAlias) {
                   $date = new \DateTime(date('Y-m-d'));
 
                   $past = clone $date;
-    
+
                   $qb->andWhere('_projects_contacts_jobrole.jobRole = :role')
                      ->andWhere($qb->expr()->eq('_projects_dates.runDate', ':date'))
                      ->andWhere(
@@ -61,7 +59,7 @@ class ManageProjectController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
-        
+
         return $grid->getGridResponse();
     }
 }

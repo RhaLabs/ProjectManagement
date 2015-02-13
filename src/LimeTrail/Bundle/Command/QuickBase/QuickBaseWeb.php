@@ -217,7 +217,7 @@ class QuickBaseWeb
 
     public function GetTable($url)
     {
-       // echo "gettable\n";
+        // echo "gettable\n";
    // Create the cURL handle for login
    $ch = curl_init($url);
 
@@ -253,13 +253,13 @@ class QuickBaseWeb
    //echo $result;
 
    $curlinfo = curl_getinfo($ch);
-        
+
         preg_match_all('/^Location:(.*)$/mi', $result, $matches);
-        
-        if(!empty($matches[1])) {
-          $this->BuildTableIdFromUrl($matches[1]);
+
+        if (!empty($matches[1])) {
+            $this->BuildTableIdFromUrl($matches[1]);
         } else {
-          $this->BuildTableIdFromUrl($curlinfo["url"]);
+            $this->BuildTableIdFromUrl($curlinfo["url"]);
         }
 
         //echo curl_errno($ch).'-'.curl_error($ch);
@@ -375,7 +375,7 @@ class QuickBaseWeb
 
     return $allData;
     }
-    
+
     public function ParseCiTable($page)
     {
         libxml_use_internal_errors(true);
@@ -395,9 +395,9 @@ class QuickBaseWeb
         $row = $aRow->item(0);
         //$val = $row->firstChild;
         $url = $row->getAttribute('href');
-        
+
         $page = $this->GetTable('https://'.$this->host.'/db/'.$url);
-        
+
         return $this->ParseCIPage($page);
     }
 
@@ -417,47 +417,46 @@ class QuickBaseWeb
         $xpath = new DOMXpath($doc);
         //get table by its ID
         $table = $doc->getElementById('sect_s2');
-    
+
         $xquery = ".//tr[@class='formRow ']";
         $rows = $xpath->query($xquery);
-        
+
         //$Rows = array();
         $allData = array();
-            
-            foreach ($rows as $row) {
-                if (false === $row->hasChildNodes()) {
-                  continue;
-                }
-                
+
+        foreach ($rows as $row) {
+            if (false === $row->hasChildNodes()) {
+                continue;
+            }
+
                 // headers will have class='label'
                 // data will have class='cell'
                 $children = $row->childNodes;
-                
-                $key = '';
-                $value = '';
-                
-                foreach ($children as $node) {
-                    if (false === $node->hasAttributes()) {
-                     continue;
-                    }
-                    
-                    $classes = explode(' ', $node->getAttribute('class'));
-                    
-                    if (in_array('label', $classes)) {
-                      $key = $node->nodeValue;
-                      $key = preg_replace('~\x{00a0}~sui', ' ', $key);
-                      trim($key);
-                      
-                    } elseif (in_array('cell', $classes)) {
-                      $value = $node->nodeValue;
-                      $value = preg_replace('~\x{00a0}~sui', ' ', $value);
-                      trim($value);
-                    }
+
+            $key = '';
+            $value = '';
+
+            foreach ($children as $node) {
+                if (false === $node->hasAttributes()) {
+                    continue;
                 }
-                
-                $allData[$key] = $value;
+
+                $classes = explode(' ', $node->getAttribute('class'));
+
+                if (in_array('label', $classes)) {
+                    $key = $node->nodeValue;
+                    $key = preg_replace('~\x{00a0}~sui', ' ', $key);
+                    trim($key);
+                } elseif (in_array('cell', $classes)) {
+                    $value = $node->nodeValue;
+                    $value = preg_replace('~\x{00a0}~sui', ' ', $value);
+                    trim($value);
+                }
             }
-    
+
+            $allData[$key] = $value;
+        }
+
         return $allData;
     }
 
@@ -470,11 +469,11 @@ class QuickBaseWeb
 
         $data = array();
         $rowcount = 0;
-        if (($handle = fopen('qb-'.urlencode($this->tableId).'.csv', "r")) !== FALSE) {
+        if (($handle = fopen('qb-'.urlencode($this->tableId).'.csv', "r")) !== false) {
             $max_line_length = defined('MAX_LINE_LENGTH') ? MAX_LINE_LENGTH : 0;
             $header = fgetcsv($handle, $max_line_length);
             $header_colcount = count($header);
-            while (($row = fgetcsv($handle, $max_line_length)) !== FALSE) {
+            while (($row = fgetcsv($handle, $max_line_length)) !== false) {
                 $row_colcount = count($row);
                 if ($row_colcount == $header_colcount) {
                     $entry = array_combine($header, $row);
@@ -531,7 +530,7 @@ class QuickBaseWeb
 
         // increment $id by 1 to get the next password
         $id += 1;
-        
+
         // only 12 rows, need to reset when we overflow
         if ($id == 13) {
             $id = 1;

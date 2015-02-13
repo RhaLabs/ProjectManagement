@@ -3,7 +3,6 @@
 namespace Application\GlobalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,7 +64,7 @@ class Tenant
     {
         return $this->comment;
     }
-    
+
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=true)

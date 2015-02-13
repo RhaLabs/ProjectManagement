@@ -17,7 +17,7 @@ class StateFormType extends AbstractType
         $this->om = $om;
     }
 
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */

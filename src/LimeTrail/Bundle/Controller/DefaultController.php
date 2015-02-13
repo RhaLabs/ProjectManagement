@@ -34,7 +34,7 @@ class DefaultController extends Controller
 
         return new Response($token);
     }
-    
+
     /**
      * @Route("/docs/{filename}", defaults={"filename" = "index.md"}, name="documentation")
      * @Template()
@@ -42,15 +42,15 @@ class DefaultController extends Controller
     public function docAction($filename)
     {
         $docsFolder = __DIR__."/../Resources/doc/";
-        
+
         $markdownFile = $docsFolder.$filename;
-        
+
         if (file_exists($markdownFile)) {
             $colorized_xhtml = $this->get('markdown.parser')->transformMarkdown(file_get_contents($markdownFile));
 
             return array('markdown' => $colorized_xhtml);
         }
-        
+
         throw new \Exception("nothing here");
     }
 }

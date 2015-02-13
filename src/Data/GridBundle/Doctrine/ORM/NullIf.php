@@ -11,18 +11,17 @@
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
-
 namespace Data\GridBundle\Doctrine\ORM;
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode,
-    Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Lexer;
 
 /**
  * Usage: NULLIF(expr1, expr2)
- * 
+ *
  * Returns NULL if expr1 = expr2 is true, otherwise returns expr1. This is the
- * same as CASE WHEN expr1 = expr2 THEN NULL ELSE expr1 END. 
- * 
+ * same as CASE WHEN expr1 = expr2 THEN NULL ELSE expr1 END.
+ *
  * @author  Andrew Mackrodt <andrew@ajmm.org>
  * @version 2011.06.12
  */

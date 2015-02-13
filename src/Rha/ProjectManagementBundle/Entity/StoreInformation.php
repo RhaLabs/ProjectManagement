@@ -129,14 +129,14 @@ class StoreInformation extends \Application\GlobalBundle\Entity\BaseStoreInforma
         return $this;
     }
 
-    /**
-     * @var integer
-     * uni-directional - Owning Side
-     * @ORM\ManyToMany(targetEntity="ProjectInformation")
-     * @ORM\JoinTable(name="store_projects",
-     *      joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
-     */
+     /**
+      * @var integer
+      * uni-directional - Owning Side
+      * @ORM\ManyToMany(targetEntity="ProjectInformation")
+      * @ORM\JoinTable(name="store_projects",
+      *      joinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id")},
+      *      inverseJoinColumns={@ORM\JoinColumn(name="projects_id", referencedColumnName="id", unique=true)})
+      */
      private $projects;
     public function addProject(\Rha\ProjectManagementBundle\Entity\ProjectInformation $project)
     {

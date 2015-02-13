@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Application\Sonata\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -21,12 +20,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Query
 {
     /**
-    * @ORM\Id
-    */
+     * @ORM\Id
+     */
     protected $Id;
 
     /**
-    * @ORM\Column(type="string", length=255) */
+     * @ORM\Column(type="string", length=255) */
     protected $query;
 
     /**

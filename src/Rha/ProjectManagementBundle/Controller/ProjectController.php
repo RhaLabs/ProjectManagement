@@ -12,10 +12,10 @@ use Rha\ProjectManagementBundle\Entity\ProjectInformation;
 use Rha\ProjectManagementBundle\Form\Type\ProjectInformationType;
 use Rha\ProjectManagementBundle\Form\Type\StoreInformationType;
 
- /**
-  * @Route("/project")
-  * @Template()
-  */
+/**
+ * @Route("/project")
+ * @Template()
+ */
 class ProjectController extends Controller
 {
     /**

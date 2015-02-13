@@ -9,11 +9,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * DevelopmentType
  * @ORM\Entity
  * @ORM\Table(name="development_type", indexes=
-        {
-          @ORM\Index(name="idx", columns={"name"}),
-          @ORM\Index(name="user_idx", columns={"user"})
-        }
-      )
+ {
+ @ORM\Index(name="idx", columns={"name"}),
+ @ORM\Index(name="user_idx", columns={"user"})
+ }
+ )
  */
 class DevelopmentType extends \Application\GlobalBundle\Entity\BaseDevelopmentType
 {

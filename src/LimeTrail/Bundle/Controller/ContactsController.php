@@ -4,7 +4,6 @@ namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -58,16 +57,15 @@ class ContactsController extends Controller
     public function projectAction($id)
     {
         $source = new Entity('LimeTrailBundle:ProjectContacts', 'project_contacts', 'limetrail');
-        
+
         // Get a grid instance
         $grid = $this->get('grid');
-        
+
         //manipulate query to reutn only the store projects we want
         $tableAlias = $source->getTableAlias();
-        
+
         $source->manipulateQuery(
-            function ($query) use ($tableAlias, $id)
-            {
+            function ($query) use ($tableAlias, $id) {
                 $query->andWhere("_project.id = :pid")->setParameter('pid', $id);
             }
         );
@@ -80,7 +78,7 @@ class ContactsController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
-        
+
         //grid actions
         $editAction = new RowAction(
             'Edit',
@@ -93,12 +91,12 @@ class ContactsController extends Controller
             array(
                 'id',
                 'jobrole.id',
-                'project.id'
+                'project.id',
             )
         );
-        
+
         $grid->addRowAction($editAction);
-        
+
         $deleteAction = new RowAction(
             'Delete',
             'limetrail_projectcontacts_delete',
@@ -110,20 +108,20 @@ class ContactsController extends Controller
         $deleteAction->setRouteParameters(
             array(
                 'id',
-                'project.id'
+                'project.id',
             )
         );
-        
+
         $grid->addRowAction($deleteAction);
-        
+
         $gridResponse = $grid->getGridResponse();
-        
+
         return array(
             'data' => $gridResponse,
-            'projectId' => $id
+            'projectId' => $id,
             );
     }
-    
+
     /**
      *
      * Edit contacts for a store
@@ -135,13 +133,13 @@ class ContactsController extends Controller
     public function projectContactEditAction($id, $jobroleId, Request $request)
     {
         $em = $this->getDoctrine()->getManager('limetrail');
-        
+
         $contactprovider = $this->get('lime_trail_contact.provider');
-        
+
         $jobrole = $contactprovider->findJobRoleById($jobroleId);
         $projectcontact = $contactprovider->findProjectContactById($id);
         $contact = $projectcontact->getContact();
-        
+
         $formData = new ProjectContactData($contact, $jobrole, $projectcontact);
 
         $builder = $this->createFormBuilder($formData);
@@ -159,27 +157,26 @@ class ContactsController extends Controller
                 ->add('website', 'text', array('required' => false))
                 ->add('chartColor', 'text', array('required' => false))
                 ->add('save', 'submit', array('label' => 'Save Contact'));
-        
+
         $form = $builder->getForm();
-                
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $formData = $form->getData();
 
             $projectContactModel = new ProjectContactModel($formData, $contactprovider);
-            
+
             $projectContactModel->ProcessFormData();
-            
+
             $entityArray = $projectContactModel->getEntityResult();
-            
-            foreach ( $entityArray AS $entity) {
+
+            foreach ($entityArray as $entity) {
                 $em->persist($entity);
             }
-            
+
             $em->flush();
-            
+
             $request->getSession()->getFlashBag()->add(
                 'notice',
                 'Your changes were saved!'
@@ -193,7 +190,7 @@ class ContactsController extends Controller
             'form'   => $form->createView(),
         );
     }
-    
+
     /**
      *
      * Adds contacts for a store
@@ -205,19 +202,19 @@ class ContactsController extends Controller
     public function projectContactAddAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager('limetrail');
-        
+
         $entity = $em->getRepository('LimeTrailBundle:ProjectInformation')->find($id);
-        
+
         $formData = new NewProjectContactData($entity);
 
         $builder = $this->createFormBuilder($formData);
         $builder->add('contact', 'entity', array(
                     'class' => 'LimeTrailBundle:Contact',
-                    'query_builder' => function($repo) {
+                    'query_builder' => function ($repo) {
                         $qb = $repo->createQueryBuilder('c');
                         $qb->select('c')
                            ->orderBy('c.lastName', 'ASC');
-                        
+
                         return $qb;
                     },
                 ))
@@ -226,21 +223,20 @@ class ContactsController extends Controller
                     'property' => 'jobRole',
                 ))
                 ->add('save', 'submit', array('label' => 'Save Contact'));
-        
+
         $form = $builder->getForm();
-                
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $formData = $form->getData();
-            
+
             $provider = $this->container->get('lime_trail_contact.provider');
-            
+
             $projectContact = $provider->createProjectContact($formData->project, $formData->jobRole, $formData->contact);
-            
+
             $em->flush();
-            
+
             $request->getSession()->getFlashBag()->add(
                 'notice',
                 'Your changes were saved!'
@@ -254,7 +250,7 @@ class ContactsController extends Controller
             'form'   => $form->createView(),
         );
     }
-    
+
     /**
      *
      * Deletes contacts for a store
@@ -266,13 +262,13 @@ class ContactsController extends Controller
     public function projectContactDeleteAction($id, $projectId, Request $request)
     {
         $provider = $this->container->get('lime_trail_contact.provider');
-        
-        $projectcontact = $provider->findProjectContactById($id);   
-        
+
+        $projectcontact = $provider->findProjectContactById($id);
+
         $provider->deleteProjectContact($projectcontact);
-        
+
         $this->getDoctrine()->getManager('limetrail')->flush();
-            
+
         $request->getSession()->getFlashBag()->add(
             'notice',
             'Your changes were saved!'

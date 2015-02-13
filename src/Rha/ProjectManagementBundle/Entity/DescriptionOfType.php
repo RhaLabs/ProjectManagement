@@ -9,10 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * DescriptionOfType
  * @ORM\Entity
  * @ORM\Table(name="description_of_type", indexes=
-        {
-          @ORM\Index(name="name_idx", columns={"name"})
-        }
-      )
+ {
+ @ORM\Index(name="name_idx", columns={"name"})
+ }
+ )
  */
 class DescriptionOfType extends \Application\GlobalBundle\Entity\BaseDescriptionOfType
 {

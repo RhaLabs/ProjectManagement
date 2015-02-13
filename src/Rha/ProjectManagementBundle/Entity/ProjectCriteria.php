@@ -7,16 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="project_criteria", indexes=
-        {
-          @ORM\Index(name="geo_idx", columns={"geoTechnical"}),
-          @ORM\Index(name="wss_idx", columns={"waterStudy"}),
-          @ORM\Index(name="fuel_idx", columns={"fuelStudy"}),
-          @ORM\Index(name="dc_idx", columns={"designCivilDocuments"}),
-          @ORM\Index(name="ren_idx", columns={"renderings"}),
-          @ORM\Index(name="plan_idx", columns={"merchandisePlan"}),
-          @ORM\Index(name="level_idx", columns={"buildingDesignLevel"})
-        }
-      )
+ {
+ @ORM\Index(name="geo_idx", columns={"geoTechnical"}),
+ @ORM\Index(name="wss_idx", columns={"waterStudy"}),
+ @ORM\Index(name="fuel_idx", columns={"fuelStudy"}),
+ @ORM\Index(name="dc_idx", columns={"designCivilDocuments"}),
+ @ORM\Index(name="ren_idx", columns={"renderings"}),
+ @ORM\Index(name="plan_idx", columns={"merchandisePlan"}),
+ @ORM\Index(name="level_idx", columns={"buildingDesignLevel"})
+ }
+ )
  */
 class ProjectCriteria extends \Application\GlobalBundle\Entity\BaseEntity
 {

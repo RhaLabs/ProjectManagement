@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\ProjectContactsRepository")
  * @ORM\Table(name="project_contacts"
-      )
+ )
  */
 class ProjectContacts extends \Application\GlobalBundle\Entity\BaseProjectContacts
 {

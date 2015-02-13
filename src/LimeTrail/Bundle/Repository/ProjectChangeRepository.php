@@ -14,7 +14,7 @@ class ProjectChangeRepository extends EntityRepository
 {
   public function findByProjectIdAndChangeId($projectId, $changeId)
   {
-    $q = $this->getEntityManager()->createQuery(
+      $q = $this->getEntityManager()->createQuery(
       'SELECT pc FROM LimeTrailBundle:ProjectChangeInitiation pc
         JOIN pc.project p
         JOIN pc.change c
@@ -26,7 +26,7 @@ class ProjectChangeRepository extends EntityRepository
       'project' => $projectId,
       'change' => $changeId,
     ));
-    
-    return $q->getResult();
+
+      return $q->getResult();
   }
 }

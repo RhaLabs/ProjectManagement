@@ -3,7 +3,6 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,7 +26,6 @@ class ProjectChangeController extends Controller
      */
     public function changeAction()
     {
-        
         return $this->render('LimeTrailBundle:Contacts:index.html.twig', array(
             'DataGrid' => $DataGrid, 'identifier' => $alias,
             ));
@@ -45,39 +43,38 @@ class ProjectChangeController extends Controller
 
         $change = $em->getRepository('LimeTrailBundle:ChangeInitiation')
                      ->findOneBy(array('number' => $number));
-        
+
         $change->getScopes();
-        
+
         return array('change' => $change);
     }
 
-    /**
-     *
-     *
-     * @Route("/project/{id}", name="limetrail_project_change_get")
-     * @Method({"GET", "POST"})
-     * @Template()
-     */
+        /**
+         *
+         *
+         * @Route("/project/{id}", name="limetrail_project_change_get")
+         * @Method({"GET", "POST"})
+         * @Template()
+         */
         public function projectAction($id)
         {
             $source = new Entity('LimeTrailBundle:ProjectChangeInitiation', 'changeInitiation', 'limetrail');
-        
+
             // Get a grid instance
             $grid = $this->get('grid');
-            
+
             //manipulate query to reutn only the store projects we want
             $tableAlias = $source->getTableAlias();
-            
+
             $source->manipulateQuery(
-                function ($qb) use ($tableAlias, $id)
-                {
+                function ($qb) use ($tableAlias, $id) {
                     $qb->andWhere('_project.id = :pid')->setParameter('pid', $id);
                 }
             );
-    
+
             // Set the source
             $grid->setSource($source);
-            
+
             $grid->setColumnsOrder(
                 array(
                     'change.number',
@@ -89,13 +86,13 @@ class ProjectChangeController extends Controller
                 ),
                 true
             );
-    
+
             // Set the selector of the number of items per page
-            $grid->setLimits(array(30,60,80,120));
-    
+            $grid->setLimits(array(30, 60, 80, 120));
+
             // Set the default page
             $grid->setDefaultPage(1);
-            
+
             return $grid->getGridResponse();
         }
 

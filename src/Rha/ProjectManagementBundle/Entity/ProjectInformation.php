@@ -10,10 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\ProjectinformationRepository")
  * @ORM\Table(name="project_information", indexes=
-        {
-          @ORM\Index(name="Seq_idx", columns={"Sequence"})
-        }
-      )
+ {
+ @ORM\Index(name="Seq_idx", columns={"Sequence"})
+ }
+ )
  */
 class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInformation
 {
@@ -57,7 +57,7 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
 
     /**
      * @var integer
-     * bi-directional - Owning Side
+     *              bi-directional - Owning Side
      * @ORM\ManyToOne(targetEntity="ProgramYear", inversedBy="project")
      */
     private $ProgramYear;
@@ -112,11 +112,11 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
      * @var integer
      * @ORM\ManyToMany(targetEntity="Dates")
      * @ORM\JoinTable(name="projects_trident_dates",
-               joinColumns={@ORM\JoinColumn(name="dates",
-                    referencedColumnName="id")},
-               inverseJoinColumns={@ORM\JoinColumn(name="Trident_id",
-                    referencedColumnName="id")}
-            )
+     joinColumns={@ORM\JoinColumn(name="dates",
+     referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="Trident_id",
+     referencedColumnName="id")}
+     )
      */
     private $dates;
 
@@ -391,7 +391,7 @@ class ProjectInformation extends \Application\GlobalBundle\Entity\BaseProjectInf
         return $this->dateOverride;
     }
 
-        /**
+    /**
      * Add dates
      *
      * @param  \Rha\ProjectManagementBundle\Entity\Dates $dates

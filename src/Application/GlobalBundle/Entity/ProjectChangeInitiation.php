@@ -3,7 +3,6 @@
 namespace Application\GlobalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,39 +14,39 @@ class ProjectChangeInitiation
     public function IsImplemented()
     {
         if (empty($this->dateImplemented)) {
-          return false;
+            return false;
         } else {
-          return true;
+            return true;
         }
     }
-    
+
     /**
      * @ORM\Column(type="boolean",nullable=true, options={"default":false})
      */
     protected $accepted;
-    
+
     public function isAccepted()
     {
-      return $this->accepted;
+        return $this->accepted;
     }
-    
+
     public function setAccepted($value)
     {
-      $this->accepted = $value;
-      
-      return $this;
+        $this->accepted = $value;
+
+        return $this;
     }
-    
+
     public function isDeclined()
     {
-      return !$this->accepted;
+        return !$this->accepted;
     }
-    
+
     public function setDeclined($value)
     {
-      $this->accepted = !$value;
-      
-      return $this;
+        $this->accepted = !$value;
+
+        return $this;
     }
 
     /**

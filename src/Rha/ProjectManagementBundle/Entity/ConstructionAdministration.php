@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\ConstructionAdministrationRepository")
  * @ORM\Table(name="construction_admin", indexes=
-        {
-          @ORM\Index(name="geo_idx", columns={"createDate"})
-        }
-      )
+ {
+ @ORM\Index(name="geo_idx", columns={"createDate"})
+ }
+ )
  */
 class ConstructionAdministration extends \Application\GlobalBundle\Entity\BaseEntity
 {

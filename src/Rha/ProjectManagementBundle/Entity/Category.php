@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Categories
  * @ORM\Entity
  * @ORM\Table(name="categories", indexes=
-          {
-            @ORM\Index(name="idx", columns={"category"})
-          }
-        )
+ {
+ @ORM\Index(name="idx", columns={"category"})
+ }
+ )
  * @ORM\Entity(repositoryClass="Rha\ProjectManagementBundle\Repository\CategoryRepository")
  */
 class Category extends \Application\GlobalBundle\Entity\BaseCategory
