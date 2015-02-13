@@ -1,7 +1,0 @@
-parameters:
-#    lime_trail_security.example.class: LimeTrail\SecurityBundle\Example
-
-services:
-#    lime_trail_security.example:
-#        class: %lime_trail_security.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

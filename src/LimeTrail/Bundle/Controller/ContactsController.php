@@ -57,20 +57,6 @@ class ContactsController extends Controller
      */
     public function projectAction($id)
     {
-            /*$em = $this->getDoctrine()->getManager('limetrail');
-
-            $alias = 'projects_contact';
-
-            $ConactsDataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
-
-            $session = $this->container->get('request')->getSession();
-
-            $session->set('contactId', $id);
-
-            return $this->render('LimeTrailBundle:Contacts:index.html.twig', array(
-            'ProjectInfoDataGrid' => $ConactsDataGrid, 'identifier' => $alias,
-            ));*/
-            
         $source = new Entity('LimeTrailBundle:ProjectContacts', 'project_contacts', 'limetrail');
         
         // Get a grid instance

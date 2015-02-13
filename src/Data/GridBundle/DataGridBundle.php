@@ -8,6 +8,6 @@ class DataGridBundle extends Bundle
 {
     public function getParent()
     {
-        return 'ThraceDataGridBundle';
+    
     }
 }

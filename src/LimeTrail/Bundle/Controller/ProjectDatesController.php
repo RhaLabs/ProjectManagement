@@ -23,25 +23,6 @@ use LimeTrail\Bundle\Form\Type\DateType;
 class ProjectDatesController extends Controller
 {
     /**
-     * Lists all StoreInformation entities.
-     *
-     * @Route("/", name="limetrail_projectdates")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager('limetrail');
-
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
-        $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('project_dates');
-
-        return $this->render('LimeTrailBundle:ProjectDates:grid.html.twig', array(
-            'ProjectInfoDataGrid' => $ProjectInfoDataGrid, 'identifier' => 'project_dates',
-        ));
-    }
-
-    /**
      *
      * @Route("/aggregated", name="limetrail_projectdates_aggregated")
      * @Method({"GET", "POST"})
@@ -49,13 +30,6 @@ class ProjectDatesController extends Controller
      */
     public function aggregateDatesAction()
     {
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
-        $DataGrid = $this->container->get('thrace_data_grid.provider')->get('dates');
-
-        return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
-            'DataGrid' => $DataGrid, 'identifier' => 'dates',
-        ));*/
-        
         $source = new Entity('LimeTrailBundle:StoreInformation', 'trident', 'limetrail');
         
         // Get a grid instance
@@ -132,8 +106,6 @@ class ProjectDatesController extends Controller
             $entity = new DateOverride();
         }
         //get properties of Dates
-        //$reflection = new \ReflectionClass($em->getClassMetadata(get_class($entity)));
-        //$props = $reflection->getProperties(\ReflectionProperty::IS_PRIVATE); $logger->info(print_r($reflection->getName(), true));
         $props = $em->getClassMetadata(get_class($entity))->getReflectionProperties();
         $propNames = array();
         foreach ($props as $prop) {

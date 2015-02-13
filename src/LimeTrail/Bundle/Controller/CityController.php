@@ -64,9 +64,7 @@ class CityController extends Controller
         //natcasesort($entities);
 
         array_multisort($city, SORT_ASC, $entities);
-        //$response = new JsonResponse();
-        //$response->setData(array('data'=>$entities));
-        //return $response;
+
         return array('data' => $entities);
     }
 
@@ -378,12 +376,7 @@ class CityController extends Controller
         if ($array->isEmpty()) {
             return;
         }
-    /*$array->filter(
-      function ($a) use ($name) {
-        return in_array($array->getName(), $name);
-      }
-    );*/
-    //$name = '%'.$name.'%';
+
     $criteria = Criteria::create()->where(Criteria::expr()->eq("name", $name))
                                   ->orderBy(array("name" => Criteria::ASC))
                                   ->setFirstResult(0);

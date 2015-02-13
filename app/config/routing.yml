@@ -38,22 +38,10 @@ lime_trail_index:
     type:     annotation
     prefix:   /
 
-data_slick_grid:
-    resource: "@DataGridBundle/Resources/config/routing.yml"
-    prefix:   /data
-
-limetrail_security:
-    resource: "@LimeTrailSecurityBundle/Resources/config/routing.yml"
-    prefix:   /
-
 limetrail:
     resource: "@LimeTrailBundle/Controller/"
     type: annotation
     prefix:   /trail
-
-thrace_data_grid:
-    resource: "@ThraceDataGridBundle/Resources/config/routing.xml"
-    prefix: /trail
 
 fos_user_profile_show:
     pattern: /profile

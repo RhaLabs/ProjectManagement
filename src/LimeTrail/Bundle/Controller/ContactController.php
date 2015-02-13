@@ -46,19 +46,6 @@ class ContactController extends Controller
      */
     public function indexAction()
     {
-        /*
-        $em = $this->getDoctrine()->getManager('limetrail');
-
-        $alias = 'contacts';*/
-
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
-        $ContactsDataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
-
-        return $this->render('LimeTrailBundle:Contact:index.html.twig', array(
-            'ContactsDataGrid' => $ContactsDataGrid,
-            'identifier' => 'contacts',
-        ));*/
-        
         $source = new Entity('LimeTrailBundle:Contact', 'allContacts', 'limetrail');
         
         // Get a grid instance
@@ -75,6 +62,7 @@ class ContactController extends Controller
             
         return $grid->getGridResponse();
     }
+    
     /**
      * Creates a new Contact entity.
      *

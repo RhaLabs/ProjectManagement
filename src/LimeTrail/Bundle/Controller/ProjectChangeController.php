@@ -60,20 +60,6 @@ class ProjectChangeController extends Controller
      */
         public function projectAction($id)
         {
-            /*$em = $this->getDoctrine()->getManager('limetrail');
-
-            $alias = 'project_change';
-
-            $DataGrid = $this->container->get('thrace_data_grid.provider')->get($alias);
-
-            $session = $this->container->get('request')->getSession();
-
-            $session->set('lime_trail_project_change/id', $id);
-
-            return $this->render('LimeTrailBundle:Contacts:index.html.twig', array(
-            'DataGrid' => $DataGrid, 'identifier' => $alias,
-            ));*/
-            
             $source = new Entity('LimeTrailBundle:ProjectChangeInitiation', 'changeInitiation', 'limetrail');
         
             // Get a grid instance

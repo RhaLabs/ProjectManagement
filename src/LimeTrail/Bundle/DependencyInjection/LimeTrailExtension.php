@@ -28,7 +28,7 @@ class LimeTrailExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('datagridservice.xml');
-        $loader->load('gisfeatureservice.xml');
+        $loader->load('services.xml');
         #$container->compile();
     }
 

@@ -47,8 +47,7 @@ class DefaultController extends Controller
         
         if (file_exists($markdownFile)) {
             $colorized_xhtml = $this->get('markdown.parser')->transformMarkdown(file_get_contents($markdownFile));
-            //$colorized_xhtml = $this->get('varspool_markdown')->render(file_get_contents($markdownFile));
-            
+
             return array('markdown' => $colorized_xhtml);
         }
         

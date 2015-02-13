@@ -1,3 +1,0 @@
-lime_trail_security_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: LimeTrailSecurityBundle:Default:index }

@@ -8,8 +8,7 @@
     },
     "repositories": [{
         "type": "vcs",
-        "url": "https://github.com/kg4mfq/SonataUserBundle",
-        "url": "https://github.com/RhaLabs/datagrid-bundle"
+        "url": "https://github.com/kg4mfq/SonataUserBundle"
     }],
     "require": {
         "php": ">=5.3.3",
@@ -27,7 +26,6 @@
         "symfony/property-access": "~2.3",
         "doctrine/migrations": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "thrace/datagrid-bundle": "dev-revert_search_options",
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "sonata-project/admin-bundle": "dev-master",
         "sonata-project/cache-bundle": "dev-master",

@@ -180,9 +180,6 @@ fos_user:
              address: noreply@rhaaia.com
              sender_name: RHA Web Registration
 
-thrace_data_grid:
-    translation_domain: ThraceDataGridBundle
-
 sonata_cache:
     caches:
         esi:
@@ -274,12 +271,6 @@ knp_markdown:
             xhtml:                false
 
 services:
-    kernel.listener.datagridlistener:
-        class: LimeTrail\Bundle\Event\DataGridListener
-        arguments: [ "@request_stack" ]
-        tags:
-            - { name: kernel.event_listener, event: thrace_datagrid.onQueryBuilderReady, method: onQueryBuilderReady }
-
     application.twig.csrf_twig_extension:
         class: Application\GlobalBundle\Twig\CsrfTwigExtension
         arguments: ["@form.csrf_provider", "@session"]

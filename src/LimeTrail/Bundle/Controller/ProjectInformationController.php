@@ -20,33 +20,6 @@ use LimeTrail\Bundle\Form\Type\ProjectInformationType;
 class ProjectInformationController extends Controller
 {
     /**
-     * Lists all ProjectInformation entities.
-     *
-     * @Route("/", name="limetrail_projectinformation")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager('limetrail');
-
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface */
-        $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('project_info');
-
-        return $this->render('LimeTrailBundle:ProjectInformation:grid.html.twig', array(
-            'ProjectInfoDataGrid' => $ProjectInfoDataGrid, 'identifier' => 'project_info',
-        ));
-
-        #$entities = $em->getRepository('LimeTrailBundle:ProjectInformation', 'limetrail')->findAllJoined();
-
-        #return array(
-        #    'entities' => $entities,
-        #);
-
-        #$source = new Entity('LimeTrailBundle:ProjectInformation');
-    }
-    
-    /**
      * Creates a new ProjectInformation entity.
      *
      * @Route("/", name="limetrail_projectinformation_create")
@@ -101,18 +74,6 @@ class ProjectInformationController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager('limetrail');
-
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
-        $ProjectDatesGrid = $this->container->get('thrace_data_grid.provider')->get('project_dates');
-        $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('project_info');
-
-        $session = $this->container->get('request')->getSession();
-
-        $session->set('projectInfoId', $id);
-
-        return $this->render('LimeTrailBundle:ProjectInformation:grid.html.twig', array(
-            'ProjectInfoDataGrid' => $ProjectInfoDataGrid, 'identifier' => 'project_info', 'ProjectDatesDataGrid' => $ProjectDatesGrid,
-        ));*/
         
         $source = new Entity('LimeTrailBundle:StoreInformation', 'project_information', 'limetrail');
         

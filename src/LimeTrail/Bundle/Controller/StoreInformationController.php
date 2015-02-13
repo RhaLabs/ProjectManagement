@@ -26,14 +26,7 @@ class StoreInformationController extends Controller
      * @Template()
      */
     public function indexAction()
-    {
-        /** @var \Thrace\DataGridBundle\DataGrid\DataGridInterface 
-        $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('store_info');
-
-        return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
-            'ProjectInfoDataGrid' => $ProjectInfoDataGrid,  'identifier' => 'store_info',
-        ));*/
-        
+    {        
         $source = new Entity('LimeTrailBundle:StoreInformation', 'store_information', 'limetrail');
         
         // Get a grid instance
@@ -90,39 +83,6 @@ class StoreInformationController extends Controller
         $user = $securityContext->getToken()->getUser();
 
         $email = $user->getEmailCanonical();
-
-        $session = $this->get('session');
-
-      /*if ($securityContext->isGranted('ROLE_ADMIN')) {
-        $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('mystore_info');
-
-        $ProjectInfoDataGrid->setPostData(array('id' => $id));
-
-        return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig',array(
-            'ProjectInfoDataGrid' => $ProjectInfoDataGrid,  'identifier' => 'mystore_info'
-        ));
-
-      } elseif ($securityContext->isGranted('ROLE_USER')) {
-        $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('mystore_info');
-
-        return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig',array(
-            'ProjectInfoDataGrid' => $ProjectInfoDataGrid,  'identifier' => 'mystore_info'
-        ));
-      } else {
-        $url = $this->generateUrl(
-         'limetrail_storeinformation'
-        );
-
-        return $this->redirect($url);
-      }
-
-      $ProjectInfoDataGrid = $this->container->get('thrace_data_grid.provider')->get('mystore_info');
-
-        $ProjectInfoDataGrid->setPostData(array('email' => $email));
-
-        return $this->render('LimeTrailBundle:StoreInformation:grid.html.twig', array(
-            'DataGrid' => $ProjectInfoDataGrid,  'identifier' => 'mystore_info',
-        ));*/
         
         $source = new Entity('LimeTrailBundle:StoreInformation', 'myProjects', 'limetrail');
         

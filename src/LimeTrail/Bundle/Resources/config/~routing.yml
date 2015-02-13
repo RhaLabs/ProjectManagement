@@ -1,7 +1,0 @@
-lime_trail_homepage:
-    pattern:  /limetrail
-    defaults: { _controller: LimeTrailBundle:Default:index }
-
-_project_info:
-    resource: "@LimeTrailBundle/Controller/ProjectInformationController.php"
-    type:     annotation
