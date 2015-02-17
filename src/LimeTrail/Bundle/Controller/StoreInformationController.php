@@ -3,6 +3,7 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -124,6 +125,21 @@ class StoreInformationController extends Controller
 
         // Set the source
         $grid->setSource($source);
+        
+        $column = new BlankColumn(array(
+            'id' => 'days',
+            'title' => 'Days to Possession',
+        ));
+        
+        $column->manipulateRenderCell(function($value, $row, $router) {
+            $today = new \DateTime('now');
+            $possession = $row->getField('projects.dates.possPrj');
+            $days = $today->diff($possession);
+            
+            return $days->format('%R%a days');
+        });
+        
+        $grid->addColumn($column);
 
         // Set the selector of the number of items per page
         $grid->setLimits(array(30));
