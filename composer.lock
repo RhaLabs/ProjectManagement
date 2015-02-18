@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46e8ed4c1453a01a8c2aab07bd5499ee",
+    "hash": "dd3cc9a5d5772539640634aae69e8ae4",
     "packages": [
         {
             "name": "apy/datagrid-bundle",
@@ -134,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craue/CraueFormFlowBundle.git",
-                "reference": "9e304951caedb5ec89c843b154151ed44aad98dd"
+                "reference": "8a3a508abd032668de29316681d29ca8a4cf6b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/9e304951caedb5ec89c843b154151ed44aad98dd",
-                "reference": "9e304951caedb5ec89c843b154151ed44aad98dd",
+                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/8a3a508abd032668de29316681d29ca8a4cf6b21",
+                "reference": "8a3a508abd032668de29316681d29ca8a4cf6b21",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,7 @@
                 "Symfony2",
                 "form"
             ],
-            "time": "2015-02-02 11:31:11"
+            "time": "2015-02-11 13:13:58"
         },
         {
             "name": "doctrine/annotations",
@@ -381,7 +381,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -457,7 +457,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -713,12 +713,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "81575a4316951125ce408c70f30547c77d98f78a"
+                "reference": "6a1bd731dbdd4ad952a3b246a8f38c9c12f52e62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/81575a4316951125ce408c70f30547c77d98f78a",
-                "reference": "81575a4316951125ce408c70f30547c77d98f78a",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/6a1bd731dbdd4ad952a3b246a8f38c9c12f52e62",
+                "reference": "6a1bd731dbdd4ad952a3b246a8f38c9c12f52e62",
                 "shasum": ""
             },
             "require": {
@@ -763,7 +763,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2014-08-17 07:53:47"
+            "time": "2015-02-16 13:24:46"
         },
         {
             "name": "doctrine/inflector",
@@ -1402,9 +1402,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1662,7 +1662,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "Knplabs",
+                    "name": "KnpLabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -1720,7 +1720,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "Knplabs",
+                    "name": "KnpLabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -2280,9 +2280,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -2387,9 +2387,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -2598,17 +2598,17 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "9e23fc3de265ae013690d84aab98e7a84f46edcd"
+                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/9e23fc3de265ae013690d84aab98e7a84f46edcd",
-                "reference": "9e23fc3de265ae013690d84aab98e7a84f46edcd",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/4b09746520a826a7bf34a466ba31c7d8740fef7e",
+                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e",
                 "shasum": ""
             },
             "require": {
@@ -2642,7 +2642,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2015-01-13 07:33:46"
+            "time": "2015-02-11 07:21:23"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -2695,12 +2695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "90aaedc354493973bd21dad895b1a0f15139776e"
+                "reference": "41ecba8f2cd207be217035f9439a6219917cfd0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/90aaedc354493973bd21dad895b1a0f15139776e",
-                "reference": "90aaedc354493973bd21dad895b1a0f15139776e",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/41ecba8f2cd207be217035f9439a6219917cfd0d",
+                "reference": "41ecba8f2cd207be217035f9439a6219917cfd0d",
                 "shasum": ""
             },
             "require": {
@@ -2768,7 +2768,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-02-08 18:44:54"
+            "time": "2015-02-15 19:53:26"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -2901,12 +2901,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCacheBundle.git",
-                "reference": "4b30f1bf04d34a59b7a5a423d1b844e9cf39354a"
+                "reference": "771f97a9945f7135d7c888b7a2055171e377287c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/4b30f1bf04d34a59b7a5a423d1b844e9cf39354a",
-                "reference": "4b30f1bf04d34a59b7a5a423d1b844e9cf39354a",
+                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/771f97a9945f7135d7c888b7a2055171e377287c",
+                "reference": "771f97a9945f7135d7c888b7a2055171e377287c",
                 "shasum": ""
             },
             "require": {
@@ -2962,7 +2962,7 @@
             "keywords": [
                 "cache block"
             ],
-            "time": "2014-09-25 08:28:05"
+            "time": "2015-02-16 10:14:04"
         },
         {
             "name": "sonata-project/core-bundle",
@@ -2970,12 +2970,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "43b5278961b638bbee363033971a984518cc0a92"
+                "reference": "87a84ae34c5b2d5fb96fb175f4948cd8bc070095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/43b5278961b638bbee363033971a984518cc0a92",
-                "reference": "43b5278961b638bbee363033971a984518cc0a92",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/87a84ae34c5b2d5fb96fb175f4948cd8bc070095",
+                "reference": "87a84ae34c5b2d5fb96fb175f4948cd8bc070095",
                 "shasum": ""
             },
             "require": {
@@ -3027,7 +3027,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2015-02-03 14:24:35"
+            "time": "2015-02-18 10:03:53"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -3135,12 +3135,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "317ae546051d0918e5e85d02a49b99164c7ffd6a"
+                "reference": "f5c41c9dc4ee38e5b8b64f5595be1a66c2f951db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/317ae546051d0918e5e85d02a49b99164c7ffd6a",
-                "reference": "317ae546051d0918e5e85d02a49b99164c7ffd6a",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/f5c41c9dc4ee38e5b8b64f5595be1a66c2f951db",
+                "reference": "f5c41c9dc4ee38e5b8b64f5595be1a66c2f951db",
                 "shasum": ""
             },
             "require": {
@@ -3197,7 +3197,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2015-02-08 18:51:43"
+            "time": "2015-02-15 11:14:27"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -3791,77 +3791,17 @@
             "time": "2015-02-02 18:02:30"
         },
         {
-            "name": "thrace/datagrid-bundle",
-            "version": "dev-revert_search_options",
-            "target-dir": "Thrace/DataGridBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RhaLabs/datagrid-bundle.git",
-                "reference": "e22d2a7903694cc44ac81f5606ba1ab5761d2684"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RhaLabs/datagrid-bundle/zipball/e22d2a7903694cc44ac81f5606ba1ab5761d2684",
-                "reference": "e22d2a7903694cc44ac81f5606ba1ab5761d2684",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.3",
-                "symfony/options-resolver": "2.*",
-                "symfony/twig-bundle": "2.*"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "1.*",
-                "doctrine/orm": "2.*",
-                "phpunit/phpunit": "3.7.*@dev",
-                "symfony/doctrine-bridge": "~2.3",
-                "thrace/component-bundle": "*"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.*-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Thrace\\DataGridBundle": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nikolay Georgiev",
-                    "email": "symfonist@gmail.com"
-                }
-            ],
-            "description": "This bundle provides easy creating of jqGrid datagrids",
-            "keywords": [
-                "Symfony",
-                "datagrid",
-                "jQuery",
-                "jqGrid"
-            ],
-            "support": {
-                "source": "https://github.com/RhaLabs/datagrid-bundle/tree/revert_search_options"
-            },
-            "time": "2015-02-05 17:14:39"
-        },
-        {
             "name": "twbs/bootstrap",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "9e1e73f9dcfdf20305dcb6a83e77e67efe1948c5"
+                "reference": "6e0009e18d6ed2580a7f571e3253b63404948804"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/9e1e73f9dcfdf20305dcb6a83e77e67efe1948c5",
-                "reference": "9e1e73f9dcfdf20305dcb6a83e77e67efe1948c5",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/6e0009e18d6ed2580a7f571e3253b63404948804",
+                "reference": "6e0009e18d6ed2580a7f571e3253b63404948804",
                 "shasum": ""
             },
             "replace": {
@@ -3899,7 +3839,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-02-06 22:53:51"
+            "time": "2015-02-17 19:41:00"
         },
         {
             "name": "twig/extensions",
@@ -4828,7 +4768,6 @@
     "stability-flags": {
         "doctrine/migrations": 20,
         "friendsofsymfony/user-bundle": 20,
-        "thrace/datagrid-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "sonata-project/admin-bundle": 20,
         "sonata-project/cache-bundle": 20,
