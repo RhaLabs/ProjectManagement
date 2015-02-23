@@ -18,6 +18,7 @@ class QuickBaseWeb
     public $loginReferer = '';
     private $dbhost = null;
     private $dbuser = null;
+    protected $timeout = 120;
 // The User-Agent string to send
   public $userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
 
@@ -80,9 +81,9 @@ class QuickBaseWeb
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, 1); // debug headers sent
 
-    $timeout = 5;
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1); //stop if an error occurred
 
@@ -189,9 +190,9 @@ class QuickBaseWeb
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, 1); // debug headers sent
 
-    $timeout = 5;
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1); //stop if an error occurred
 
@@ -235,9 +236,8 @@ class QuickBaseWeb
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
    //curl_setopt($ch, CURLOPT_HEADER, 1); // debug headers sent
 
-   $timeout = 45;
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1); //stop if an error occurred
 
@@ -307,73 +307,56 @@ class QuickBaseWeb
         $doc->loadHTML($page);
         $doc->preserveWhiteSpace = false;
 
-    //setup xpath
-    $xpath = new DOMXpath($doc);
-    //get table by its ID
-    $table = $doc->getElementById($this->tableId);
+        //setup xpath
+        $xpath = new DOMXpath($doc);
+        //get table by its ID
+        $table = $doc->getElementById($this->tableId);
 
-    //find the table row holding the column headers
-    //only nodes having <span class=ColumnHeading>value</span> contain column headers
-    $xquery = ".//span[@class='ColumnHeading']";
-        $headers = $xpath->query($xquery, $table);
-    //$i = $headers->length;
-    //print $i."\n";
-    $headerArray = array();
-        foreach ($headers as $head) {
-            $node = $head->nodeValue;
-            if (!empty($node)) {
-                trim($node);
-         //print $node;
-         array_push($headerArray, $node);
+        //find the table row holding the column headers
+        //only nodes having <span class=ColumnHeading>value</span> contain column headers
+        $xquery = ".//span[@class='ColumnHeading']";
+            $headers = $xpath->query($xquery, $table);
+        //$i = $headers->length;
+        //print $i."\n";
+        $headerArray = array();
+            foreach ($headers as $head) {
+                $node = $head->nodeValue;
+                if (!empty($node)) {
+                    trim($node);
+             //print $node;
+             array_push($headerArray, $node);
+                }
             }
-        }
-    //print "\n";
-    //print implode("\n",$headerArray);
-    //print_r ($headerArray);
-    //print 'headers:'.count($headerArray)."\n";
+        //print "\n";
+        //print implode("\n",$headerArray);
+        //print_r ($headerArray);
+        //print 'headers:'.count($headerArray)."\n";
 
-    $xquery = ".//tr[@canview='true']";
-        $rows = $xpath->query($xquery, $table);
-    //$Rows = array();
-    $allData = array();
+        $xquery = ".//tr[@canview='true']";
+            $rows = $xpath->query($xquery, $table);
+        //$Rows = array();
+        $allData = array();
+        
         foreach ($rows as $row) {
-            /*if ($row->hasChildNodes()) {
-        $nodes = $row->childNodes;
-        $rowdata = array();
-        foreach ($nodes as $node) {
-          $val = $node->nodeValue;
-          if (!empty($val)) {
-            trim($val);
-            array_push($rowdata, $val);
-          }
-        }*/
-        //$aRow = array_combine($headerArray, $rowdata);
-        //print 'rows:'.count($rowdata)."\n";
-        //array_push($allData, $aRow);
-        $aRow = $xpath->query(".//td[not(@class='icr')]", $row);
+            $recordId = $row->getAttribute('id');
+            $recordId = str_replace('rid', '', $recordId);
+            
+            $aRow = $xpath->query(".//td[not(@class='icr')]", $row);
             $rowdata = array();
+            
             foreach ($aRow as $node) {
                 $val = $node->nodeValue;
                 $val = preg_replace('~\x{00a0}~sui', ' ', $val);
                 trim($val);
                 array_push($rowdata, $val);
-          //}
             }
             $data = array_combine($headerArray, $rowdata);
-            array_push($allData, $data);
-        //print 'rows:'.count($rowdata)."\n";
+            $data['record id'] = $recordId;
+            $allData[] = $data;
+            //print 'rows:'.count($rowdata)."\n";
         }
-
-/*
-    foreach ($Rows as $row) {
-      $data = array();
-      for ($i=0,i < Rows.length, $i++) {
-        $data $headerArray[$i], $row[$i]);
-      }
-      array_push($allData, $data);
-    }*/
-
-    return $allData;
+        
+        return $this->transformKeys($allData);
     }
 
     public function ParseCiTable($page)
@@ -457,7 +440,7 @@ class QuickBaseWeb
             $allData[$key] = $value;
         }
 
-        return $allData;
+        return $this->transformKeys($allData);
     }
 
     public function ParseCSV($file)
@@ -542,5 +525,24 @@ class QuickBaseWeb
         $result = ($rows > 0 ? true : false);
 
         return $result;
+    }
+    
+    protected function transformKeys(array $list)
+    {
+        foreach ( $list AS $key => $value) {
+            if (is_array($value)) {
+                $list[$key] = $this->transformKeys($value);
+            } else {
+                $newKey = str_replace(array("\n", '/', ':'), ' ', $key);
+                $newKey = strtolower($newKey);
+                $newKey = str_replace("-", '', $newKey);
+                $newKey = preg_replace('~(\w)\s+(\w)~', '$1_$2', $newKey);
+                
+                $list[$newKey] = $list[$key];
+                unset($list[$key]);
+            }
+        }
+        
+        return $list;
     }
 }
