@@ -1,22 +1,2 @@
 {% extends '::base.html.twig' %}
 
-{% use 'LimeTrailBundle::datagrid.html.twig' with head_bottom as grid_head_bottom %}
-
-{% block head_style %}
-    {{ parent() }}
-    {{ block('stylesheets') }}
-{% endblock head_style %}
-
-{% block head_bottom %}
-{{ parent() }}
-{{ block('grid_head_bottom') }}
-{% endblock %}
-
-{% block content %}
-   <div>
-      <!--<input type="button" id="button" value="Show Hidden Columns" onclick="ShowHidden();" />-->
-   </div>
-   <div class="col-12">{{ thrace_datagrid('project_dates') }}</div>
-   <span id='ruler' class='ui-th-column' style='visibility:hidden'></span>
-    {{ block('sidebar') }}
-{% endblock %}

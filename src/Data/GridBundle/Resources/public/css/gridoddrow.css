@@ -1,6 +1,0 @@
-table.ui-jqgrid-btable tr:nth-child(odd) td{
-    background-color: #ebf1de;
-}
-table.ui-jqgrid-btable tr:hover:nth-child(odd) td{
-    background: url("images/ui-bg_glass_25_ba0d0d_1x400.png") repeat-x scroll 50% 50% #ECF6CE;
-}
