@@ -42,7 +42,7 @@ class RealtyMapModel
         'Grand Open/Ceremony' => 'go',
         'otbPossDays',
         'bldgPermit',
-        'closing',
+        'Internal Closing' => 'closing',
         'preBidMtg',
         'devConstCompl',
         'devConstStart',
@@ -76,7 +76,7 @@ class RealtyMapModel
      */
     public function getBaseFieldName($quickbaseName)
     {
-        if (true === array_key_exists($quickbaseName, $this->taskMap)) {
+        if (array_key_exists($quickbaseName, $this->taskMap)) {
             $taskName = $this->taskMap[$quickbaseName];
             if ( $taskName === '') {
                 return null;

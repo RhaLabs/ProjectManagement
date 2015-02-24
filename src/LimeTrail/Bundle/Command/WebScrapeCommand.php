@@ -39,6 +39,8 @@ class WebScrapeCommand extends ContainerAwareCommand
     protected $quickbase;
     
     protected $fieldMapper;
+    
+    protected $logger;
 
     private function createNewStore($entry)
     {
@@ -98,12 +100,18 @@ class WebScrapeCommand extends ContainerAwareCommand
               }
               
               $field = $this->fieldMapper->getBaseFieldName($fieldName);
-              
-              $dateProjected = $this->createDateFromField($task['start_date_projected']);
-              $dateActual = $this->createDateFromField($task['start_date_actual']);
-
-              $this->setAndCompareDate($field."Prj", $dateProjected, $project, $today, $d, $isNew);
-              $this->setAndCompareDate($field."Act", $dateActual, $project, $today, $d, $isNew);
+              $this->logger->info(sprintf("Quickbase field: %s\n", $fieldName));
+              $this->logger->info(sprintf("Rha base field: %s\n", $field));
+              if (!empty($field)) {
+                  $dateProjected = $this->createDateFromField($task['start_date_projected']);
+                  $dateActual = $this->createDateFromField($task['start_date_actual']);
+                  
+                  $fieldProjected = $field."Prj";
+                  $fieldActual = $field."Act";
+    
+                  $d = $this->setAndCompareDate($fieldProjected, $dateProjected, $project, $today, $d, $isNew);
+                  $d = $this->setAndCompareDate($fieldActual, $dateActual, $project, $today, $d, $isNew);
+              }
           }
 
           $otbdate;
@@ -138,6 +146,14 @@ class WebScrapeCommand extends ContainerAwareCommand
         $yesterday = $this->getContainer()->get('lime_trail_store.provider')->adjustDateForWeekends($yesterday);
 
         $d->set($field, $date);
+        
+        $dateString = function($date) {
+                if(!$date) {
+                    return '';
+                }
+                return $date->format('m-d-Y');
+        };
+        $this->logger->info(sprintf("Set field %s to %s\n", $field, $dateString($date)));
 
           //does comparison of fields
         if ($isNew === false) {
@@ -164,6 +180,8 @@ class WebScrapeCommand extends ContainerAwareCommand
                   $project->setIsChanged('Maybe');
               }
         }
+        
+        return $d;
     }
 
     private function findInResult($array, $name)
@@ -730,9 +748,9 @@ class WebScrapeCommand extends ContainerAwareCommand
          // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
          $result = $this->quickbase->ParseHTML($tableHTML);
          
-         $resource = fopen("tasks-$escapedQuery.txt", 'w');
+         /*$resource = fopen("tasks-$escapedQuery.txt", 'w');
          fwrite($resource, print_r($result, true));
-         fclose($resource);
+         fclose($resource);*/
          
          return $result;   
     }
@@ -801,6 +819,8 @@ class WebScrapeCommand extends ContainerAwareCommand
         $dbuser = $this->getContainer()->getParameter('database_user');
 
         $dbpass = $this->getContainer()->getParameter('database_password');
+        
+        $this->logger = $this->getContainer()->get('logger');
 
     //quickbase web
     $this->quickbase = new QuickBaseWeb($username, null, 'wmt', $dbpass, $dbhost, $dbuser);
@@ -874,6 +894,7 @@ class WebScrapeCommand extends ContainerAwareCommand
 
             try {
                 $this->em->flush();
+                $this->logger->info(sprintf("Flushed %s\n", $entry['store.sequence']));
             } catch (\Symfony\Component\Debug\Exception\ContextErrorException $e) {
                 echo "failed to synchronize ".$entry["site_number"]."\n";
                 echo "  state ".$entry["state"]."\n";
