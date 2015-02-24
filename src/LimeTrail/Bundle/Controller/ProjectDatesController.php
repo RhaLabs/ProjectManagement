@@ -45,7 +45,7 @@ class ProjectDatesController extends Controller
                 $qb->andWhere(
                     $qb->expr()->eq('_projects_dates.runDate', ':date')
                 )
-                ->andWhere('_projects_ProjectStatus.name = :n')
+                //->andWhere('_projects_ProjectStatus.name = :n')
                 ->andWhere(
                   $qb->expr()->orx(
                     $qb->expr()->gte('_projects_dates.goAct', ':d'),
@@ -53,7 +53,7 @@ class ProjectDatesController extends Controller
                   )
                 )
                 ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
-                ->setParameter('n', 'Active')
+                //->setParameter('n', 'Active')
                 ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME);
 
             }
