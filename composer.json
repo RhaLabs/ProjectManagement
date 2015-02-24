@@ -41,6 +41,7 @@
         "knplabs/knp-paginator-bundle": "dev-master",
         "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-menu": "~2.0",
+        
         "craue/formflow-bundle": "dev-master",
         "sonata-project/block-bundle": "2.2.*@dev",
         "sonata-project/datagrid-bundle": "2.2.*@dev",
@@ -85,7 +86,8 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin", 
+        "github-protocols": ["https"]
     },
 
     "extra": {
