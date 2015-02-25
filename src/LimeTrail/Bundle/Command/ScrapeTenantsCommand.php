@@ -126,7 +126,7 @@ class ScrapeTenantsCommand extends ContainerAwareCommand
             }
 
             $tenant->setTenant($entry['tenant_firm'])
-                   ->setType($entry['tenant_space_type_(sic)'])
+                   ->setType($entry['tenant_space_type (sic)'])
                    ->setComment($entry['lease_comments'])
                    ->setDate($this->TryConvertDate($entry['lease_status_last_change_datestamp']));
 

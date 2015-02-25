@@ -120,7 +120,7 @@ class ScrapeChangesCommand extends ContainerAwareCommand
        $provider = $this->getContainer()->get('lime_trail_store.provider');
 
         foreach ($result as $entry) {
-            $change = $this->GetChangeInitiation($entry['ci_#'], $quickbase);
+            $change = $this->GetChangeInitiation($entry['ci #'], $quickbase);
             echo "finding change with number ".$change->getNumber()."\n";
 
             $projectChange = $provider->findProjectChangesByProjectAndChange($project, $change);
