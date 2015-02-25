@@ -4,6 +4,7 @@ namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\BlankColumn;
+use APY\DataGridBundle\Grid\Export\PHPExcel2007Export;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -39,6 +40,9 @@ class StoreInformationController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
+        
+        // Export
+        $grid->addExport(new PHPExcel2007Export('Excel', 'Stores' ));
 
         return $grid->getGridResponse();
     }

@@ -3,6 +3,7 @@
 namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Export\PHPExcel2007Export;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -74,6 +75,9 @@ class ProjectDatesController extends Controller
 
         // Set the selector of the number of items per page
         $grid->setLimits(array(30, 60, 80, 120));
+        
+        // Export
+        $grid->addExport(new PHPExcel2007Export('Excel', 'Project_Dates' ));
 
         // Set the default page
         $grid->setDefaultPage(1);
