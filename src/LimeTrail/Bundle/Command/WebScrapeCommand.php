@@ -72,7 +72,11 @@ class WebScrapeCommand extends ContainerAwareCommand
         }
         
         if (!empty($city)) {
-            $store->addCity($this->getCityFromState($entry["city"], $store->getState()));
+            $realCity = $this->getCityFromState($entry["city"], $store->getState());
+            
+            if ($realCity) {
+                $store->addCity($realCity);
+            }
         }
 
         $this->em->persist($store);
@@ -617,7 +621,12 @@ class WebScrapeCommand extends ContainerAwareCommand
         if (!$qcity) {
             return;
         }
+
         $city = $this->ucname(html_entity_decode(preg_replace('/[^\x2D\x41-\x7A\s]*(\x2C.*|\(.*)/ui', '', $qcity), ENT_NOQUOTES, 'UTF-8'));
+        
+        $stateName = $state->getName();
+        $this->logger->info(sprintf("Trying to find city %s in state of %s\n", $city, $stateName));
+        
         $city = preg_replace('/^(st\x{2E}{0,1}\b)/iu', 'Saint', $city);
         $city = preg_replace('/^(ft.?\x{2E}{0,1}\b)/iu', 'Fort', $city);
     //HACK around messed up Dates city
