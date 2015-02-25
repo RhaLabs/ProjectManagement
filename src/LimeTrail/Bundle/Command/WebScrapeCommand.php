@@ -60,12 +60,20 @@ class WebScrapeCommand extends ContainerAwareCommand
                 ->addStreetIntersection($this->getNameOf("StreetIntersection", $entry["street_address"]))
                 ->addState($this->getState($entry["state"]))
                 ->addZip($this->getZipcode((int) $entry["postal_code"]))
-                ->addCity($this->getCityFromState($entry["city"], $store->getState()))
                 //->addCounty($this->getCountyFromCity($store->getCity()))
                 ->addDivision($this->getNameOf("Division", $entry["project_alignment_bu_division_name"]))
                 ->addRegion($this->getNameOf("Region", $entry["bu"]))
                 ->addProject($project)
                 ;
+                
+        $city = $entry["city"];
+        if (empty($city)) {
+            $city = $entry['site_city'];
+        }
+        
+        if (!empty($city)) {
+            $store->addCity($this->getCityFromState($entry["city"], $store->getState()));
+        }
 
         $this->em->persist($store);
     }
