@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use LimeTrail\Bundle\Entity\Contact;
+use LimeTrail\Bundle\Exporter\CsvExporter;
 use LimeTrail\Bundle\Form\Type\ContactType;
 
 /**
@@ -58,6 +59,9 @@ class ContactController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
+        
+        // Enable csv export
+        $grid->addExport(new CsvExporter('CSV Export', 'export'));
 
         return $grid->getGridResponse();
     }
