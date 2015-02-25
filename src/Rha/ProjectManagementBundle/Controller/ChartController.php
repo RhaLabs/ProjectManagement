@@ -192,7 +192,7 @@ class ChartController extends Controller
                  )
             ORDER BY pwoPrj DESC'
         )
-        ->setParameter(1, 'Active')
+        ->setParameter(1, 'In Progress')
         ->setParameter(2, $date, \Doctrine\DBAL\Types\Type::DATETIME)
         ->setParameter(3, $future, \Doctrine\DBAL\Types\Type::DATETIME)
         ;

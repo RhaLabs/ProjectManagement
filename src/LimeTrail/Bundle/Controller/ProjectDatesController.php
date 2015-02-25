@@ -54,7 +54,7 @@ class ProjectDatesController extends Controller
                   )
                 )
                 ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
-                //->setParameter('n', 'Active')
+                //->setParameter('n', 'In Progress')
                 ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME);
 
             }

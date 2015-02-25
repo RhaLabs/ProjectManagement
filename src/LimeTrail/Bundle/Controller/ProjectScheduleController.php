@@ -43,7 +43,7 @@ class ProjectScheduleController extends Controller
                       )
                     )
                      ->andWhere('_projects_ProjectStatus.name = :n')
-                     ->setParameter('n', 'Active')
+                     ->setParameter('n', 'In Progress')
                      ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
                      ;
             }

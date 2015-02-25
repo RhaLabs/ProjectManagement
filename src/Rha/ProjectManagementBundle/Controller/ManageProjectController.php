@@ -43,7 +43,7 @@ class ManageProjectController extends Controller
                       )
                     )
                      ->andWhere('_projects_ProjectStatus.name = :n')
-                     ->setParameter('n', 'Active')
+                     ->setParameter('n', 'In Progress')
                      ->setParameter('role', 'RHA Project Manager')
                      ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
                      ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME)
