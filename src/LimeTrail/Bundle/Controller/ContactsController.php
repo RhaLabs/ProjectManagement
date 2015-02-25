@@ -4,6 +4,7 @@ namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Export\PHPExcel2007Export;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -113,6 +114,9 @@ class ContactsController extends Controller
         );
 
         $grid->addRowAction($deleteAction);
+        
+        // Export
+        $grid->addExport(new PHPExcel2007Export('Excel', 'Store_Contacts' ));
 
         $gridResponse = $grid->getGridResponse();
 

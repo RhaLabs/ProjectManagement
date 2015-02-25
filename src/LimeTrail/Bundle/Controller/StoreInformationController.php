@@ -4,6 +4,7 @@ namespace LimeTrail\Bundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\BlankColumn;
+use APY\DataGridBundle\Grid\Export\PHPExcel2007Export;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -39,6 +40,9 @@ class StoreInformationController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
+        
+        // Export
+        $grid->addExport(new PHPExcel2007Export('Excel', 'Stores' ));
 
         return $grid->getGridResponse();
     }
@@ -203,7 +207,7 @@ class StoreInformationController extends Controller
                   )
                   ->setParameter('dpm', 'WM Design Project Manager')
                   ->setParameter('saam', 'WM SAAM')
-                  ->setParameter('n', 'Active')
+                  ->setParameter('n', 'In Progress')
                   ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
                   ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME)
                   ;
@@ -254,7 +258,7 @@ class StoreInformationController extends Controller
                   )
                   ->setParameter('dpm', 'WM Design Project Manager')
                   ->setParameter('saam', 'WM SAAM')
-                  ->setParameter('n', 'Active')
+                  ->setParameter('n', 'In Progress')
                   ->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME)
                   ->setParameter('d', $past->sub(new \DateInterval('P31D')), \Doctrine\DBAL\Types\Type::DATETIME)
                   ;
