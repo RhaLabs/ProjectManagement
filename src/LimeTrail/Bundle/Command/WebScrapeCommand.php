@@ -112,8 +112,8 @@ class WebScrapeCommand extends ContainerAwareCommand
               }
               
               $field = $this->fieldMapper->getBaseFieldName($fieldName);
-              $this->logger->info(sprintf("Quickbase field: %s\n", $fieldName));
-              $this->logger->info(sprintf("Rha base field: %s\n", $field));
+              $this->logger->debug(sprintf("Quickbase field: %s\n", $fieldName));
+              $this->logger->debug(sprintf("Rha base field: %s\n", $field));
               if (!empty($field)) {
                   $dateProjected = $this->createDateFromField($task['start_date_projected']);
                   $dateActual = $this->createDateFromField($task['start_date_actual']);
@@ -165,7 +165,7 @@ class WebScrapeCommand extends ContainerAwareCommand
                 }
                 return $date->format('m-d-Y');
         };
-        $this->logger->info(sprintf("Set field %s to %s\n", $field, $dateString($date)));
+        $this->logger->debug(sprintf("Set field %s to %s\n", $field, $dateString($date)));
 
           //does comparison of fields
         if ($isNew === false) {
@@ -761,6 +761,7 @@ class WebScrapeCommand extends ContainerAwareCommand
          $escapedQuery = http_build_query($queryString);
 
          $url = "https://wmt.quickbase.com/db/bizi7bmnf?".$escapedQuery;
+         $this->logger->info(sprintf("GET %s\n", $url));
          $tableHTML = $this->quickbase->GetTable($url);
          // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
          $result = $this->quickbase->ParseHTML($tableHTML);
@@ -797,6 +798,7 @@ class WebScrapeCommand extends ContainerAwareCommand
          $escapedQuery = http_build_query($queryString);
 
          $url = "https://wmt.quickbase.com/db/bizi7bzfd?".$escapedQuery;
+         $this->logger->info(sprintf("GET %s\n", $url));
          $tableHTML = $this->quickbase->GetTable($url);
          // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
          $result = $this->quickbase->ParseHTML($tableHTML);
@@ -860,6 +862,7 @@ class WebScrapeCommand extends ContainerAwareCommand
     $escapedQuery = http_build_query($queryString);
 
     $url = "https://wmt.quickbase.com/db/bizi7bmne?".$escapedQuery;
+    $this->logger->info(sprintf("GET %s\n", $url));
     $tableHTML = $this->quickbase->GetTable($url);
     // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
     $result = $this->quickbase->ParseHTML($tableHTML);
@@ -900,7 +903,8 @@ class WebScrapeCommand extends ContainerAwareCommand
             $this->em = $this->getContainer()->get('doctrine')->getManager('limetrail');
             $qb = $this->em->getRepository('LimeTrailBundle:StoreInformation');
             $query = $qb->findByNumberAndSequence($entry["site_number"], $entry["sequence_number"]);
-
+            $this->logger->info(sprintf("Processing record for %s\n", $entry["store.sequence"]));
+            
             if ($query) {
                 $store = $query;
                 $projects = $store->getProjects();
