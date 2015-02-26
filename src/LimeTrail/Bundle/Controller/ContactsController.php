@@ -14,6 +14,7 @@ use LimeTrail\Bundle\Entity\ProjectContacts;
 use LimeTrail\Bundle\Entity\Contact;
 use LimeTrail\Bundle\Entity\JobRole;
 use LimeTrail\Bundle\Entity\Company;
+use LimeTrail\Bundle\Exporter\CsvExporter;
 use LimeTrail\Bundle\Model\ProjectContactModel;
 use LimeTrail\Bundle\Form\Data\ProjectContactData;
 use LimeTrail\Bundle\Form\Data\NewProjectContactData;
@@ -115,6 +116,9 @@ class ContactsController extends Controller
 
         $grid->addRowAction($deleteAction);
         
+        // Enable csv export
+        $grid->addExport(new CsvExporter('CSV Export', 'export'));
+
         // Export
         $grid->addExport(new PHPExcel2007Export('Excel', 'Store_Contacts' ));
 

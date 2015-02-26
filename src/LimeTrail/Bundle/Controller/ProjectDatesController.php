@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use LimeTrail\Bundle\Entity\ProjectInformation;
 use LimeTrail\Bundle\Entity\StoreInformation;
 use LimeTrail\Bundle\Entity\DateOverride;
+use LimeTrail\Bundle\Exporter\CsvExporter;
 use LimeTrail\Bundle\Form\Type\DateType;
 
 /**
@@ -81,6 +82,9 @@ class ProjectDatesController extends Controller
 
         // Set the default page
         $grid->setDefaultPage(1);
+        
+        // Enable csv export
+        $grid->addExport(new CsvExporter('CSV Export', 'export'));
 
         return $grid->getGridResponse();
     }

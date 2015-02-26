@@ -60,12 +60,24 @@ class WebScrapeCommand extends ContainerAwareCommand
                 ->addStreetIntersection($this->getNameOf("StreetIntersection", $entry["street_address"]))
                 ->addState($this->getState($entry["state"]))
                 ->addZip($this->getZipcode((int) $entry["postal_code"]))
-                ->addCity($this->getCityFromState($entry["city"], $store->getState()))
                 //->addCounty($this->getCountyFromCity($store->getCity()))
                 ->addDivision($this->getNameOf("Division", $entry["project_alignment_bu_division_name"]))
                 ->addRegion($this->getNameOf("Region", $entry["bu"]))
                 ->addProject($project)
                 ;
+                
+        $city = $entry["city"];
+        if (empty($city)) {
+            $city = $entry['site_city'];
+        }
+        
+        if (!empty($city)) {
+            $realCity = $this->getCityFromState($entry["city"], $store->getState());
+            
+            if ($realCity) {
+                $store->addCity($realCity);
+            }
+        }
 
         $this->em->persist($store);
     }
@@ -100,8 +112,8 @@ class WebScrapeCommand extends ContainerAwareCommand
               }
               
               $field = $this->fieldMapper->getBaseFieldName($fieldName);
-              $this->logger->info(sprintf("Quickbase field: %s\n", $fieldName));
-              $this->logger->info(sprintf("Rha base field: %s\n", $field));
+              $this->logger->debug(sprintf("Quickbase field: %s\n", $fieldName));
+              $this->logger->debug(sprintf("Rha base field: %s\n", $field));
               if (!empty($field)) {
                   $dateProjected = $this->createDateFromField($task['start_date_projected']);
                   $dateActual = $this->createDateFromField($task['start_date_actual']);
@@ -153,7 +165,7 @@ class WebScrapeCommand extends ContainerAwareCommand
                 }
                 return $date->format('m-d-Y');
         };
-        $this->logger->info(sprintf("Set field %s to %s\n", $field, $dateString($date)));
+        $this->logger->debug(sprintf("Set field %s to %s\n", $field, $dateString($date)));
 
           //does comparison of fields
         if ($isNew === false) {
@@ -609,7 +621,12 @@ class WebScrapeCommand extends ContainerAwareCommand
         if (!$qcity) {
             return;
         }
+
         $city = $this->ucname(html_entity_decode(preg_replace('/[^\x2D\x41-\x7A\s]*(\x2C.*|\(.*)/ui', '', $qcity), ENT_NOQUOTES, 'UTF-8'));
+        
+        $stateName = $state->getName();
+        $this->logger->notice(sprintf("Trying to find city %s in state of %s\n", $city, $stateName));
+        
         $city = preg_replace('/^(st\x{2E}{0,1}\b)/iu', 'Saint', $city);
         $city = preg_replace('/^(ft.?\x{2E}{0,1}\b)/iu', 'Fort', $city);
     //HACK around messed up Dates city
@@ -744,6 +761,7 @@ class WebScrapeCommand extends ContainerAwareCommand
          $escapedQuery = http_build_query($queryString);
 
          $url = "https://wmt.quickbase.com/db/bizi7bmnf?".$escapedQuery;
+         $this->logger->info(sprintf("GET %s\n", $url));
          $tableHTML = $this->quickbase->GetTable($url);
          // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
          $result = $this->quickbase->ParseHTML($tableHTML);
@@ -780,6 +798,7 @@ class WebScrapeCommand extends ContainerAwareCommand
          $escapedQuery = http_build_query($queryString);
 
          $url = "https://wmt.quickbase.com/db/bizi7bzfd?".$escapedQuery;
+         $this->logger->info(sprintf("GET %s\n", $url));
          $tableHTML = $this->quickbase->GetTable($url);
          // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
          $result = $this->quickbase->ParseHTML($tableHTML);
@@ -843,6 +862,7 @@ class WebScrapeCommand extends ContainerAwareCommand
     $escapedQuery = http_build_query($queryString);
 
     $url = "https://wmt.quickbase.com/db/bizi7bmne?".$escapedQuery;
+    $this->logger->info(sprintf("GET %s\n", $url));
     $tableHTML = $this->quickbase->GetTable($url);
     // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
     $result = $this->quickbase->ParseHTML($tableHTML);
@@ -883,7 +903,8 @@ class WebScrapeCommand extends ContainerAwareCommand
             $this->em = $this->getContainer()->get('doctrine')->getManager('limetrail');
             $qb = $this->em->getRepository('LimeTrailBundle:StoreInformation');
             $query = $qb->findByNumberAndSequence($entry["site_number"], $entry["sequence_number"]);
-
+            $this->logger->info(sprintf("Processing record for %s\n", $entry["store.sequence"]));
+            
             if ($query) {
                 $store = $query;
                 $projects = $store->getProjects();
