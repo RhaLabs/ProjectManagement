@@ -60,12 +60,24 @@ class WebScrapeCommand extends ContainerAwareCommand
                 ->addStreetIntersection($this->getNameOf("StreetIntersection", $entry["street_address"]))
                 ->addState($this->getState($entry["state"]))
                 ->addZip($this->getZipcode((int) $entry["postal_code"]))
-                ->addCity($this->getCityFromState($entry["city"], $store->getState()))
                 //->addCounty($this->getCountyFromCity($store->getCity()))
                 ->addDivision($this->getNameOf("Division", $entry["project_alignment_bu_division_name"]))
                 ->addRegion($this->getNameOf("Region", $entry["bu"]))
                 ->addProject($project)
                 ;
+                
+        $city = $entry["city"];
+        if (empty($city)) {
+            $city = $entry['site_city'];
+        }
+        
+        if (!empty($city)) {
+            $realCity = $this->getCityFromState($entry["city"], $store->getState());
+            
+            if ($realCity) {
+                $store->addCity($realCity);
+            }
+        }
 
         $this->em->persist($store);
     }
@@ -609,7 +621,12 @@ class WebScrapeCommand extends ContainerAwareCommand
         if (!$qcity) {
             return;
         }
+
         $city = $this->ucname(html_entity_decode(preg_replace('/[^\x2D\x41-\x7A\s]*(\x2C.*|\(.*)/ui', '', $qcity), ENT_NOQUOTES, 'UTF-8'));
+        
+        $stateName = $state->getName();
+        $this->logger->info(sprintf("Trying to find city %s in state of %s\n", $city, $stateName));
+        
         $city = preg_replace('/^(st\x{2E}{0,1}\b)/iu', 'Saint', $city);
         $city = preg_replace('/^(ft.?\x{2E}{0,1}\b)/iu', 'Fort', $city);
     //HACK around messed up Dates city

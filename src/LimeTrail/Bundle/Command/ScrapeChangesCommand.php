@@ -120,7 +120,7 @@ class ScrapeChangesCommand extends ContainerAwareCommand
        $provider = $this->getContainer()->get('lime_trail_store.provider');
 
         foreach ($result as $entry) {
-            $change = $this->GetChangeInitiation($entry['CI #'], $quickbase);
+            $change = $this->GetChangeInitiation($entry['ci #'], $quickbase);
             echo "finding change with number ".$change->getNumber()."\n";
 
             $projectChange = $provider->findProjectChangesByProjectAndChange($project, $change);
@@ -149,11 +149,10 @@ class ScrapeChangesCommand extends ContainerAwareCommand
 
     private function UpdateAndPersistProjectChange($data, $projectChange)
     {
-        $decline = $data['Accept / Decline'];
-        $implementDate = $data['Implementation
-Act'];
-        $drawingChange = $data['Change Type'];
-        $drawingChangeNumber = $data['Revision/ Addendum/ CCD#'];
+        $decline = $data['accept_decline'];
+        $implementDate = $data['implementation_act'];
+        $drawingChange = $data['change_type'];
+        $drawingChangeNumber = $data['revision_addendum_ccd#'];
 
         if (stripos($decline, 'accept') !== false) {
             $projectChange->setAccepted(true)
@@ -202,11 +201,11 @@ Act'];
               fwrite($resource, print_r($ciInfo, true));
               fclose($resource);*/
 
-              $ci->setReleaseDate($this->TryConvertDate($ciInfo['Release Date']))
-                 ->setComment($ciInfo['Comments'])
-                 ->setTitle($ciInfo['CI Title']);
+              $ci->setReleaseDate($this->TryConvertDate($ciInfo['release_date']))
+                 ->setComment($ciInfo['comments'])
+                 ->setTitle($ciInfo['ci_title']);
 
-            $scope = $this->GetScopes($ciInfo['Scope of Implementation']);
+            $scope = $this->GetScopes($ciInfo['scope_of_implementation']);
 
             $ci->setScopes($scope);
 

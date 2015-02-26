@@ -117,7 +117,7 @@ class ScrapeTenantsCommand extends ContainerAwareCommand
         foreach ($result as $entry) {
             $tenants = $project->getTenants();
 
-            $tenant = $this->findTenant($tenants, $entry['Tenant Firm']);
+            $tenant = $this->findTenant($tenants, $entry['tenant_firm']);
 
             if (!$tenant) {
                 $tenant = new \LimeTrail\Bundle\Entity\Tenant();
@@ -125,11 +125,10 @@ class ScrapeTenantsCommand extends ContainerAwareCommand
                 $project->setTenant($tenant);
             }
 
-            $tenant->setTenant($entry['Tenant Firm'])
-                   ->setType($entry['Tenant / Space Type (SIC)'])
-                   ->setComment($entry['Lease Comments'])
-                   ->setDate($this->TryConvertDate($entry['Lease Status Last
-Change Datestamp']));
+            $tenant->setTenant($entry['tenant_firm'])
+                   ->setType($entry['tenant_space_type (sic)'])
+                   ->setComment($entry['lease_comments'])
+                   ->setDate($this->TryConvertDate($entry['lease_status_last_change_datestamp']));
 
             $this->em->persist($tenant);
         }
