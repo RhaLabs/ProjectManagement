@@ -853,22 +853,24 @@ class WebScrapeCommand extends ContainerAwareCommand
     //second pass - log in
     $this->quickbase->Login();//'qb-'.urlencode($url).'.html'
     
-    $queryString = array(
-             'a' => 'q',
-             'qid' => '1000110',
-             'qrppg' => '10000',
-         );
+    do {
+        $queryString = array(
+                 'a' => 'q',
+                 'qid' => '1000110',
+                 'qrppg' => '10000',
+             );
 
-    $escapedQuery = http_build_query($queryString);
+        $escapedQuery = http_build_query($queryString);
 
-    $url = "https://wmt.quickbase.com/db/bizi7bmne?".$escapedQuery;
-    $this->logger->info(sprintf("GET %s\n", $url));
-    $tableHTML = $this->quickbase->GetTable($url);
-    // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
-    $result = $this->quickbase->ParseHTML($tableHTML);
-    
-    $this->fieldMapper = new RealtyMapModel();    
-    $this->ProcessData($result);
+        $url = "https://wmt.quickbase.com/db/bizi7bmne?".$escapedQuery;
+        $this->logger->info(sprintf("GET %s\n", $url));
+        $tableHTML = $this->quickbase->GetTable($url);
+        // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
+        $result = $this->quickbase->ParseHTML($tableHTML);
+        
+        $this->fieldMapper = new RealtyMapModel();    
+        $finished = $this->ProcessData($result);
+    } while ( $finished === false );
 
     $emailerCommand = $this->getApplication()->find('limetrail:emailer');
 
@@ -926,8 +928,12 @@ class WebScrapeCommand extends ContainerAwareCommand
 
             ++$storeCount;
         }
+        
+        if ($storeCount === 0) {
+            return false;
+        }
 
-        print sprintf("Entered %d stores into the database\n", $storeCount);
+        $this->logger->notice( sprintf("Entered %d stores into the database\n", $storeCount));
 
         //dedup the missingPeople
         $people = array();
@@ -938,12 +944,14 @@ class WebScrapeCommand extends ContainerAwareCommand
 
         $people = array_keys($people);
 
-        print "The following names were found in the Walmart Dates database but not in the RHA contact database:\n";
+        $this->logger->notice( "The following names were found in the Walmart Dates database but not in the RHA contact database:\n");
 
         reset($people);
 
         while (list($key, $val) = each($people)) {
-            print "  $val \n";
+            $this->logger->notice( "  $val \n");
         }
+        
+        return true;
     }
 }
