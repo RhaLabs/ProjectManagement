@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
-{% block stylesheets %}
+{% block head_style %}
+    {{ parent () }}
   {% stylesheets
        'bundles/rharevit/css/reviticons.css'
        'bundles/rharevit/css/xltable.css'
@@ -11,7 +12,7 @@
 
 {% block title %}RHA Revit Guide{% endblock %}
 {% block heading %}Painted Area Calculation Guide{% endblock %}
-{% block body -%}
+{% block content_content -%}
     <div class="border header clear-fix">
 
       <div id="accordion">
@@ -31,259 +32,206 @@
             </div>
             <link rel=File-List href="CMU_Block_and_paint_areas_files/filelist.xml"/>
 
-{{ form_start(excel_form) }}
-<div id="CMU_Block_and_paint_areas_10666" align=center x:publishsource="Excel">
-
-<table id="paintcalc" border=0 cellpadding=0 cellspacing=0 width=699 style='border-collapse:
- collapse;table-layout:fixed;width:527pt'>
- <col width=79 style='mso-width-source:userset;mso-width-alt:2889;width:59pt'>
- <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
- <col width=94 style='mso-width-source:userset;mso-width-alt:3437;width:71pt'>
- <col width=30 style='mso-width-source:userset;mso-width-alt:1097;width:23pt'>
- <col width=69 style='mso-width-source:userset;mso-width-alt:2523;width:52pt'>
- <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
- <col width=69 style='mso-width-source:userset;mso-width-alt:2523;width:52pt'>
- <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
- <col width=78 style='mso-width-source:userset;mso-width-alt:2852;width:59pt'>
- <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
- <col width=68 style='mso-width-source:userset;mso-width-alt:2486;width:51pt'>
- <col width=64 span=2 style='width:48pt'>
- <tr height=51 style='height:38.25pt'>
-  <td height=51 class=xl6410666 width=79 style='height:38.25pt;width:59pt'>SW
-  PART #</td>
-  <td class=xl7910666 width=21 style='width:16pt'>&nbsp;</td>
-  <td class=xl6510666 width=94 style='width:71pt'>DESCRIPTION</td>
-  <td class=xl7810666 width=30 style='width:23pt'>&nbsp;</td>
-  <td class=xl6610666 width=69 style='width:52pt'>SURFACE<br>
-    TYPE</td>
-  <td class=xl7710666 width=21 style='width:16pt'>&nbsp;</td>
-  <td class=xl6610666 width=69 style='width:52pt'>SURFACE<br>
-    <span style='mso-spacerun:yes'></span>AREA<br>
-    <font class="font510666">(Sq. Ft.)</font></td>
-  <td class=xl7710666 width=21 style='width:16pt'>&nbsp;</td>
-  <td class=xl6610666 width=78 style='width:59pt'>WAL-MART<br>
-    PROVISION FACTOR</td>
-  <td class=xl7710666 width=21 style='width:16pt'>&nbsp;</td>
-  <td colspan=2 class=xl6610666 width=132 style='width:99pt'>&nbsp;</td>
-  <td colspan=2 class=xl6610666 width=132 style='width:99pt'>TOTAL GALLONS
-  FURNISHED BY WAL-MART</td>
- </tr>
- <tr height=17 style='height:12.75pt'>
-  <td height=17 class=xl7210666 style='height:12.75pt'>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7310666>&nbsp;</td>
-  <td class=xl6910666>&nbsp;</td>
-  <td class=xl7410666 width=69 style='width:52pt'>&nbsp;</td>
-  <td class=xl7010666 width=21 style='width:16pt'>&nbsp;</td>
-  <td class=xl7410666 width=69 style='width:52pt'>&nbsp;</td>
-  <td class=xl7010666 width=21 style='width:16pt'>&nbsp;</td>
-  <td class=xl7410666 width=78 style='width:59pt'>&nbsp;</td>
-  <td class=xl7010666 width=21 style='width:16pt'>&nbsp;</td>
-  <td class=xl7410666 width=68 style='width:51pt'>&nbsp;</td>
-  <td class=xl7410666 width=64 style='width:48pt'>&nbsp;</td>
-  <td colspan=2 class=xl9010666 width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <tr height=49 style='height:36.75pt'>
-  <td height=49 class=xl6710666 style='height:36.75pt'>A5-400</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6810666 width=94 style='width:71pt'>Paint<br>Elastomeric</td>
-  <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
-  <td class=xl6810666 width=69 style='width:52pt'>Smooth Face<br>
-    <font class="font610666">(Finish)</font></td>
-  <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
-  <td>{{ form_row(excel_form.smooth, {'attr': {'height':49, 'class':'xl8210666', 'style':'margin-left:2px;height:36.75pt; width:45pt', 'size':'7px'} }) }}</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6310666>62</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td id="smoothpaint" colspan=2 class=xl9510666 style='border-left:none'>832</td>
-  <td colspan=2 class=xl9110666 width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <tr height=34 style='mso-height-source:userset;height:25.5pt'>
-  <td height=34 class=xl7210666 style='height:25.5pt'>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666 style='border-top:none'>&nbsp;</td>
-  <td class=xl7510666 style='border-top:none'>&nbsp;</td>
-  <td id="painttotal" colspan=2  class=xl9210666 style='border-top:none' width=132 style='border-top:none;width:99pt' align="center">845</td>
- </tr>
- <tr height=34 style='height:25.5pt'>
-  <td height=34 class=xl6710666 style='height:25.5pt'>A5-400</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6810666 width=94 style='width:71pt'>Paint<br>
-    Elastomeric</td>
-  <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
-  <td class=xl6810666 width=69 style='width:52pt'>Split Face<br>
-    <font class="font610666">(Finish)</font></td>
-  <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
-  <td>{{ form_row(excel_form.split, {'attr': {'height':34, 'class':'xl8210666', 'style':'margin-left:2px;height:25.5pt; width:45pt', 'size':'7px'} }) }}</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6310666>50</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td id="splitpaint" colspan=2 class=xl9510666 style='border-left:none'>106</td>
-  <td colspan=2 class=xl8810666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <tr height=34 style='mso-height-source:userset;height:25.5pt'>
-  <td height=34 class=xl7210666 style='height:25.5pt'>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666 style='border-top:none'>&nbsp;</td>
-  <td class=xl7510666 style='border-top:none'>&nbsp;</td>
-  <td colspan=2 class=xl9310666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <tr height=49 style='height:36.75pt'>
-  <td height=49 class=xl6710666 style='height:36.75pt'>B42W46</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6810666 width=94 style='width:71pt'>Heavy Duty Blockfiller</td>
-  <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
-  <td class=xl6810666 width=69 style='width:52pt'>Smooth Face<br>
-    <font class="font610666">(Primer)</font></td>
-  <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
-  <td id="smooth" height=49 class=xl8210666 style='height:36.75pt'>51,581</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6310666>90</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td id="smoothfiller" colspan=2 class=xl9510666 style='border-left:none'>573</td>
-  <td colspan=2 class=xl9110666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <tr height=34 style='mso-height-source:userset;height:25.5pt'>
-  <td height=34 class=xl7210666 style='height:25.5pt'>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666>&nbsp;</td>
-  <td class=xl7110666>&nbsp;</td>
-  <td class=xl7510666 style='border-top:none'>&nbsp;</td>
-  <td class=xl8910666 style='border-top:none'>&nbsp;</td>
-  <td id="fillertotal" colspan=2 class=xl8510666 style='border-top:none' width=132 style='border-top:none;width:99pt' align="center">612</td>
- </tr>
- <tr height=34 style='height:25.5pt'>
-  <td height=34 class=xl6710666 style='height:25.5pt'>B42W46</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6810666 width=94 style='width:71pt'>Heavy Duty Blockfiller</td>
-  <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
-  <td class=xl6810666 width=69 style='width:52pt'>Split Face<br>
-    <font class="font610666">(Primer)</font></td>
-  <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
-  <td id="split" height=34 class=xl8210666 style='height:25.5pt'>5,323</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td class=xl6310666>50</td>
-  <td class=xl8010666>&nbsp;</td>
-  <td id="splitfiller" colspan=2 class=xl9510666 style='border-left:none'>106</td>
-  <td colspan=2 class=xl8810666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <tr height=18 style='height:13.5pt'>
-  <td height=18 class=xl8410666 style='height:13.5pt'>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl7610666>&nbsp;</td>
-  <td class=xl8310666>&nbsp;</td>
-  <td class=xl8710666 style='border-top:none'>&nbsp;</td>
-  <td colspan=2 class=xl8610666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
- </tr>
- <![if supportMisalignedColumns]>
- <tr height=0 style='display:none'>
-  <td width=79 style='width:59pt'></td>
-  <td width=21 style='width:16pt'></td>
-  <td width=94 style='width:71pt'></td>
-  <td width=30 style='width:23pt'></td>
-  <td width=69 style='width:52pt'></td>
-  <td width=21 style='width:16pt'></td>
-  <td width=69 style='width:52pt'></td>
-  <td width=21 style='width:16pt'></td>
-  <td width=78 style='width:59pt'></td>
-  <td width=21 style='width:16pt'></td>
-  <td width=68 style='width:51pt'></td>
-  <td width=64 style='width:48pt'></td>
-  <td width=64 style='width:48pt'></td>
- </tr>
- <![endif]>
-</table>
-
-</div>
-
-
-<script>
-var table = $('table#paintcalc');
-$('#form_smooth', table).change(function()
-{
- var smooth = $( '#form_smooth', table ).val();
- $( table ).find("td#smooth").html(smooth);
- $( table ).find("#smoothpaint").html(function()
-  {
-    return Math.round(parseInt(smooth)/62);
-  });
- $( table ).find("#smoothfiller").html(function()
-  {
-    return Math.round(parseInt(smooth)/90);
-  });
- $( table ).find("#painttotal").html(function()
-  {
-    var smoothpaint = $( table ).find("#smoothpaint").html();
-    var splitpaint = $( table ).find("#splitpaint").html();
-    return  (parseInt(smoothpaint) + parseInt(splitpaint))*0.9;
-  });
- $( table ).find("#fillertotal").html(function()
-  {
-    var smoothfiller = $( table ).find("#smoothfiller").html();
-    var splitfiller = $( table ).find("#splitfiller").html();
-    return  (parseInt(smoothfiller) + parseInt(splitfiller))*0.9;
-  });
-});
-
-$( '#form_split', table ).change(function()
-{
- var split = $( '#form_split', table ).val();
- $( table ).find("td#split").html(split);
- $( table ).find("#splitpaint").html(function()
-  {
-    return Math.round(parseInt(split)/50);
-  });
- $( table ).find("#splitfiller").html(function()
-  {
-    return Math.round(parseInt(split)/50);
-  });
- $( table ).find("#painttotal").html(function()
-  {
-    var smoothpaint = $( table ).find("#smoothpaint").html();
-    var splitpaint = $( table ).find("#splitpaint").html();
-    return  (parseInt(smoothpaint) + parseInt(splitpaint))*0.9;
-  });
- $( table ).find("#fillertotal").html(function()
-  {
-    var smoothfiller = $( table ).find("#smoothfiller").html();
-    var splitfiller = $( table ).find("#splitfiller").html();
-    return  (parseInt(smoothfiller) + parseInt(splitfiller))*0.9;
-  });
-});
-</script>
-
-            <p>If you would rather, you can download the excel sheet {{ form_row(excel_form.Download) }}.</p>
-          {{ form_rest(excel_form) }}
-{{ form_end(excel_form) }}
+            {{ form_start(excel_form) }}
+            <div id="CMU_Block_and_paint_areas_10666" align=center x:publishsource="Excel">
+            
+            <table id="paintcalc" border=0 cellpadding=0 cellspacing=0 width=699 style='border-collapse:
+             collapse;table-layout:fixed;width:527pt'>
+             <col width=79 style='mso-width-source:userset;mso-width-alt:2889;width:59pt'>
+             <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
+             <col width=94 style='mso-width-source:userset;mso-width-alt:3437;width:71pt'>
+             <col width=30 style='mso-width-source:userset;mso-width-alt:1097;width:23pt'>
+             <col width=69 style='mso-width-source:userset;mso-width-alt:2523;width:52pt'>
+             <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
+             <col width=69 style='mso-width-source:userset;mso-width-alt:2523;width:52pt'>
+             <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
+             <col width=78 style='mso-width-source:userset;mso-width-alt:2852;width:59pt'>
+             <col width=21 style='mso-width-source:userset;mso-width-alt:768;width:16pt'>
+             <col width=68 style='mso-width-source:userset;mso-width-alt:2486;width:51pt'>
+             <col width=64 span=2 style='width:48pt'>
+             <tr height=51 style='height:38.25pt'>
+              <td height=51 class=xl6410666 width=79 style='height:38.25pt;width:59pt'>SW
+              PART #</td>
+              <td class=xl7910666 width=21 style='width:16pt'>&nbsp;</td>
+              <td class=xl6510666 width=94 style='width:71pt'>DESCRIPTION</td>
+              <td class=xl7810666 width=30 style='width:23pt'>&nbsp;</td>
+              <td class=xl6610666 width=69 style='width:52pt'>SURFACE<br>
+                TYPE</td>
+              <td class=xl7710666 width=21 style='width:16pt'>&nbsp;</td>
+              <td class=xl6610666 width=69 style='width:52pt'>SURFACE<br>
+                <span style='mso-spacerun:yes'></span>AREA<br>
+                <font class="font510666">(Sq. Ft.)</font></td>
+              <td class=xl7710666 width=21 style='width:16pt'>&nbsp;</td>
+              <td class=xl6610666 width=78 style='width:59pt'>WAL-MART<br>
+                PROVISION FACTOR</td>
+              <td class=xl7710666 width=21 style='width:16pt'>&nbsp;</td>
+              <td colspan=2 class=xl6610666 width=132 style='width:99pt'>&nbsp;</td>
+              <td colspan=2 class=xl6610666 width=132 style='width:99pt'>TOTAL GALLONS
+              FURNISHED BY WAL-MART</td>
+             </tr>
+             <tr height=17 style='height:12.75pt'>
+              <td height=17 class=xl7210666 style='height:12.75pt'>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7310666>&nbsp;</td>
+              <td class=xl6910666>&nbsp;</td>
+              <td class=xl7410666 width=69 style='width:52pt'>&nbsp;</td>
+              <td class=xl7010666 width=21 style='width:16pt'>&nbsp;</td>
+              <td class=xl7410666 width=69 style='width:52pt'>&nbsp;</td>
+              <td class=xl7010666 width=21 style='width:16pt'>&nbsp;</td>
+              <td class=xl7410666 width=78 style='width:59pt'>&nbsp;</td>
+              <td class=xl7010666 width=21 style='width:16pt'>&nbsp;</td>
+              <td class=xl7410666 width=68 style='width:51pt'>&nbsp;</td>
+              <td class=xl7410666 width=64 style='width:48pt'>&nbsp;</td>
+              <td colspan=2 class=xl9010666 width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <tr height=49 style='height:36.75pt'>
+              <td height=49 class=xl6710666 style='height:36.75pt'>A5-400</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6810666 width=94 style='width:71pt'>Paint<br>Elastomeric</td>
+              <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
+              <td class=xl6810666 width=69 style='width:52pt'>Smooth Face<br>
+                <font class="font610666">(Finish)</font></td>
+              <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
+              <td>{{ form_row(excel_form.smooth, {'attr': {'height':49, 'class':'xl8210666', 'style':'margin-left:2px;height:36.75pt; width:45pt', 'size':'7px'} }) }}</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6310666>62</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td id="smoothpaint" colspan=2 class=xl9510666 style='border-left:none'>832</td>
+              <td colspan=2 class=xl9110666 width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <tr height=34 style='mso-height-source:userset;height:25.5pt'>
+              <td height=34 class=xl7210666 style='height:25.5pt'>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666 style='border-top:none'>&nbsp;</td>
+              <td class=xl7510666 style='border-top:none'>&nbsp;</td>
+              <td id="painttotal" colspan=2  class=xl9210666 style='border-top:none' width=132 style='border-top:none;width:99pt' align="center">845</td>
+             </tr>
+             <tr height=34 style='height:25.5pt'>
+              <td height=34 class=xl6710666 style='height:25.5pt'>A5-400</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6810666 width=94 style='width:71pt'>Paint<br>
+                Elastomeric</td>
+              <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
+              <td class=xl6810666 width=69 style='width:52pt'>Split Face<br>
+                <font class="font610666">(Finish)</font></td>
+              <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
+              <td>{{ form_row(excel_form.split, {'attr': {'height':34, 'class':'xl8210666', 'style':'margin-left:2px;height:25.5pt; width:45pt', 'size':'7px'} }) }}</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6310666>50</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td id="splitpaint" colspan=2 class=xl9510666 style='border-left:none'>106</td>
+              <td colspan=2 class=xl8810666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <tr height=34 style='mso-height-source:userset;height:25.5pt'>
+              <td height=34 class=xl7210666 style='height:25.5pt'>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666 style='border-top:none'>&nbsp;</td>
+              <td class=xl7510666 style='border-top:none'>&nbsp;</td>
+              <td colspan=2 class=xl9310666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <tr height=49 style='height:36.75pt'>
+              <td height=49 class=xl6710666 style='height:36.75pt'>B42W46</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6810666 width=94 style='width:71pt'>Heavy Duty Blockfiller</td>
+              <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
+              <td class=xl6810666 width=69 style='width:52pt'>Smooth Face<br>
+                <font class="font610666">(Primer)</font></td>
+              <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
+              <td id="smooth" height=49 class=xl8210666 style='height:36.75pt'>51,581</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6310666>90</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td id="smoothfiller" colspan=2 class=xl9510666 style='border-left:none'>573</td>
+              <td colspan=2 class=xl9110666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <tr height=34 style='mso-height-source:userset;height:25.5pt'>
+              <td height=34 class=xl7210666 style='height:25.5pt'>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666>&nbsp;</td>
+              <td class=xl7110666>&nbsp;</td>
+              <td class=xl7510666 style='border-top:none'>&nbsp;</td>
+              <td class=xl8910666 style='border-top:none'>&nbsp;</td>
+              <td id="fillertotal" colspan=2 class=xl8510666 style='border-top:none' width=132 style='border-top:none;width:99pt' align="center">612</td>
+             </tr>
+             <tr height=34 style='height:25.5pt'>
+              <td height=34 class=xl6710666 style='height:25.5pt'>B42W46</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6810666 width=94 style='width:71pt'>Heavy Duty Blockfiller</td>
+              <td class=xl8110666 width=30 style='width:23pt'>&nbsp;</td>
+              <td class=xl6810666 width=69 style='width:52pt'>Split Face<br>
+                <font class="font610666">(Primer)</font></td>
+              <td class=xl8110666 width=21 style='width:16pt'>&nbsp;</td>
+              <td id="split" height=34 class=xl8210666 style='height:25.5pt'>5,323</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td class=xl6310666>50</td>
+              <td class=xl8010666>&nbsp;</td>
+              <td id="splitfiller" colspan=2 class=xl9510666 style='border-left:none'>106</td>
+              <td colspan=2 class=xl8810666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <tr height=18 style='height:13.5pt'>
+              <td height=18 class=xl8410666 style='height:13.5pt'>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl7610666>&nbsp;</td>
+              <td class=xl8310666>&nbsp;</td>
+              <td class=xl8710666 style='border-top:none'>&nbsp;</td>
+              <td colspan=2 class=xl8610666 style='border-top:none' width=132 style='border-top:none;width:99pt'>&nbsp;</td>
+             </tr>
+             <![if supportMisalignedColumns]>
+             <tr height=0 style='display:none'>
+              <td width=79 style='width:59pt'></td>
+              <td width=21 style='width:16pt'></td>
+              <td width=94 style='width:71pt'></td>
+              <td width=30 style='width:23pt'></td>
+              <td width=69 style='width:52pt'></td>
+              <td width=21 style='width:16pt'></td>
+              <td width=69 style='width:52pt'></td>
+              <td width=21 style='width:16pt'></td>
+              <td width=78 style='width:59pt'></td>
+              <td width=21 style='width:16pt'></td>
+              <td width=68 style='width:51pt'></td>
+              <td width=64 style='width:48pt'></td>
+              <td width=64 style='width:48pt'></td>
+             </tr>
+             <![endif]>
+            </table>
+            
+            </div>
+            
+            
+            
+            
+                        <p>If you would rather, you can download the excel sheet {{ form_row(excel_form.Download) }}.</p>
+                      {{ form_rest(excel_form) }}
+            {{ form_end(excel_form) }}
           </div>
 
         <h3>Get those paint areas</h3>
@@ -316,60 +264,63 @@ $( '#form_split', table ).change(function()
                        </div>
 
                        <div id="tabs">
-                              <ul>
-                                <li><a href="#tabs-1">Fields</a></li>
-                                <li><a href="#tabs-2">Filter</a></li>
-                                <li><a href="#tabs-3">Sorting/Grouping</a></li>
-                                <li><a href="#tabs-4">Formatting</a></li>
-                                <li><a href="#tabs-5">Appearance</a></li>
+                              <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#tabs-1" aria-controls="Fields" role="tab" data-toggle="tab">Fields</a></li>
+                                <li role="presentation"><a href="#tabs-2" aria-controls="Filter" role="tab" data-toggle="tab">Filter</a></li>
+                                <li role="presentation"><a href="#tabs-3" aria-controls="Sorting/Grouping" role="tab" data-toggle="tab">Sorting/Grouping</a></li>
+                                <li role="presentation"><a href="#tabs-4" aria-controls="Formatting" role="tab" data-toggle="tab">Formatting</a></li>
+                                <li role="presentation"><a href="#tabs-5" aria-controls="Appearance" role="tab" data-toggle="tab">Appearance</a></li>
                               </ul>
-                              <div id="tabs-1">
-                                <p>
-                                  <div class="center">
-                                    <figure>
-                                      <img src="{{ asset('bundles/rharevit/images/schedule_edit_fields.png') }}" style="vertical-align:middle;"/>
-                                      <figcaption>Find the fields as shown in the right box.  The order doesn't really matter as long
-                                      as you have the fields.</figcaption>
-                                    </figure>
+                              
+                              <div id="tabpanel" class="tab-content">
+                                  <div id="tabs-1" role="tabpanel" class="tab-pane active">
+                                    <p>
+                                      <div class="center">
+                                        <figure>
+                                          <img src="{{ asset('bundles/rharevit/images/schedule_edit_fields.png') }}" style="vertical-align:middle;"/>
+                                          <figcaption>Find the fields as shown in the right box.  The order doesn't really matter as long
+                                          as you have the fields.</figcaption>
+                                        </figure>
+                                      </div>
+                                    </p>
                                   </div>
-                                </p>
-                              </div>
-                              <div id="tabs-2">
-                                <p>
-                                  <div class="center">
-                                    <figure>
-                                      <img src="{{ asset('bundles/rharevit/images/schedule_edit_filter.png') }}" style="vertical-align:middle;"/>
-                                      <figcaption>Setup filters to match the above.  <em>Material: Name</em> is case sensitive.  Come back to this
-                                      tab later and tweak it if your schedule data doesn't look correct.</figcaption>
-                                    </figure>
+                                  <div id="tabs-2" role="tabpanel" class="tab-pane">
+                                    <p>
+                                      <div class="center">
+                                        <figure>
+                                          <img src="{{ asset('bundles/rharevit/images/schedule_edit_filter.png') }}" style="vertical-align:middle;"/>
+                                          <figcaption>Setup filters to match the above.  <em>Material: Name</em> is case sensitive.  Come back to this
+                                          tab later and tweak it if your schedule data doesn't look correct.</figcaption>
+                                        </figure>
+                                      </div>
+                                    </p>
                                   </div>
-                                </p>
-                              </div>
-                              <div id="tabs-3">
-                                <p><div class="center">
-                                    <figure>
-                                      <img src="{{ asset('bundles/rharevit/images/schedule_edit_sorting.png') }}" style="vertical-align:middle;"/>
-                                      <figcaption>Sort by name helps with noticing incorrect data.  Do be sure to check the box <strong>Grand totals</strong></figcaption>
-                                    </figure>
-                              </div></p>
-                              </div>
-                              <div id="tabs-4">
-                                <p><div class="center">
-                                    <figure>
-                                      <img src="{{ asset('bundles/rharevit/images/schedule_edit_formatting.png') }}" style="vertical-align:middle;"/>
-                                      <figcaption>Select the <strong>Material:Area</strong> and check the box for Calculate totals</figcaption>
-                                    </figure>
-                              </div></p>
-                              </div>
-                              <div id="tabs-5">
-                                <p>
-                                  <div class="center">
-                                    <figure>
-                                      <img src="{{ asset('bundles/rharevit/images/schedule_edit_appearance.png') }}" style="vertical-align:middle;"/>
-                                      <figcaption>Not important for this excercise - the defaults should be fine</figcaption>
-                                    </figure>
+                                  <div id="tabs-3" role="tabpanel" class="tab-pane">
+                                    <p><div class="center">
+                                        <figure>
+                                          <img src="{{ asset('bundles/rharevit/images/schedule_edit_sorting.png') }}" style="vertical-align:middle;"/>
+                                          <figcaption>Sort by name helps with noticing incorrect data.  Do be sure to check the box <strong>Grand totals</strong></figcaption>
+                                        </figure>
+                                  </div></p>
                                   </div>
-                                </p>
+                                  <div id="tabs-4" role="tabpanel" class="tab-pane">
+                                    <p><div class="center">
+                                        <figure>
+                                          <img src="{{ asset('bundles/rharevit/images/schedule_edit_formatting.png') }}" style="vertical-align:middle;"/>
+                                          <figcaption>Select the <strong>Material:Area</strong> and check the box for Calculate totals</figcaption>
+                                        </figure>
+                                  </div></p>
+                                  </div>
+                                  <div id="tabs-5" role="tabpanel" class="tab-pane">
+                                    <p>
+                                      <div class="center">
+                                        <figure>
+                                          <img src="{{ asset('bundles/rharevit/images/schedule_edit_appearance.png') }}" style="vertical-align:middle;"/>
+                                          <figcaption>Not important for this excercise - the defaults should be fine</figcaption>
+                                        </figure>
+                                      </div>
+                                    </p>
+                                  </div>
                               </div>
                          </div>
 
@@ -391,7 +342,7 @@ $( '#form_split', table ).change(function()
     </div>
       {% endblock %}
 
-{% block sidebar -%}
+{% block content_sidebar -%}
    <div id="sidebar" class="ui-widget ui-helper-clearfix ui-corner-all" >
         <ul id="menu">
           <li><a href="{{ path('rha_revit_default_index') }}"><span class="ui-icon ui-icon-home"></span>Home</a></li>
@@ -408,10 +359,66 @@ $( '#form_split', table ).change(function()
 
 {% endblock %}
 
-{% block pagebodyscripts -%}
-
-  $(document).ready(function () {
-    $( 'table#form_smooth input' ).trigger('change');
-    $( 'table#form_split input' ).trigger('change');
-  });
-{% endblock %}
+{% block foot_script %}
+    {{ parent () }}
+<script>
+    $(document).ready(function () {
+        $( 'table#form_smooth input' ).trigger('change');
+        $( 'table#form_split input' ).trigger('change');
+              
+        var table = $('table#paintcalc');
+        $('#form_smooth', table).change(function()
+        {
+         var smooth = $( '#form_smooth', table ).val();
+         $( table ).find("td#smooth").html(smooth);
+         $( table ).find("#smoothpaint").html(function()
+          {
+            return Math.round(parseInt(smooth)/62);
+          });
+         $( table ).find("#smoothfiller").html(function()
+          {
+            return Math.round(parseInt(smooth)/90);
+          });
+         $( table ).find("#painttotal").html(function()
+          {
+            var smoothpaint = $( table ).find("#smoothpaint").html();
+            var splitpaint = $( table ).find("#splitpaint").html();
+            return  (parseInt(smoothpaint) + parseInt(splitpaint))*0.9;
+          });
+         $( table ).find("#fillertotal").html(function()
+          {
+            var smoothfiller = $( table ).find("#smoothfiller").html();
+            var splitfiller = $( table ).find("#splitfiller").html();
+            return  (parseInt(smoothfiller) + parseInt(splitfiller))*0.9;
+          });
+        });
+        
+        $( '#form_split', table ).change(function()
+        {
+         var split = $( '#form_split', table ).val();
+         $( table ).find("td#split").html(split);
+         $( table ).find("#splitpaint").html(function()
+          {
+            return Math.round(parseInt(split)/50);
+          });
+         $( table ).find("#splitfiller").html(function()
+          {
+            return Math.round(parseInt(split)/50);
+          });
+         $( table ).find("#painttotal").html(function()
+          {
+            var smoothpaint = $( table ).find("#smoothpaint").html();
+            var splitpaint = $( table ).find("#splitpaint").html();
+            return  (parseInt(smoothpaint) + parseInt(splitpaint))*0.9;
+          });
+         $( table ).find("#fillertotal").html(function()
+          {
+            var smoothfiller = $( table ).find("#smoothfiller").html();
+            var splitfiller = $( table ).find("#splitfiller").html();
+            return  (parseInt(smoothfiller) + parseInt(splitfiller))*0.9;
+          });
+        });
+    });
+</script>
+  
+{% endblock foot_script %}
