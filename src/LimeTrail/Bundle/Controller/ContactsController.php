@@ -53,7 +53,7 @@ class ContactsController extends Controller
      * Retrieves contacts for a store
      *
      * @Route("/project/{id}", name="limetrail_contacts_get")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function projectAction($id)
