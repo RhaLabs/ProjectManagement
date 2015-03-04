@@ -539,7 +539,9 @@ class QuickBaseWeb
                 $newKey = preg_replace('~(\w)\s+(\w)~', '$1_$2', $newKey);
                 
                 $list[$newKey] = $list[$key];
-                unset($list[$key]);
+                if ( $newKey !== $key) {
+                    unset($list[$key]);
+                }
             }
         }
         
