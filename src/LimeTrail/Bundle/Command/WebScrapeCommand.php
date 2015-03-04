@@ -46,7 +46,7 @@ class WebScrapeCommand extends ContainerAwareCommand
     {
         $store = new StoreInformation();
 
-        $store->setStoreNumber($entry["site_number"]);
+        $store->setStoreNumber($entry["str_num"]);
 
         $dates = $this->createOrUpdateDates($entry, true, null);
       //relate the entities: making calls to custome functions which
@@ -55,14 +55,15 @@ class WebScrapeCommand extends ContainerAwareCommand
         $project->addDate($dates);
 
         $store
-                ->addAddress($this->getAddress($entry["street_address"], $entry["latitude"], $entry["longitude"]))
-                ->addStoreType($this->getNameOf("StoreType", $entry["site_type"]))
-                ->addStreetIntersection($this->getNameOf("StreetIntersection", $entry["street_address"]))
-                ->addState($this->getState($entry["state"]))
-                ->addZip($this->getZipcode((int) $entry["postal_code"]))
+                ->addAddress($this->getAddress($entry["address"], $entry["lat"], $entry["long"]))
+                ->addStoreType($this->getNameOf("StoreType", $entry["str_typ"]))
+                ->addStreetIntersection($this->getNameOf("StreetIntersection", $entry["intersection"]))
+                ->addState($this->getState($entry["st"]))
+                ->addZip($this->getZipcode((int) $entry["zip"]))
+                ->addCity($this->getCityFromState($entry["city"], $store->getState()))
                 //->addCounty($this->getCountyFromCity($store->getCity()))
-                ->addDivision($this->getNameOf("Division", $entry["project_alignment_bu_division_name"]))
-                ->addRegion($this->getNameOf("Region", $entry["bu"]))
+                ->addDivision($this->getNameOf("Division", $entry["gbu_div"]))
+                ->addRegion($this->getNameOf("Region", $entry["gbu"]))
                 ->addProject($project)
                 ;
                 
@@ -86,6 +87,9 @@ class WebScrapeCommand extends ContainerAwareCommand
   {
       $today = new \DateTime(date('Y-m-d'));
 
+      $yesterday = clone $today;
+
+      $yesterday = $this->getContainer()->get('lime_trail_store.provider')->adjustDateForWeekends($yesterday);
 
       try {
           if (!isset($project)) {
@@ -101,29 +105,46 @@ class WebScrapeCommand extends ContainerAwareCommand
           if (isset($project)) {
               $project->setIsChanged('');
           }
-          
-          $tasksFromRealty = $this->getTasksFromRealty($entry);
 
-          foreach ($tasksFromRealty as $task) {
-              //look up field in the RealtyMapModel
-              $fieldName = $task['task_name'];
-              if ( $fieldName === '' ) {
-                $fieldName = $task['task_name_other'];
+          foreach ($entry as $key => $value) {
+              //tests if the $value is a validate date string: preg_match puts matches into an array
+      // with the keys "month", "day", and "year"
+      if (preg_match('/(?:(?P<month>\d{1,2})-(?P<day>\d{1,2})-(?P<year>\d{4}))/', $value, $matches) === 1) {
+          if (checkdate($matches["month"], $matches["day"], $matches["year"])) {
+              $date = new \DateTime($matches["month"]."/".$matches["day"]."/".$matches["year"]);
+
+          //converts the $key to match casing on the entity and then set $value
+          $field = preg_replace_callback('/_(\w)/', function ($m) {return strtoupper($m[1]);}, $key);
+
+              $d->set($field, $date);
+
+          //does comparison of fields
+          if ($isNew === false) {
+              try {
+                  $previous = $this->getContainer()->get('lime_trail_store.provider')->findCurrentProjectDates($project->getId(), $yesterday);
+
+              // gets the array of Dates objects, but there should only be one item in the array.
+              $previousDates = $previous->getDates();
+
+              // get the field from the Dates object.  useing index 0 becuase there is only one object in the array
+              $oldData = $previousDates[0]->get($field);
+
+                  if (empty($oldData)) {
+                      continue;
+                  } elseif ($oldData instanceof \DateTime) {
+                      if ($oldData->format('Y-m-d') !== $date->format('Y-m-d')) {
+                          $project->setIsChanged('Changed')
+                          ->setDateModified(new \DateTime('NOW'));
+
+                          $d->setDateChanged($field, true);
+                      }
+                  }
+              } catch (\Doctrine\ORM\NoResultException $e) {
+                  $project->setIsChanged('Maybe');
               }
-              
-              $field = $this->fieldMapper->getBaseFieldName($fieldName);
-              $this->logger->debug(sprintf("Quickbase field: %s\n", $fieldName));
-              $this->logger->debug(sprintf("Rha base field: %s\n", $field));
-              if (!empty($field)) {
-                  $dateProjected = $this->createDateFromField($task['start_date_projected']);
-                  $dateActual = $this->createDateFromField($task['start_date_actual']);
-                  
-                  $fieldProjected = $field."Prj";
-                  $fieldActual = $field."Act";
-    
-                  $d = $this->setAndCompareDate($fieldProjected, $dateProjected, $project, $today, $d, $isNew);
-                  $d = $this->setAndCompareDate($fieldActual, $dateActual, $project, $today, $d, $isNew);
-              }
+          }
+          }
+      }
           }
 
           $otbdate;
@@ -151,50 +172,6 @@ class WebScrapeCommand extends ContainerAwareCommand
           return $d;
       }
   }
-
-    protected function setAndCompareDate ($field, $date, $project, $today, Dates $d, $isNew)
-    {   
-        $yesterday = clone $today;
-        $yesterday = $this->getContainer()->get('lime_trail_store.provider')->adjustDateForWeekends($yesterday);
-
-        $d->set($field, $date);
-        
-        $dateString = function($date) {
-                if(!$date) {
-                    return '';
-                }
-                return $date->format('m-d-Y');
-        };
-        $this->logger->debug(sprintf("Set field %s to %s\n", $field, $dateString($date)));
-
-          //does comparison of fields
-        if ($isNew === false) {
-              try {
-                  $previous = $this->getContainer()->get('lime_trail_store.provider')->findCurrentProjectDates($project->getId(), $yesterday);
-
-              // gets the array of Dates objects, but there should only be one item in the array.
-              $previousDates = $previous->getDates();
-
-              // get the field from the Dates object.  useing index 0 becuase there is only one object in the array
-              $oldData = $previousDates[0]->get($field);
-
-                  if (empty($oldData)) {
-                      // do nothing
-                  } elseif ($oldData instanceof \DateTime and $date instanceof \DateTime) {
-                      if ($oldData->format('Y-m-d') !== $date->format('Y-m-d')) {
-                          $project->setIsChanged('Changed')
-                          ->setDateModified(new \DateTime('NOW'));
-
-                          $d->setDateChanged($field, true);
-                      }
-                  }
-              } catch (\Doctrine\ORM\NoResultException $e) {
-                  $project->setIsChanged('Maybe');
-              }
-        }
-        
-        return $d;
-    }
 
     private function findInResult($array, $name)
     {
@@ -227,12 +204,12 @@ class WebScrapeCommand extends ContainerAwareCommand
               $project->addDate($dates);
           }
 
-          $project->setStoreSquareFootage($entry["site_square_footage"])
-                ->setIncreaseSquareFootage($entry["total_square_footage"])
-                ->setPrjTotalSquareFootage($entry["site_square_footage"])
-                ->setActTotalSquareFootage($entry["total_square_footage"])
-                ->addProjectStatus($this->getNameOf("ProjectStatus", $entry["status"]))
-                /*->setCecComm($entry["cec_comm"])
+          $project->setStoreSquareFootage($entry["proto_size"])
+                ->setIncreaseSquareFootage($entry["inc_sf_act"])
+                ->setPrjTotalSquareFootage($entry["tl_str_area"])
+                ->setActTotalSquareFootage($entry["tl_str_area"])
+                ->addProjectStatus($this->getNameOf("ProjectStatus", $entry["proj_status"]))
+                ->setCecComm($entry["cec_comm"])
                 ->setCOfOComm($entry["c_of_o_comm"])
                 ->setAorComm($entry["aor_comm"])
                 ->setCloseoutComm($entry["closeout_comm"])
@@ -244,19 +221,21 @@ class WebScrapeCommand extends ContainerAwareCommand
                 ->setLedParkingLights($entry["led_parking_lights"])
                 ->setCartCorralsReqd($entry["cart_corrals_reqd"])
                 ->setPharmAppr($entry["pharm_appr"])
-                ->setPharmSize($entry["pharm_size"])*/
-                ->setProtoClass($entry["prototype_class"])
-                /*->setProtoMallEntry($entry["proto_mall_entry"])
+                ->setPharmSize($entry["pharm_size"])
+                ->setProtoClass($entry["proto_class"])
+                ->setProtoMallEntry($entry["proto_mall_entry"])
                 ->setDockProto($entry["dock_proto"])
                 ->setEntranceProto($entry["entrance_proto"])
                 ->setGardenCtrProto($entry["garden_ctr_proto"])
                 ->setTleProto($entry["tle_proto"])
                 ->setProtoSize($entry["proto_size"])
                 ->setShoppingCtrName($entry["shopping_ctr_name"])
-                ->setShoppingCtrType($entry["shopping_ctr_type"])*/
+                ->setShoppingCtrType($entry["shopping_ctr_type"])
         ;
 
           $this->handleProgramYear($entry, $project, $storeProvider);
+
+          $this->handleAorContact($entry, $project);
 
           $this->relateWalmartContacts($project, $entry);
 
@@ -266,25 +245,25 @@ class WebScrapeCommand extends ContainerAwareCommand
       } else {
           $t = new ProjectInformation();
 
-          $t->addProjectType($this->getNameOf("ProjectType", $entry["project_type"]))
-                ->setProjectPhase($entry["project_phase"])
+          $t->addProjectType($this->getNameOf("ProjectType", $entry["prj_typ"]))
+                ->setProjectPhase($entry["prj_typ"])
                 ->setConfidential($entry["confidential"])
-                ->setCombo($entry["combo_project_name"])
-                ->setManageSitesDifferent($entry["location_nickname"])
-                ->setSap($entry["sap_project_definition"])
-                ->setStoreSquareFootage($entry["site_square_footage"])
-                ->setIncreaseSquareFootage($entry["total_square_footage"])
-                ->setPrjTotalSquareFootage($entry["site_square_footage"])
-                ->setActTotalSquareFootage($entry["total_square_footage"])
+                ->setCombo($entry["location"])
+                ->setManageSitesDifferent($entry["location"])
+                ->setSap($entry["sap_#"])
+                ->setStoreSquareFootage($entry["proto_size"])
+                ->setIncreaseSquareFootage($entry["inc_sf_act"])
+                ->setPrjTotalSquareFootage($entry["tl_str_area"])
+                ->setActTotalSquareFootage($entry["tl_str_area"])
                 ->setUser('limetrail')
-                ->setLocator($entry["store.sequence"])
-                ->addDevelopmentType($this->getNameOf("DevelopmentType", $entry["development_type"]))
-                ->addDescriptionOfType($this->getNameOf("DescriptionOfType", $entry["description_of_subtype"]))
-                ->addProgramCategory($this->getNameOf("ProgramCategory", $entry["prototype"]))
-                ->addPrototype($this->getNameOf("Prototype", $entry["prototype"]))
-                ->setSequence($entry["sequence_number"])
-                ->addProjectStatus($this->getNameOf("ProjectStatus", $entry["status"]))
-                /*->setCecComm($entry["cec_comm"])
+                ->setLocator($entry["str_num"].":".$entry["str_seq"])
+                ->addDevelopmentType($this->getNameOf("DevelopmentType", $entry["dev_typ"]))
+                ->addDescriptionOfType($this->getNameOf("DescriptionOfType", $entry["prj_name"]))
+                ->addProgramCategory($this->getNameOf("ProgramCategory", $entry["proto"]))
+                ->addPrototype($this->getNameOf("Prototype", $entry["proto"]))
+                ->setSequence($entry["str_seq"])
+                ->addProjectStatus($this->getNameOf("ProjectStatus", $entry["proj_status"]))
+                ->setCecComm($entry["cec_comm"])
                 ->setCOfOComm($entry["c_of_o_comm"])
                 ->setAorComm($entry["aor_comm"])
                 ->setCloseoutComm($entry["closeout_comm"])
@@ -296,17 +275,16 @@ class WebScrapeCommand extends ContainerAwareCommand
                 ->setLedParkingLights($entry["led_parking_lights"])
                 ->setCartCorralsReqd($entry["cart_corrals_reqd"])
                 ->setPharmAppr($entry["pharm_appr"])
-                ->setPharmSize($entry["pharm_size"])*/
-                ->setProtoClass($entry["prototype_class"])
-                /*->setProtoMallEntry($entry["proto_mall_entry"])
+                ->setPharmSize($entry["pharm_size"])
+                ->setProtoClass($entry["proto_class"])
+                ->setProtoMallEntry($entry["proto_mall_entry"])
                 ->setDockProto($entry["dock_proto"])
                 ->setEntranceProto($entry["entrance_proto"])
                 ->setGardenCtrProto($entry["garden_ctr_proto"])
                 ->setTleProto($entry["tle_proto"])
                 ->setProtoSize($entry["proto_size"])
                 ->setShoppingCtrName($entry["shopping_ctr_name"])
-                ->setShoppingCtrType($entry["shopping_ctr_type"])*/
-                ->setCanonicalName($this->ucname($entry["city"]))
+                ->setShoppingCtrType($entry["shopping_ctr_type"])->setCanonicalName($this->ucname($entry["city"]))
                 //->addContact($this->getNameOf("ProjectStatus",$entry["confidential"]))
                 ->setDateCreated(new \DateTime('NOW'))//->setDateCreated(\DateTime::createFromFormat('m-d-Y h:i A', $entry["Date Created"]))
                 ->setDateModified(new \DateTime('0000-00-00 00:00:00'))
@@ -314,6 +292,8 @@ class WebScrapeCommand extends ContainerAwareCommand
                 ;
 
           $this->handleProgramYear($entry, $t, $storeProvider);
+
+          $this->handleAorContact($entry, $t);
 
           $this->relateWalmartContacts($t, $entry);
 
@@ -329,36 +309,30 @@ class WebScrapeCommand extends ContainerAwareCommand
 
         $contacts = $contactprovider->getContactsByCompany('Walmart');
 
-        $keys = array(
-                  'Real Estate Manager/Director' => 'WM Real Estate Manager',
-                  'VP - Real Estate' => 'WM Real Estate Vice President',
-                  'Civil Engineering Manager' => 'WM Civil Engineering Manager',
-                  'Architect Manager' => 'WM SAAM',
+        $keys = array('rem' => 'WM Real Estate Manager',
+                  'revp' => 'WM Real Estate Vice President',
+                  'cem' => 'WM Civil Engineering Manager',
+                  'saam' => 'WM SAAM',
                   'est' => 'WM Estimator',
-                  'Design Project Manager' => 'WM Design Project Manager',
-                  'Design Director' => 'WM Design Director',
-                  'Design Sr. Director' => 'WM Senior Design Director',
-                  'Construction Manager' => 'WM Construction Manager',
-                  'Construction Director' => 'WM Construction Director',
-                  'Mechanical Construction Manager' => 'WM Mech Construction Manager',
-                  'Mechanical Director' => 'WM Mech Director',
-                  'Construction Sr. Director' => 'WM Senior Construction Director',
+                  'dpm' => 'WM Design Project Manager',
+                  'dd' => 'WM Design Director',
+                  'sdd' => 'WM Senior Design Director',
+                  'cm' => 'WM Construction Manager',
+                  'cd' => 'WM Construction Director',
+                  'mcm' => 'WM Mech Construction Manager',
+                  'md' => 'WM Mech Director',
+                  'scd' => 'WM Senior Construction Director',
                   );
         try {
-            $team = $this->getTeamFromRecordId($entry);
-            
-            foreach ($team as $member) {
-                    if ($member['role'] === 'Consultant - Architect') {
-                        $this->handleAorContact($member, $project);
-                    }
-                    
-                    $contact = $contactprovider->findInResultsByName($contacts, $member['contact']);
+            foreach ($keys as $key => $value) {
+                if (str_word_count($entry[$key]) > 1) {
+                    $contact = $contactprovider->findInResultsByName($contacts, $entry[$key]);
 
                     if ($contact !== false) {
-                        $jobrole = $contactprovider->findJobRole($keys[$member['role']]);
-                        //echo "project id: {$project->getID()}\ncontact id: {$contact->getId()}\n";
+                        $jobrole = $contactprovider->findJobRole($value);
+          //echo "project id: {$project->getID()}\ncontact id: {$contact->getId()}\n";
 
-                        $projectcontact = $contactprovider->findProjectContact($project, $contact);
+          $projectcontact = $contactprovider->findProjectContact($project, $contact);
 
                         if (!$projectcontact) {
                             $contactprovider->createProjectContact($project, $jobrole, $contact);
@@ -373,8 +347,9 @@ class WebScrapeCommand extends ContainerAwareCommand
                         }
                     } else {
                         //send mail
-                        $this->missingPeople[] = $member['contact'];
+          $this->missingPeople[] = $entry[$key];
                     }
+                }
             }
         } catch (\Exception $e) {
         }
@@ -396,7 +371,7 @@ class WebScrapeCommand extends ContainerAwareCommand
       return $storeProvider->getProgramYear($year);
     };
 
-        $newProgramYear = $createYear((int) $entry["program_year"], $storeProvider);
+        $newProgramYear = $createYear((int) $entry["prog_yr_prj"], $storeProvider);
 
         if (is_null($programYear)) {
             $project->addProgramYear($newProgramYear);
@@ -419,7 +394,7 @@ class WebScrapeCommand extends ContainerAwareCommand
             $aorContact = null;
         }
 
-        $DatesContact = $entry['contact'];
+        $DatesContact = $entry['rha_contact'];
 
         if (empty($DatesContact) || $DatesContact == " ") {
             return;
@@ -853,22 +828,24 @@ class WebScrapeCommand extends ContainerAwareCommand
     //second pass - log in
     $this->quickbase->Login();//'qb-'.urlencode($url).'.html'
     
-    $queryString = array(
-             'a' => 'q',
-             'qid' => '1000110',
-             'qrppg' => '10000',
-         );
+    do {
+        $queryString = array(
+                 'a' => 'q',
+                 'qid' => '1002789',
+                 'qrppg' => '10000',
+             );
 
-    $escapedQuery = http_build_query($queryString);
+        $escapedQuery = http_build_query($queryString);
 
-    $url = "https://wmt.quickbase.com/db/bizi7bmne?".$escapedQuery;
-    $this->logger->info(sprintf("GET %s\n", $url));
-    $tableHTML = $this->quickbase->GetTable($url);
-    // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
-    $result = $this->quickbase->ParseHTML($tableHTML);
-    
-    $this->fieldMapper = new RealtyMapModel();    
-    $this->ProcessData($result);
+        $url = "https://wmt.quickbase.com/db/bfngn7tvg?".$escapedQuery;
+        $this->logger->info(sprintf("GET %s\n", $url));
+        $tableHTML = $this->quickbase->GetTable($url);
+        // table to get as CSV link https://wmt.quickbase.com/db/bfngn7tvg?a=q&qid=1002789&dlta=xs~
+        $result = $this->quickbase->ParseHTML($tableHTML);
+        
+        $this->fieldMapper = new RealtyMapModel();    
+        $finished = $this->ProcessData($result);
+    } while ( $finished === false );
 
     $emailerCommand = $this->getApplication()->find('limetrail:emailer');
 
@@ -899,11 +876,12 @@ class WebScrapeCommand extends ContainerAwareCommand
         $storeCount = 0;
 
         foreach ($result as $entry) {
+            $this->logger->debug(print_r($entry, true));
             $this->getContainer()->get('doctrine')->resetManager();
             $this->em = $this->getContainer()->get('doctrine')->getManager('limetrail');
             $qb = $this->em->getRepository('LimeTrailBundle:StoreInformation');
-            $query = $qb->findByNumberAndSequence($entry["site_number"], $entry["sequence_number"]);
-            $this->logger->info(sprintf("Processing record for %s\n", $entry["store.sequence"]));
+            $query = $qb->findByNumberAndSequence($entry["str_num"], $entry["str_seq"]);
+            $this->logger->info(sprintf("Processing record for %s\n", $entry["str_num"]));
             
             if ($query) {
                 $store = $query;
@@ -915,9 +893,9 @@ class WebScrapeCommand extends ContainerAwareCommand
 
             try {
                 $this->em->flush();
-                $this->logger->info(sprintf("Flushed %s\n", $entry['store.sequence']));
+                $this->logger->info(sprintf("Flushed %s\n", $entry['str_num']));
             } catch (\Symfony\Component\Debug\Exception\ContextErrorException $e) {
-                echo "failed to synchronize ".$entry["site_number"]."\n";
+                echo "failed to synchronize ".$entry["str_num"]."\n";
                 echo "  state ".$entry["state"]."\n";
                 echo "  city ".$entry["city"]."\n";
             }
@@ -926,8 +904,12 @@ class WebScrapeCommand extends ContainerAwareCommand
 
             ++$storeCount;
         }
+        
+        if ($storeCount === 0) {
+            return false;
+        }
 
-        print sprintf("Entered %d stores into the database\n", $storeCount);
+        $this->logger->notice( sprintf("Entered %d stores into the database\n", $storeCount));
 
         //dedup the missingPeople
         $people = array();
@@ -938,12 +920,14 @@ class WebScrapeCommand extends ContainerAwareCommand
 
         $people = array_keys($people);
 
-        print "The following names were found in the Walmart Dates database but not in the RHA contact database:\n";
+        $this->logger->notice( "The following names were found in the Walmart Dates database but not in the RHA contact database:\n");
 
         reset($people);
 
         while (list($key, $val) = each($people)) {
-            print "  $val \n";
+            $this->logger->notice( "  $val \n");
         }
+        
+        return true;
     }
 }

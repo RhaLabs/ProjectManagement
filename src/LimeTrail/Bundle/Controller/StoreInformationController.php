@@ -36,7 +36,7 @@ class StoreInformationController extends Controller
         $grid->setSource($source);
 
         // Set the selector of the number of items per page
-        $grid->setLimits(array(5, 10, 15));
+        $grid->setLimits(array(30, 60, 120));
 
         // Set the default page
         $grid->setDefaultPage(1);

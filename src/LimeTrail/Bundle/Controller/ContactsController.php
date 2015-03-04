@@ -53,7 +53,7 @@ class ContactsController extends Controller
      * Retrieves contacts for a store
      *
      * @Route("/project/{id}", name="limetrail_contacts_get")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function projectAction($id)
@@ -76,7 +76,7 @@ class ContactsController extends Controller
         $grid->setSource($source);
 
         // Set the selector of the number of items per page
-        $grid->setLimits(array(30));
+        $grid->setLimits(array(30, 60, 120));
 
         // Set the default page
         $grid->setDefaultPage(1);
