@@ -876,11 +876,12 @@ class WebScrapeCommand extends ContainerAwareCommand
         $storeCount = 0;
 
         foreach ($result as $entry) {
+            $this->logger->debug(print_r($entry, true));
             $this->getContainer()->get('doctrine')->resetManager();
             $this->em = $this->getContainer()->get('doctrine')->getManager('limetrail');
             $qb = $this->em->getRepository('LimeTrailBundle:StoreInformation');
             $query = $qb->findByNumberAndSequence($entry["str_num"], $entry["str_seq"]);
-            $this->logger->info(sprintf("Processing record for %s\n", $entry["store.sequence"]));
+            $this->logger->info(sprintf("Processing record for %s\n", $entry["str_num"]));
             
             if ($query) {
                 $store = $query;
@@ -892,7 +893,7 @@ class WebScrapeCommand extends ContainerAwareCommand
 
             try {
                 $this->em->flush();
-                $this->logger->info(sprintf("Flushed %s\n", $entry['store.sequence']));
+                $this->logger->info(sprintf("Flushed %s\n", $entry['str_num']));
             } catch (\Symfony\Component\Debug\Exception\ContextErrorException $e) {
                 echo "failed to synchronize ".$entry["str_num"]."\n";
                 echo "  state ".$entry["state"]."\n";
