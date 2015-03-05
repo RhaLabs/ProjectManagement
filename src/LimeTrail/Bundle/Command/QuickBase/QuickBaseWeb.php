@@ -374,7 +374,7 @@ class QuickBaseWeb
     /*
         $xquery = ".//tr[@canview='true']";
         $rows = $xpath->query($xquery, $table);*/
-        $aRow = $xpath->query(".//td[@class='icr']/a", $table);
+        $aRow = $xpath->query(".//td[@class='icr']/a[@data-original-title='View']", $table);
         $row = $aRow->item(0);
         //$val = $row->firstChild;
         $url = $row->getAttribute('href');
