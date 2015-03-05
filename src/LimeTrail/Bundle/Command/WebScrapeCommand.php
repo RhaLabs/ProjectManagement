@@ -859,7 +859,7 @@ class WebScrapeCommand extends ContainerAwareCommand
         $arguments = array(
                   '',
                   '--user' => $this->getContainer()->getParameter('qb_user'),
-                  '--login-pass' => $this->getContainer()->getParameter('qb_pass'),
+                  '--login-pass' => $this->quickbase->password,
                  );
         $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
 
