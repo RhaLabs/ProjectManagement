@@ -804,7 +804,7 @@ class WebScrapeCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $username = 'dplummer@rhaaia.com';
+        $username = $this->getContainer()->getParameter('qb_user');
 
         $this->county = new CountyWebApi();
 
